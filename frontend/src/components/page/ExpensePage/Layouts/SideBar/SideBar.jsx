@@ -48,7 +48,7 @@ const SideBar = () => {
                     </li>
 
                     <li>
-                        <Navigation to="/userExpenses" variant='sideBarNavContent'>
+                        <Navigation to="/currencySettings" variant='sideBarNavContent'>
                             <Image src={CurrencyExchange} variant="smallImg" />
                             <p>Settings</p>
                         </Navigation>

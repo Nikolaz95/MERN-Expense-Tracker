@@ -12,6 +12,7 @@ import UserDashBoardPage from './components/page/ExpensePage/UserDashBoardPage.j
 import UserExpasePage from './components/page/ExpensePage/page/UserExpasePage/UserExpasePage.jsx';
 import SingIn from './components/page/AuthPage/SingIn/SingIn.jsx';
 import Register from './components/page/AuthPage/Register/Register.jsx';
+import UserCurrencySettingsPage from './components/page/ExpensePage/page/UserCurrencySettingsPage/UserCurrencySettingsPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -52,8 +53,8 @@ const router = createBrowserRouter([
     element: <UserIncomsPage />
   },
   {
-    path: "/userExpenses",
-    element: <UserExpasePage />
+    path: "/currencySettings",
+    element: <UserCurrencySettingsPage />
   },
 
 
