@@ -1,0 +1,33 @@
+
+
+.filterByCategorySection {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+
+.expense {
+    display: flex;
+    flex-direction: row;
+        justify-content: space-between;
+    padding: 5px;
+    font-weight: bold;
+  background-color: #ff5b5b;
+}
+
+.income {
+    display: flex;
+    flex-direction: row;
+        justify-content: space-between;
+         padding: 5px;
+        font-weight: bold;
+  background-color: #52e852;
+}
+
+.cateOpt {
+    padding: 10px;
+    background-color: aqua;
+}

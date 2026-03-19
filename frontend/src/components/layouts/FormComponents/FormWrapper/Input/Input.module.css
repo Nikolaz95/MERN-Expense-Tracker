@@ -1,0 +1,23 @@
+
+
+.inputDefault {
+    padding: 10px;
+  border-radius: 10px;
+  /* border: none; */
+}
+
+/* .inputDefault:focus {
+    padding: 10px;
+    outline: none; 
+  border-radius: 10px;
+  border: 1px solid black;
+} */
+
+.inputFormRegSig {
+  width: 100%;
+}
+
+.inputSearchTransition {
+  /* border: none; */
+  width: 80%;
+}

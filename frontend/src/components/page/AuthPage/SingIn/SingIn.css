@@ -1,0 +1,46 @@
+
+
+
+.AuthSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+}
+
+.AuthSectionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    backdrop-filter: blur(40px);
+    padding: 10px;
+    gap: 10px;
+    border-radius: 20px;
+}
+
+
+
+.bottonFormSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.paswordContentAuth {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+
+.formSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}

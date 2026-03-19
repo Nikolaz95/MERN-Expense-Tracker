@@ -1,0 +1,64 @@
+
+
+
+.asideSideBar {
+    display: flex;
+    flex-direction: column;
+        justify-content: space-around;
+    height: 100%;
+    border: 1px solid black;
+    width: 350px;
+    border-radius: 20px;
+    padding: 10px;
+        overflow-y: auto;
+    scrollbar-width: none;
+}
+
+
+.sideBarTopSection {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.sideBarNavSection {
+    display: flex;flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+    height: 70%;
+    padding: 10px;
+}
+
+
+/* ul lista */
+
+
+.sideBarUl {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    list-style: none;
+    gap: 20px;
+    /* border: 1px solid black; */
+    height: 100%;
+}
+
+
+.sideBarBottomSection {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+
+
+
+@media  screen and (max-width: 1000px) {
+.asideSideBar {
+    display: none;
+
+    }
+}

@@ -1,0 +1,38 @@
+
+.navigationSection {
+    display: flex; 
+    justify-content: center;
+}
+
+.navigationUl {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.navigationLi {
+    display: flex;
+    align-items: center;
+border: 1px solid black;
+/* padding: 5px;
+ *//* background-color: white; */
+}
+
+
+.navigationLink.active {
+    border-radius: 20px;
+    padding: 10px;
+    color: #fff500;
+    font-size: 25px;
+    font-weight: bold;
+    background: radial-gradient(50% 50% at 50% 0, rgba(var(--action-background-color,255,255,255),.8) 0, transparent 100%), hsla(0, 0%, 100%, .2);
+}
+
+
+
+/* mobile part */
+@media only screen and (max-width: 750px) {
+.navigationSection {
+        display: none; /* Hide by default */
+    }
+}

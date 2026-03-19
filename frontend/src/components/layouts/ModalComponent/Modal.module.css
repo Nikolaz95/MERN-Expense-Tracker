@@ -1,0 +1,14 @@
+
+
+.defaultModal {
+  background: #fff;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.modal2{
+    background-color: aqua;
+}

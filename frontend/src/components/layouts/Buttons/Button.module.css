@@ -1,0 +1,69 @@
+.btnDefault {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: none;
+  gap: 10px;
+  padding: 15px;
+}
+
+/* -------- VARIANTS -------- */
+
+.btnModalClose {
+  align-self: flex-end;
+  cursor: pointer;
+  border: 1px solid;
+}
+
+/* -------- SIZES -------- */
+.sm {
+  padding:  10px;
+
+}
+
+.md {
+  padding: 15px;
+}
+
+.lg {
+  padding: 25px;
+}
+
+
+/* -------- ICON -------- */
+.iconWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.btnIconSm {
+  height: 20px;
+}
+
+.btnIconDef {
+    height: 30px;
+}
+
+
+
+/* -------- OTHERS -------- */
+.active {
+  /* transform: scale(1.2); */
+  transform: rotate(180deg);
+  animation-duration: 4s;
+  animation-delay: 2s;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnSearchTransition {
+  background-color: transparent;
+  padding: 0;
+  position: relative;
+    right: 55px;
+}

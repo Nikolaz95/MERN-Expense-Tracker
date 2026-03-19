@@ -1,0 +1,7 @@
+
+
+.contentLayout {
+    display: flex;
+    flex-direction: column;
+    height: 75.7vh;
+}

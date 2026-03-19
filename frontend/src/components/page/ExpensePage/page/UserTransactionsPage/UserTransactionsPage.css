@@ -1,0 +1,48 @@
+
+
+
+.mainContentTransactionSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    border: 1px solid;
+    background-color:rgb(244, 209, 174) ;
+    /* height: 84vh; */
+}
+
+.transactionSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.transactionSectionTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.transactionSectionTopRight {
+display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.transactionSectionTopLeft {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+/* middle content */
+
+.transactionSectionMiddle {
+        display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    height: 68vh;
+}
+

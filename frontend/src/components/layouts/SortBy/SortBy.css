@@ -1,0 +1,10 @@
+
+
+.sortBySection {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 20px;
+}
