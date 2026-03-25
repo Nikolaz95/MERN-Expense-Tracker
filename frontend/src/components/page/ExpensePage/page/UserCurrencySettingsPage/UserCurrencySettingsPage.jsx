@@ -31,6 +31,18 @@ const UserCurrencySettingsPage = () => {
                 <section className='userCurrencySettingLayout'>
                     <h1>User Currency Settings</h1>
                     <main className='userCurrencySettingMain'>
+                        <h1>Chose Currency</h1>
+
+                        <select name="" id="">
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SEK">Swedish Krona</option>
+                            <option value="SEK">Swedish Krona</option>
+
+                        </select>
+
 
                     </main>
                 </section>

@@ -53,6 +53,10 @@ const router = createBrowserRouter([
     element: <UserIncomsPage />
   },
   {
+    path: "/userExpenses",
+    element: <UserExpasePage />
+  },
+  {
     path: "/currencySettings",
     element: <UserCurrencySettingsPage />
   },
