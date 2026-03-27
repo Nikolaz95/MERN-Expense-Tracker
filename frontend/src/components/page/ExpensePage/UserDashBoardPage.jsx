@@ -105,7 +105,6 @@ const UserDashBoardPage = () => {
                                 </Navigation>
                             </section>
                             <section className='recentTransactionSection'>
-                                {/* <TransactionTable currentTrans={currentTrans} /> */}
                                 <Table data={transitionData} columns={dashboardColumns} />
                             </section>
                         </article>

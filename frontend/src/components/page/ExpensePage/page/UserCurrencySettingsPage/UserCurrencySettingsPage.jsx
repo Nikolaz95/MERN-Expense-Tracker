@@ -7,6 +7,7 @@ import { CurrencyExchange } from '../../../../../assets/SideBarIcons';
 import styled from "styled-components";
 //import css
 import "./UserCurrencySettingsPage.css";
+import { useCurrency } from '../../../../../context/CurrencyContext';
 
 const UserCurrencySettingsLayout = styled.section`
 display: flex;
@@ -25,25 +26,29 @@ display: flex;
 
 const UserCurrencySettingsPage = () => {
     titleName('User Currency Settings Page', CurrencyExchange);
+    const { currency, changeCurrency, currencies, loading } = useCurrency();
     return (
         <>
             <UserExpenseLayout>
                 <section className='userCurrencySettingLayout'>
                     <h1>User Currency Settings</h1>
                     <main className='userCurrencySettingMain'>
-                        <h1>Chose Currency</h1>
-
-                        <select name="" id="">
-                            <option value="SEK">Swedish Krona</option>
-                            <option value="SEK">Swedish Krona</option>
-                            <option value="SEK">Swedish Krona</option>
-                            <option value="SEK">Swedish Krona</option>
-                            <option value="SEK">Swedish Krona</option>
-                            <option value="SEK">Swedish Krona</option>
-
-                        </select>
-
-
+                        <h1>Choose Currency</h1>
+                        <p>Current currency: <strong>{currency.value}</strong></p>
+                        {loading ? (
+                            <p>Loading currencies...</p>
+                        ) : (
+                            <select
+                                value={currency.value}
+                                onChange={(e) => changeCurrency(e.target.value)}
+                            >
+                                {currencies.map(c => (
+                                    <option key={c.value} value={c.value}>
+                                        {c.value}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
                     </main>
                 </section>
 

@@ -26,6 +26,11 @@ const MainUserExpaseContent = styled.main`
     width: 100%;
     padding: 10px;
     border-radius: 20px;
+
+    @media  screen and (max-width: 425px) {
+
+    padding: 0;
+  }
 `;
 
 

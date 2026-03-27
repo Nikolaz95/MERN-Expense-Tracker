@@ -1,92 +1,49 @@
 import React, { useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
+    Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 } from 'chart.js';
+import ChartWrapper from './layouts/ChartWrapper';
+import ChartFilterButtons from './layouts/ChartFilterButtons';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+const periods = [
+    { value: '7days', label: '7d' },
+    { value: 'month', label: 'Mjesec' },
+    { value: 'year', label: 'Godina' },
+];
+
 const GenericChart = ({ title, dataStore, themeColor }) => {
-
     const [period, setPeriod] = useState('7days');
+    const currentData = dataStore[period];
 
-
-
-    const getDatasets = () => {
-        const currentData = dataStore[period];
-
-        // LOGIKA ZA VIŠE GODINA (Poređenje)
-        if (period === 'year' && currentData.years) {
-            const opacityColors = [themeColor, `${themeColor}CC`, `${themeColor}99`];
-            return currentData.years.map((yearObj, index) => ({
-                label: `${title} ${yearObj.label}`,
-                data: yearObj.values,
-                backgroundColor: opacityColors[index] || themeColor,
-                borderRadius: 6,
-            }));
-        }
-
-        // STANDARDNA LOGIKA
-        return [{
-            label: `${title} ($)`,
-            data: currentData.values,
-            backgroundColor: themeColor,
-            borderRadius: 8,
-        }];
-    };
-
-    const chartData = {
-        labels: dataStore[period].labels,
-        datasets: getDatasets(),
-    };
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { display: period === 'year' }, // Prikaži legendu samo na godini
-        },
-    };
+    const datasets = period === 'year' && currentData.years
+        ? currentData.years.map((yearObj, i) => ({
+            label: `${title} ${yearObj.label}`,
+            data: yearObj.values,
+            backgroundColor: [themeColor, `${themeColor}CC`, `${themeColor}99`][i] || themeColor,
+            borderRadius: 6,
+        }))
+        : [{ label: `${title}`, data: currentData.values, backgroundColor: themeColor, borderRadius: 8 }];
     return (
-        <div className="chart-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                <h3>{title} Overview</h3>
-                <div className="filter-buttons">
-                    {['7days', 'month', 'year'].map((p) => (
-                        <button
-                            key={p}
-                            onClick={() => setPeriod(p)}
-                            style={btnStyle(period === p, themeColor)}
-                        >
-                            {p === '7days' ? '7d' : p === 'month' ? 'Mesec' : 'Godina'}
-                        </button>
-                    ))}
-                </div>
-            </div>
-            <div style={{ height: '300px' }}>
-                <Bar data={chartData} options={options} />
-            </div>
-        </div>
+        <ChartWrapper
+            title={`${title} Overview`}
+            filters={
+                <ChartFilterButtons periods={periods}
+                    period={period} setPeriod={setPeriod}
+                    themeColor={themeColor} />
+            }
+        >
+            <Bar
+                data={{ labels: currentData.labels, datasets }}
+                options={{
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: period === 'year' } }
+                }}
+            />
+        </ChartWrapper>
     )
 }
-
-
-// Pomoćni stil unutar komponente
-const btnStyle = (isActive, color) => ({
-    padding: '5px 12px',
-    marginLeft: '5px',
-    cursor: 'pointer',
-    backgroundColor: isActive ? color : '#f3f4f6',
-    color: isActive ? '#fff' : '#000',
-    border: 'none',
-    borderRadius: '4px',
-    fontSize: '12px'
-});
 
 export default GenericChart

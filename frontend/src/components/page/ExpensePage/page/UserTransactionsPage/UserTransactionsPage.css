@@ -26,13 +26,12 @@
 .transactionSectionTopRight {
 display: flex;
     align-items: center;
-    gap: 10px;
+    
 }
 
 .transactionSectionTopLeft {
     display: flex;
     align-items: center;
-    gap: 20px;
 }
 
 
@@ -46,3 +45,30 @@ display: flex;
     height: 68vh;
 }
 
+
+
+
+@media  screen and (max-width: 1311px) {
+
+.transactionSectionTop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+}
+
+
+@media  screen and (max-width: 660px) {
+
+.transactionSectionTopLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+}
+
+}

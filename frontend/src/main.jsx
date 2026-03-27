@@ -13,6 +13,7 @@ import UserExpasePage from './components/page/ExpensePage/page/UserExpasePage/Us
 import SingIn from './components/page/AuthPage/SingIn/SingIn.jsx';
 import Register from './components/page/AuthPage/Register/Register.jsx';
 import UserCurrencySettingsPage from './components/page/ExpensePage/page/UserCurrencySettingsPage/UserCurrencySettingsPage.jsx';
+import { CurrencyProvider } from './context/CurrencyContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CurrencyProvider>
+      <RouterProvider router={router} />
+    </CurrencyProvider>
   </StrictMode>,
 )

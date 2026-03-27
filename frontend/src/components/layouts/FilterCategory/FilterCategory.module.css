@@ -31,3 +31,18 @@
     padding: 10px;
     background-color: aqua;
 }
+
+
+@media  screen and (max-width: 425px) {
+
+.filterByCategorySection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+
+}
