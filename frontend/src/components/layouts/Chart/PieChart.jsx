@@ -54,7 +54,7 @@ const LineOvetTotalBalance = styled.div`
 
 const TotalBalanceText = styled.h3`
 font-size: 15px;
-    color: rgb(102, 102, 102);
+    color: rgb(5, 5, 5);
     font-weight: 500;
 `;
 
@@ -66,7 +66,7 @@ const ChartBalanceInfo = styled.h3`
   color: ${({ $totalBalance }) => {
         if ($totalBalance > 0) return '#34c317'; // Zelena
         if ($totalBalance < 0) return '#f87171'; // Crvena
-        return '#9d9ea5'; // Siva (nula)
+        return '#000000'; // Siva (nula)
     }};
 `;
 
@@ -108,9 +108,7 @@ const PieChart = ({ income, expenses, title = "Financial Overview" }) => {
     return (
         <PieChartMainSection>
             {/* Header sekcija */}
-            {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}> */}
             <ChartHeaderText>{title}</ChartHeaderText>
-            {/* </div> */}
 
             {/* Area za grafikon - fiksna visina je ključna */}
             <PieGrafikon>
@@ -124,7 +122,7 @@ const PieChart = ({ income, expenses, title = "Financial Overview" }) => {
                 <TotalBalanceText>
                     Total Balance
                 </TotalBalanceText>
-                <ChartBalanceInfo>
+                <ChartBalanceInfo $totalBalance={totalBalance}>
                     ${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </ChartBalanceInfo>
             </BotomSection>
