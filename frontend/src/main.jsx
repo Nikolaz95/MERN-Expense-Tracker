@@ -8,10 +8,12 @@ import ErrorPage from './components/page/ErrorPage/ErrorPage.jsx';
 import HomePage from './components/page/HomePage/HomePage.jsx';
 import UserIncomsPage from './components/page/ExpensePage/page/UserIncomsPage/UserIncomsPage.jsx';
 import UserTransactionsPage from './components/page/ExpensePage/page/UserTransactionsPage/UserTransactionsPage.jsx';
-import UserDashBoardPage from './components/page/ExpensePage/UserDashBoardPage.jsx';
 import UserExpasePage from './components/page/ExpensePage/page/UserExpasePage/UserExpasePage.jsx';
 import SingIn from './components/page/AuthPage/SingIn/SingIn.jsx';
 import Register from './components/page/AuthPage/Register/Register.jsx';
+import UserCurrencySettingsPage from './components/page/ExpensePage/page/UserCurrencySettingsPage/UserCurrencySettingsPage.jsx';
+import { CurrencyProvider } from './context/CurrencyContext.jsx';
+import UserDashBoardPage from './components/page/ExpensePage/page/UserDashBoardPage/UserDashBoardPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -55,12 +57,18 @@ const router = createBrowserRouter([
     path: "/userExpenses",
     element: <UserExpasePage />
   },
+  {
+    path: "/currencySettings",
+    element: <UserCurrencySettingsPage />
+  },
 
 
 ])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CurrencyProvider>
+      <RouterProvider router={router} />
+    </CurrencyProvider>
   </StrictMode>,
 )

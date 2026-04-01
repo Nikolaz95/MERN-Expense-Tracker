@@ -17,6 +17,7 @@
 }
 
 .formSearchTransition {
+  display: flex;
   flex-direction: row;
   align-items: center;
   width: 320px;
@@ -25,4 +26,10 @@
   border-radius: 30px;
   padding: 6px 12px;
   background-color: #fff;
+
+  @media  screen and (max-width: 1311px) {
+
+    width: 240px;
+  }
+
 }

@@ -9,99 +9,128 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import ChartFilterButtons from './layouts/ChartFilterButtons';
+import styled from "styled-components";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-const GrupedBarChart = ({ dataStore }) => {
 
-    // 1. State za period
+
+const GrupedBarChartSection = styled.section`
+        display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 5px;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px;
+
+@media (max-width: 768px) {
+    
+}
+
+`;
+
+const GrupedBarChartTopContent = styled.section`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+@media (max-width: 425px) {
+    justify-content: center;
+}
+
+`;
+
+const GrupedBarChartMainContentVisual = styled.section`
+       height: 300px;
+    position: relative;
+
+@media (max-width: 425px) {
+}
+
+`;
+
+const GrupedBarChartTopText = styled.h3`
+    font-size: 20px;
+
+@media (max-width: 425px) {
+}
+
+`;
+
+const periods = [
+    { value: 'daily', label: 'Daily' },
+    { value: 'weekly', label: 'Weekly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'yearly', label: 'Yearly' },
+];
+
+
+const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
     const [period, setPeriod] = useState('daily');
-
     const currentData = dataStore[period];
 
-    const chartData = {
-        labels: currentData.labels,
-        datasets: [
-            {
-                label: 'Profit',
-                data: currentData.income.map((inc, i) => inc - Math.abs(currentData.expenses[i])),
-                backgroundColor: '#60a5fa', // Plava
-                stack: 'Stack 0', // ISTI stack ID za sve
-                borderRadius: { topLeft: 4, topRight: 4 },
-            },
-            {
-                label: 'Income',
-                data: currentData.income,
-                backgroundColor: '#49e023', // Zelena
-                stack: 'Stack 0',
-                // Bez border radiusa ovde jer je u sredini/na dnu gornjeg dela
-            },
-            {
-                label: 'Expenses',
-                // KLJUČ: Negativna vrednost ga šalje ispod nule
-                data: currentData.expenses.map(val => -Math.abs(val)),
-                backgroundColor: '#f87171', // Crvena
-                stack: 'Stack 0',
-                borderRadius: { bottomLeft: 4, bottomRight: 4 },
-            },
-        ]
-    };
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { position: 'top' },
-            tooltip: {
-                mode: 'index',
-                intersect: false,
-            }
+    const datasets = [
+        {
+            label: 'Profit',
+            data: currentData.income.map((inc, i) => inc - Math.abs(currentData.expenses[i])),
+            backgroundColor: '#60a5fa',
+            stack: 'Stack 0',
+            borderRadius: { topLeft: 4, topRight: 4 },
         },
-        scales: {
-            x: {
-                grid: {
-                    display: false,
-                    // Crta liniju nule (X osu) preko grafikona
-                    drawOnChartArea: true
-                }
-            },
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    // Opciono: formatiranje da negativni brojevi izgledaju lepše
-                    callback: (value) => value < 0 ? `-$${Math.abs(value)}` : `$${value}`
-                }
-            }
-        }
-    };
+        {
+            label: 'Income',
+            data: currentData.income,
+            backgroundColor: '#49e023',
+            stack: 'Stack 0',
+        },
+        {
+            label: 'Expenses',
+            data: currentData.expenses.map(val => -Math.abs(val)),
+            backgroundColor: '#f87171',
+            stack: 'Stack 0',
+            borderRadius: { bottomLeft: 4, bottomRight: 4 },
+        },
+    ];
 
-    // Stil za dugmiće (možeš ovo prebaciti u CSS)
-    const btnStyle = (isActive) => ({
-        padding: '5px 12px',
-        marginLeft: '5px',
-        cursor: 'pointer',
-        backgroundColor: isActive ? '#4ade80' : '#f3f4f6',
-        color: isActive ? '#fff' : '#000',
-        border: 'none',
-        borderRadius: '4px',
-        fontSize: '12px'
-    });
     return (
-        <div className="chart-container">
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '15px' }}>
-                {['daily', 'weekly', 'monthly', 'yearly'].map((p) => (
-                    <button
-                        key={p}
-                        onClick={() => setPeriod(p)}
-                        style={btnStyle(period === p)}
-                    >
-                        {p.charAt(0).toUpperCase() + p.slice(1)}
-                    </button>
-                ))}
-            </div>
-            <div style={{ height: '350px', width: '100%' }}>
-                <Bar data={chartData} options={options} />
-            </div>
-        </div>
+        <GrupedBarChartSection>
+            {/* Top sekcija (zamenjuje ChartCardTopSection) */}
+            <GrupedBarChartTopContent>
+                <GrupedBarChartTopText>{title}</GrupedBarChartTopText>
+
+                {/* Filter dugmići */}
+                <ChartFilterButtons
+                    periods={periods}
+                    period={period}
+                    setPeriod={setPeriod}
+                    themeColor="#4ade80"
+                />
+            </GrupedBarChartTopContent>
+
+            {/* Srednja sekcija za grafikon (zamenjuje MainChartInfoSection) */}
+            <GrupedBarChartMainContentVisual>
+                <Bar
+                    data={{ labels: currentData.labels, datasets }}
+                    options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top', labels: { usePointStyle: true } }
+                        },
+                        scales: {
+                            y: {
+                                ticks: {
+                                    callback: (value) => value < 0 ? `-$${Math.abs(value)}` : `$${value}`
+                                }
+                            }
+                        }
+                    }}
+                />
+            </GrupedBarChartMainContentVisual>
+        </GrupedBarChartSection>
     )
 }
 

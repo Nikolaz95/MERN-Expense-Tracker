@@ -1,0 +1,17 @@
+
+
+.userCurrencySettingLayout {
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.userCurrencySettingMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+height: 30vh;
+border: 1px solid;
+padding: 10px;
+}

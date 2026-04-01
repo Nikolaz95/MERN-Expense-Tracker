@@ -66,19 +66,6 @@ const UserTransactionsPage = () => {
                                 <SearchForm />
                             </section>
                             <section className='transactionSectionTopLeft'>
-                                {/* {
-                                    isDesktop ? (
-                                        <>
-                                            <Image src={SortByIcon} variant="xSmallImg"></Image>
-                                            <Image src={Filter} variant="xSmallImg"></Image>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <SortBy />
-                                            <FilterCategory />
-                                        </>
-                                    )} */}
-
                                 <SortBy value={sortBy} onChange={handleSortChange} />
                                 <FilterCategory />
                             </section>
