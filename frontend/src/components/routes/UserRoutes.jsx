@@ -1,11 +1,11 @@
 import React from 'react'
 
-const UserRoutes = () => {
-    return (
-        <div>
-
-        </div>
-    )
-}
-
-export default UserRoutes
+export const UserRoutes = [
+    {
+        path: "/user/settings-Profile",
+        element:
+            <ProtectRoute>
+                <UserProfileInfo />
+            </ProtectRoute>
+    },
+]

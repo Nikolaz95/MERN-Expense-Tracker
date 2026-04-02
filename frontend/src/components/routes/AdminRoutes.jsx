@@ -1,11 +1,11 @@
 import React from 'react'
+import AdminDashBoard from '../page/BackendPage/AdminPage/AdminDashBoard'
 
-const AdminRoutes = () => {
-    return (
-        <div>
-
-        </div>
-    )
-}
-
-export default AdminRoutes
+export const AdminRoutes = [
+    {
+        path: "/admin/dashBoard",
+        element: (
+            <AdminDashBoard />
+        )
+    },
+]

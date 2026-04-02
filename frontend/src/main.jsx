@@ -14,6 +14,8 @@ import Register from './components/page/AuthPage/Register/Register.jsx';
 import UserCurrencySettingsPage from './components/page/ExpensePage/page/UserCurrencySettingsPage/UserCurrencySettingsPage.jsx';
 import { CurrencyProvider } from './context/CurrencyContext.jsx';
 import UserDashBoardPage from './components/page/ExpensePage/page/UserDashBoardPage/UserDashBoardPage.jsx';
+import AdminDashBoard from './components/page/BackendPage/AdminPage/AdminDashBoard.jsx';
+import { AdminRoutes } from './components/routes/AdminRoutes.jsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,9 @@ const router = createBrowserRouter([
         path: "/registration",
         element: <Register />
       },
+
+      // Spread the admin routes
+      ...AdminRoutes,
 
     ],
 
