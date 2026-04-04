@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components";
 
 // import components
-import SideBar from '../SideBar/SideBar';
+import SideBar from '../SideBar/ExpenseSideBar';
 import Image from '../../../../layouts/Images/Image';
 import { DefoultProfile } from '../../../../../assets/SideBarIcons';
+import Button from '../../../../layouts/Buttons/Button';
 
 
 
@@ -56,13 +57,20 @@ gap: 20px;
 
 
 const UserExpenseLayout = ({ children }) => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     return (
         <SectionUserExpaseDashBoard>
-            <SideBar />
+            <SideBar
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+            />
             <MainUserExpaseContent>
                 <HeaderUserDashBoard>
                     <div className='headerContentLeft'>
-                        <div className='btn'>+</div>
+                        <Button className='btn'
+                            onClick={() => setIsSidebarOpen(true)} >
+                            ☰
+                        </Button>
                     </div>
                     <div className='headerContentLeft'>
                         <Image src={DefoultProfile} variant="smallImg" />

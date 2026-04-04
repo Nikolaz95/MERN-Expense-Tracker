@@ -6,6 +6,7 @@ import Logo from '../Logo/Logo';
 import Navigation from '../../NavigatioLinkComponent/Navigation';
 import HeaderNavigation from '../HeaderNavigationSection/HeaderNavigation';
 import HamMenu from '../HamMenu/HamMenu';
+import HeaderSidebar from '../HeaderSidebar/HeaderSidebar';
 
 const HeaderSection = styled.header`
   display: flex;
@@ -32,6 +33,7 @@ const Header = () => {
                 <Logo />
                 <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} />
                 <HamMenu toggleSideMenu={toggleSideMenu} isSideMenuOpen={isSideMenuOpen} />
+                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
             </section>
         </HeaderSection>
     )

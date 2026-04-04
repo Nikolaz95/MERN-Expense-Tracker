@@ -39,6 +39,15 @@
     height: 100%;
 }
 
-.sideBarImg {
+.sideBarNavIcon{
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
 
+.iconDropDown {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 20px;
 }
