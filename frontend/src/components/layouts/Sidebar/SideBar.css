@@ -1,0 +1,100 @@
+
+
+
+
+
+.asideSideBar {
+    display: flex;
+    flex-direction: column;
+        justify-content: space-around;
+    height: 100%;
+    border: 1px solid black;
+    width: 350px;
+    border-radius: 20px;
+    padding: 10px;
+        overflow-y: auto;
+    scrollbar-width: none;
+}
+
+
+.sideBarTopSection {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.sideBarNavSection {
+    display: flex;flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+    height: 70%;
+    padding: 10px;
+}
+
+
+/* ul lista */
+
+
+.sideBarUl {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    list-style: none;
+    gap: 20px;
+    /* border: 1px solid black; */
+    height: 100%;
+}
+
+
+.sideBarBottomSection {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+
+.btn {
+    display: none;
+    cursor: pointer;
+    font-size: 22px;
+    padding: 5px;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .asideSideBar {
+        /* makni display: none — koristimo transform umjesto toga */
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 300px;
+                background-color: rgb(255, 255, 255);
+        border-radius: 0 20px 20px 0;
+        z-index: 200;
+        transform: translateX(-105%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .asideSideBar.open {
+        transform: translateX(0);
+    }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+.asideSideBar {
+
+        width: 250px;
+
+    }
+}
