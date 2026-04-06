@@ -66,15 +66,15 @@ const UserExpenseLayout = ({ children }) => {
             />
             <MainUserExpaseContent>
                 <HeaderUserDashBoard>
-                    <div className='headerContentLeft'>
+                    <section className='headerContentLeft'>
                         <Button className='btn'
                             onClick={() => setIsSidebarOpen(true)} >
                             ☰
                         </Button>
-                    </div>
-                    <div className='headerContentLeft'>
-                        <Image src={DefoultProfile} variant="smallImg" />
-                    </div>
+                    </section>
+                    <section className='headerContentLeft'>
+                        <Image src={DefoultProfile} variant="smallImg" title="username" />
+                    </section>
                 </HeaderUserDashBoard>
                 <ContentSectionUserDashBoard>
                     {children}
