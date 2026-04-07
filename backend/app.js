@@ -3,8 +3,13 @@
 import express from "express";
 const app = express();
 import dotenv from "dotenv";
+import { connectDataBase } from "./config/dbConnect.js";
 
 dotenv.config({ path: "backend/config/config.env" });
+
+
+//connecting to database
+connectDataBase();
 
 
 //import all routes
