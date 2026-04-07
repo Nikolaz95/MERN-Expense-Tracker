@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import styles from './Header.module.css';
 import Logo from '../Logo/Logo';
 import Navigation from '../../NavigatioLinkComponent/Navigation';
-import HeaderNavigation from '../HeaderNavigationSection/HeaderNavigation';
+import HeaderNavigation from '../Navigation/HeaderNavigationSection/HeaderNavigation';
 import HamMenu from '../HamMenu/HamMenu';
-import HeaderSidebar from '../HeaderSidebar/HeaderSidebar';
+import HeaderSidebar from '../Navigation/HeaderSidebar/HeaderSidebar';
 
 const HeaderSection = styled.header`
   display: flex;
@@ -20,6 +20,10 @@ const HeaderSection = styled.header`
 `;
 
 const Header = () => {
+    const user = {
+        name: "nikola",
+        role: "user"
+    }
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(null);
     const [isVisible, setIsVisible] = useState(true);
 
@@ -31,9 +35,9 @@ const Header = () => {
         <HeaderSection>
             <section className={styles.contentHeader}>
                 <Logo />
-                <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} />
+                <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} user={user} />
                 <HamMenu toggleSideMenu={toggleSideMenu} isSideMenuOpen={isSideMenuOpen} />
-                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
+                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} user={user} />
             </section>
         </HeaderSection>
     )

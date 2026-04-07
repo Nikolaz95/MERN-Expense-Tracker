@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react'
-import Navigation from '../../NavigatioLinkComponent/Navigation'
-import Image from '../../Images/Image'
-import { AboutUs, SingIn } from '../../../../assets/NavIcons'
+import Navigation from '../../../NavigatioLinkComponent/Navigation'
+import Image from '../../../Images/Image'
+import { AboutUs, SingIn } from '../../../../../assets/NavIcons'
+import UserNavigation from '../UserNavigationSection/UserNavigation';
 
 //import css
 import "./HeaderSidebar.css";
+import SideBarAccordion from '../../../Accordion/SideBarAccordion';
 
-const HeaderSidebar = ({ isOpen, onClose }) => {
+const HeaderSidebar = ({ isOpen, onClose, user }) => {
+
 
     useEffect(() => {
         if (isOpen) {
@@ -41,6 +44,9 @@ const HeaderSidebar = ({ isOpen, onClose }) => {
                                 <span>Sign in</span>
                             </Navigation>
                         </li>
+
+                        {/* <UserNavigation user={user} /> */}
+                        <SideBarAccordion user={user} onClose={onClose} />
                     </ul>
                 </nav>
             </aside>
