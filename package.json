@@ -1,0 +1,25 @@
+{
+  "name": "mern-expense-tracker",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Expense Tracker MernStack APP",
+  "homepage": "https://github.com/Nikolaz95/MERN-Expense-Tracker#readme",
+  "bugs": {
+    "url": "https://github.com/Nikolaz95/MERN-Expense-Tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nikolaz95/MERN-Expense-Tracker.git"
+  },
+  "license": "ISC",
+  "author": "Nikola Zovko",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.4.1"
+  }
+}
