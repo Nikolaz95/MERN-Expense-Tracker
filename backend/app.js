@@ -21,11 +21,17 @@ process.on("uncaughtException", (err) => {
 //connecting to database
 connectDataBase();
 
+// JSON request bodies
+app.use(express.json({ limit: "10mb" }));
 
 //import all routes
 import productRoutes from "./routes/products.js";
+import authRoutes from "./routes/auth.js"
+
+
 
 app.use("/api", productRoutes)
+app.use("/api", authRoutes)
 
 
 //using error middleware
