@@ -5,6 +5,7 @@ const app = express();
 import dotenv from "dotenv";
 import { connectDataBase } from "./config/dbConnect.js";
 import errorMiddleware from "./middlewares/errors.js";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config({ path: "backend/config/config.env" });
@@ -23,6 +24,8 @@ connectDataBase();
 
 // JSON request bodies
 app.use(express.json({ limit: "10mb" }));
+// cookieParser
+app.use(cookieParser());
 
 //import all routes
 import productRoutes from "./routes/products.js";
