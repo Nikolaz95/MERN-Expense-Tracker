@@ -20,9 +20,11 @@
     "prod": "SET NODE_ENV=PRODUCTION& nodemon backend/app.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.1",
     "express": "^5.2.1",
-    "mongoose": "^9.4.1"
+    "mongoose": "^9.4.1",
+    "save": "^2.9.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
