@@ -30,11 +30,13 @@ app.use(cookieParser());
 //import all routes
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js"
-
+import transactionRoutes from "./routes/transaction.js"
 
 
 app.use("/api", productRoutes)
 app.use("/api", authRoutes)
+app.use("/api", transactionRoutes)
+
 
 
 //using error middleware
