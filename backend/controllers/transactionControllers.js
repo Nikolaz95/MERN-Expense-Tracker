@@ -104,3 +104,26 @@ export const updateTransactionDetails = async (req, res, next) => {
         /* createTransition, */
     });
 }
+
+// ❌ Delete transaction notes /transaction/:id
+
+export const deleteTransaction = async (req, res, next) => {
+    // Step 1: 
+    const deleteTransition = await Transition.findById(req?.params?.id);
+
+    if (!deleteTransition) {
+        return res.status(404).json({
+            error: "Transition not found !"
+        })
+    }
+
+    await deleteTransition.deleteOne();
+
+    // Step 3. 
+    res.status(201).json({
+        success: true,
+        message: "Transition  successfully delete !",
+        deleteTransition,
+        /* createTransition, */
+    });
+}
