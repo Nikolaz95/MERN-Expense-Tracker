@@ -73,3 +73,34 @@ export const getTransactionDetails = async (req, res, next) => {
         /* createTransition, */
     });
 }
+
+
+// 📝 Update transaction notes /transaction/update/:id
+
+export const updateTransactionDetails = async (req, res, next) => {
+    // Step 1: 
+    let transitionDetailsUpdate = await Transition.findById(req?.params?.id);
+
+    if (!transitionDetailsUpdate) {
+        return res.status(404).json({
+            error: "Transition Details not found !"
+        })
+    }
+
+    transitionDetailsUpdate = await Transition.findByIdAndUpdate(
+        req?.params?.id,
+        req.body,
+        {
+            new: true,
+            runValidators: true // Ovo osigurava da update poštuje pravila iz Sheme
+        }
+    );
+
+    // Step 3. 
+    res.status(201).json({
+        success: true,
+        message: "Transition Details successfully update!",
+        transitionDetailsUpdate,
+        /* createTransition, */
+    });
+}
