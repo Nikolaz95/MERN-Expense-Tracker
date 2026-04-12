@@ -1,10 +1,12 @@
 import catchAsyncErrors from "../middlewares/catchAsyncErrors.js";
 import Transition from "../models/transaction.js";
+import ErrorHandler from "../utils/errorHandler.js";
 
 // ➕ create new transaction  /transaction/add
 
-export const createNewTransaction = async (req, res, next) => {
+export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
     // Step 1: 
+    req.body.user = req.user._id;
     const transition = await Transition.create(req.body);
     /* const { title, amount, type, category, description } = req.body;
     const userId = req.user.id;
@@ -25,11 +27,11 @@ export const createNewTransaction = async (req, res, next) => {
         transition,
         /* createTransition, */
     });
-}
+})
 
 
 // Get user's transaction - /transaction/me
-export const getVisitiList = async (req, res, next) => {
+export const getVisitiList = catchAsyncErrors(async (req, res, next) => {
 
     const userTransactionList = await Transition.find() // Now using the query object
         .sort({ date: -1 }); // Newest first
@@ -39,19 +41,17 @@ export const getVisitiList = async (req, res, next) => {
         count: userTransactionList.length,
         userTransactionList
     });
-}
+})
 
 
 //  get single transaction  /transaction/:id
 
-export const getTransactionDetails = async (req, res, next) => {
+export const getTransactionDetails = catchAsyncErrors(async (req, res, next) => {
     // Step 1: 
     const transitionDetails = await Transition.findById(req?.params?.id);
 
     if (!transitionDetails) {
-        return res.status(404).json({
-            error: "Transition Details not found !"
-        })
+        return next(new ErrorHandler("Transition Details not found ! or unauthorized to delete", 404));
     }
     /* const { title, amount, type, category, description } = req.body;
     const userId = req.user.id;
@@ -72,12 +72,12 @@ export const getTransactionDetails = async (req, res, next) => {
         transitionDetails,
         /* createTransition, */
     });
-}
+});
 
 
 // 📝 Update transaction notes /transaction/update/:id
 
-export const updateTransactionDetails = async (req, res, next) => {
+export const updateTransactionDetails = catchAsyncErrors(async (req, res, next) => {
     // Step 1: 
     let transitionDetailsUpdate = await Transition.findById(req?.params?.id);
 
@@ -103,11 +103,11 @@ export const updateTransactionDetails = async (req, res, next) => {
         transitionDetailsUpdate,
         /* createTransition, */
     });
-}
+})
 
 // ❌ Delete transaction notes /transaction/:id
 
-export const deleteTransaction = async (req, res, next) => {
+export const deleteTransaction = catchAsyncErrors(async (req, res, next) => {
     // Step 1: 
     const deleteTransition = await Transition.findById(req?.params?.id);
 
@@ -126,4 +126,4 @@ export const deleteTransaction = async (req, res, next) => {
         deleteTransition,
         /* createTransition, */
     });
-}
+})
