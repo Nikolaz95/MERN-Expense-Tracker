@@ -72,6 +72,7 @@ const UserExpasePage = () => {
                     underTitleText="Choose a category to set a expense budget. These categories can help you monitor spending."
                     buttonText="Add Expense"
                     placholderText="Expense Amount"
+                    placholderTextDescription="Description about your expense !"
                     type="expense"
                     onClose={closeModal} />
             </Modal>

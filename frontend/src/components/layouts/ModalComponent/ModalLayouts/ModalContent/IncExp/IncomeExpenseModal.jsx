@@ -39,9 +39,29 @@ display: flex;
     gap: 10px;
 `;
 
+const DescriptionTransactionSection = styled.section`
+display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
 
-const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText }) => {
+const DescriptionTextArea = styled.textarea`
+    border-radius: 20px;
+    
+    height: 100px;
+    padding: 10px;
+    width: 100%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+`;
+
+
+const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText, placholderTextDescription }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const [notes, setNotes] = useState("");
+    const MAX_LENGTH = 200;
+    const trimmedNotes = notes.trim();
 
     return (
         <CustomModalSection>
@@ -63,6 +83,20 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
                         selected={selectedDate}
                         onChange={setSelectedDate}
                     />
+                    <DescriptionTransactionSection>
+                        <label htmlFor="descriptionText">Description</label>
+                        <DescriptionTextArea name="" id="descriptionText"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                            placeholder={placholderTextDescription}
+                            maxLength={MAX_LENGTH}>
+
+                        </DescriptionTextArea>
+                        <p className='charCounterSection'>
+                            {trimmedNotes.length === 0 ? 0 : notes.length}/{MAX_LENGTH}
+                        </p>
+
+                    </DescriptionTransactionSection>
 
                     <Button>{buttonText}</Button>
                 </SectionContent>

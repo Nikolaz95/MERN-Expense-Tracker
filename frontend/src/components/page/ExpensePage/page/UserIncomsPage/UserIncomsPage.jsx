@@ -72,6 +72,7 @@ const UserIncomsPage = () => {
                     underTitleText="Choose a category to set a income budget. These categories can help you monitor spending."
                     buttonText="Add Income"
                     placholderText="Income Amount"
+                    placholderTextDescription="Description about your Income !"
                     type="income"
                     onClose={closeModal} />
             </Modal>
