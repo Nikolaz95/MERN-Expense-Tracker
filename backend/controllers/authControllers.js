@@ -1,10 +1,11 @@
 import catchAsyncErrors from "../middlewares/catchAsyncErrors.js";
+import Transition from "../models/transaction.js";
 import User from "../models/user.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import sendToken from "../utils/sendToken.js";
 
 
-
+//user staff
 // Register user   =>  /api/register
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -54,5 +55,20 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         message: "Logged out",
+    });
+});
+
+
+// Get current user profile  =>  /api/me
+
+export const getUserProfile = catchAsyncErrors(async (req, res, next) => {
+    /* const currentUserId = req.user._id; */
+    const user = await User.findById(req?.user?._id);
+
+    /* const userVisits = await Transition.find({ user: currentUserId }); */
+
+    res.status(200).json({
+        user: user,
+        /* visits: userVisits, */
     });
 });
