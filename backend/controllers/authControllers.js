@@ -6,6 +6,7 @@ import sendToken from "../utils/sendToken.js";
 
 
 //user staff
+
 // Register user   =>  /api/register
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -69,7 +70,7 @@ export const getUserProfile = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         user: user,
-        visitsLists: userTransactionList,
+        transactionsList: userTransactionList,
     });
 });
 
@@ -111,5 +112,35 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         user,
+    });
+});
+
+
+/* admin stuff */
+
+// Get all users - admin   =>  /api/admin/allUsers
+export const getAllUsers = catchAsyncErrors(async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+        users,
+        numberOfUsers: users.length
+    });
+});
+
+
+// Get  user detail - admin   =>  /api/admin/users/:id
+export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404))
+    }
+
+    const userTransactionList = await Transition.find({ user: req.params.id });
+
+    res.status(200).json({
+        success: true,
+        user: user,
+        transactionsList: userTransactionList,
     });
 });
