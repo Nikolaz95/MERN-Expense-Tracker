@@ -62,13 +62,38 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
 // Get current user profile  =>  /api/me
 
 export const getUserProfile = catchAsyncErrors(async (req, res, next) => {
-    /* const currentUserId = req.user._id; */
-    const user = await User.findById(req?.user?._id);
+    const currentUserId = req.user._id;
+    const user = await User.findById(currentUserId);
 
-    /* const userVisits = await Transition.find({ user: currentUserId }); */
+    const userTransactionList = await Transition.find({ user: currentUserId });
 
     res.status(200).json({
         user: user,
-        /* visits: userVisits, */
+        visitsLists: userTransactionList,
     });
 });
+
+// update password =>  /api/password/update
+
+export const updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req?.user?._id).select("+password")
+        ;
+    //check the previous user password
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("Old password is incorrect", 400))
+    }
+
+
+    if (req.body.password.length < 6) {
+        return next(new ErrorHandler("New password must be longer than 6 characters", 400));
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    res.status(200).json({
+        success: true,
+    });
+})

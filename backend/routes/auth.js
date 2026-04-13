@@ -1,5 +1,5 @@
 import express from "express"
-import { getUserProfile, loginUser, logoutUser, registerUser } from "../controllers/authControllers.js";
+import { getUserProfile, loginUser, logoutUser, registerUser, updatePassword } from "../controllers/authControllers.js";
 import { isAuthenticatedUser } from "../middlewares/auth.js";
 
 
@@ -11,6 +11,7 @@ router.route("/logout").get(logoutUser);
 
 
 router.route("/me").get(isAuthenticatedUser, getUserProfile);
+router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 
 
 
