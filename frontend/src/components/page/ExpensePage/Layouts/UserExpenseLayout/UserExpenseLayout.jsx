@@ -7,8 +7,8 @@ import Image from '../../../../layouts/Images/Image';
 import { DefoultProfile } from '../../../../../assets/SideBarIcons';
 import Button from '../../../../layouts/Buttons/Button';
 import Menu from '../../../../layouts/Menu/Menu';
-
-
+import useClickOutside from '../../../../hooks/useClickOutside';
+import { adminLinks, baseUserLinks } from '../../../../constants/userDropDownNavigation';
 
 const SectionUserExpaseDashBoard = styled.section`
     display: flex;
@@ -35,7 +35,6 @@ const MainUserExpaseContent = styled.main`
   }
 `;
 
-
 const HeaderUserDashBoard = styled.header`
     display: flex;
     flex-direction: row;
@@ -54,28 +53,27 @@ gap: 20px;
     scrollbar-width: none;
 `;
 
-
-
-
 const UserExpenseLayout = ({ children }) => {
+    const [isLogin, setIsLogin] = useState(true)
+    const user = {
+        name: "nikola",
+        role: "user"
+    }
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const menuRef = useRef(null)
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (menuRef.current && !menuRef.current.contains(e.target)) {
-                setIsMenuOpen(false)
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside)
-        return () => document.removeEventListener("mousedown", handleClickOutside)
-    }, [])
+    useClickOutside(menuRef, () => setIsMenuOpen(false));
 
     const menuItems = [
-        { id: 0, label: "Dashboard", path: "/userDashBoard" },
-        { id: 1, label: "Profile", path: "/user/settings-Profile" },
-        { id: 2, label: "Logout", onClick: () => console.log("logout") },
+        // Ako je admin, dodajemo Dashboard link na početak (iz tvog data fajla)
+        ...(user?.role === "admin" ? adminLinks : []),
+
+        // Dodajemo Profile i ostalo (iz tvog data fajla)
+        ...baseUserLinks,
+
+        // Logout ručno dodajemo
+        { id: 99, label: "Logout", onClick: () => console.log("logout") },
     ]
     return (
         <SectionUserExpaseDashBoard>
@@ -91,10 +89,12 @@ const UserExpenseLayout = ({ children }) => {
                             ☰
                         </Button>
                     </section>
-                    <section className='headerContentRight' ref={menuRef} style={{ position: "relative" }}>
+                    <section className='headerContentRight' ref={menuRef}
+                        style={{ position: "relative" }}>
                         <Image
-                            src={DefoultProfile}
+                            src={user?.avatar?.url ?? DefoultProfile}
                             variant="smallImg"
+                            title={user.name}
                             onClick={() => setIsMenuOpen(prev => !prev)}
                             style={{ cursor: "pointer" }}
                         />

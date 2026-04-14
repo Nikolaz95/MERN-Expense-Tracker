@@ -35,7 +35,7 @@
 }
 
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
     .userNavDropdown {
         position: relative;
         top: 20px;
@@ -44,4 +44,9 @@
     border: 0px;
     border-radius: 0px;
     }
+
+    .userNavTrigger {
+    display: none;
+
+}
 }

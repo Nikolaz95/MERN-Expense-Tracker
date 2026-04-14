@@ -38,15 +38,36 @@ const HeaderSidebar = ({ isOpen, onClose, user }) => {
                                 <span>About Us</span>
                             </Navigation>
                         </li>
-                        <li>
-                            <Navigation to="/signIn">
-                                <Image src={SingIn} variant="headerImg" />
-                                <span>Sign in</span>
-                            </Navigation>
-                        </li>
 
                         {/* <UserNavigation user={user} /> */}
-                        <SideBarAccordion user={user} onClose={onClose} />
+
+                        {user ? (
+                            <SideBarAccordion user={user} onClose={onClose} />
+
+                        ) : (
+                            <li>
+                                <Navigation to="/signIn">
+                                    <Image src={SingIn} variant="headerImg" />
+                                    <span>Sign in</span>
+                                </Navigation>
+                            </li>
+
+                        )}
+
+                        {user ? (
+
+                            <UserNavigation user={user} />
+
+                        ) : (
+                            <li className='navigationLi'>
+                                <Navigation to="/signIn" className="navigationLink">
+                                    <Image src={SingIn} variant="headerImg" />
+                                    <p>Sing in</p>
+                                </Navigation>
+                            </li>
+
+                        )}
+
                     </ul>
                 </nav>
             </aside>

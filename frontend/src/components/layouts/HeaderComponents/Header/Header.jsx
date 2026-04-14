@@ -20,12 +20,12 @@ const HeaderSection = styled.header`
 `;
 
 const Header = () => {
+    const [isLogin, setIsLogin] = useState(true)
     const user = {
         name: "nikola",
-        role: "user"
+        role: "admin"
     }
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(null);
-    const [isVisible, setIsVisible] = useState(true);
 
     const toggleSideMenu = (e) => {
         e.stopPropagation();
@@ -35,9 +35,9 @@ const Header = () => {
         <HeaderSection>
             <section className={styles.contentHeader}>
                 <Logo />
-                <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} user={user} />
+                <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} user={isLogin ? user : null} />
                 <HamMenu toggleSideMenu={toggleSideMenu} isSideMenuOpen={isSideMenuOpen} />
-                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} user={user} />
+                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} user={isLogin ? user : null} />
             </section>
         </HeaderSection>
     )
