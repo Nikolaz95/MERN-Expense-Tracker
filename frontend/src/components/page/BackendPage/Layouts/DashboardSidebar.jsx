@@ -12,7 +12,7 @@ const DashboardSidebar = () => {
 
     const user = {
         name: "nikola",
-        role: "user"
+        role: "admin"
     }
     const [curOpenDropdown, setCurOpenDropdown] = useState(null);
     const [sideIsOpen, setSideIsOpen] = useState(false);

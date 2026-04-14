@@ -1,10 +1,59 @@
 import React from 'react'
+import DashBoardLayout from '../../Layouts/DashBoardLayout'
+import style from "styled-components"
 
+//import css
+import "./UserProfileInfo.css"
+import { DefoultProfile, LogOut } from '../../../../../assets/SideBarIcons'
+import Image from '../../../../layouts/Images/Image'
+
+const UserProfileLayouts = style.section`
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+`
 const UserProfileInfo = () => {
+
+    const user = {
+        name: "nikola",
+        role: "admin",
+        email: "nikolajoe@gmail.com",
+        createdAt: "2026-04-15",
+
+    }
     return (
-        <div>
-            UserProfileInfo
-        </div>
+        <DashBoardLayout>
+            <h1>Profile Info</h1>
+            <UserProfileLayouts>
+                <div className="userProfileConteiner">
+                    <div className="userProfileConteinerTop">
+                        <Image src={
+                            user?.avatar ? user?.avatar?.url : DefoultProfile
+                        }
+                            variant="profile"
+                            className='userProfileImg' alt="userImg" />
+                    </div>
+                    <div className="userProfileConteinerBottom">
+                        <div className="userProfileNameContent">
+                            <h1>Full Name:</h1>
+                            <p>{user?.name}</p>
+                        </div>
+                        <div className="userProfileEmailContent">
+                            <h1>Email:</h1>
+                            <p>{user?.email}</p>
+                        </div>
+                        <div className="userProfileJoinedContent">
+                            <h1>Joined On:</h1>
+                            <p>{user?.createdAt?.substring(0, 10)}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </UserProfileLayouts>
+        </DashBoardLayout>
     )
 }
 

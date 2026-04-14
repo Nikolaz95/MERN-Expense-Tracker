@@ -1,10 +1,11 @@
 import React from 'react'
+import DashBoardLayout from '../../Layouts/DashBoardLayout'
 
 const UpdateProfile = () => {
     return (
-        <div>
+        <DashBoardLayout>
             UpdateProfile
-        </div>
+        </DashBoardLayout>
     )
 }
 

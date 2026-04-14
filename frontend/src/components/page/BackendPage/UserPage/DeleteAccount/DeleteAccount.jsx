@@ -1,10 +1,11 @@
 import React from 'react'
+import DashBoardLayout from '../../Layouts/DashBoardLayout'
 
 const DeleteAccount = () => {
     return (
-        <div>
+        <DashBoardLayout>
             DeleteAccount
-        </div>
+        </DashBoardLayout>
     )
 }
 

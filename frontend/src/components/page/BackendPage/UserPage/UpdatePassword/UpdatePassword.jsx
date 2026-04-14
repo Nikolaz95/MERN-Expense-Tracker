@@ -1,10 +1,11 @@
 import React from 'react'
+import DashBoardLayout from '../../Layouts/DashBoardLayout'
 
 const UpdatePassword = () => {
     return (
-        <div>
+        <DashBoardLayout>
             UpdatePassword
-        </div>
+        </DashBoardLayout>
     )
 }
 

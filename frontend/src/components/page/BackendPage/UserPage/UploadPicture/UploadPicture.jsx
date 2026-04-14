@@ -1,10 +1,11 @@
 import React from 'react'
+import DashBoardLayout from '../../Layouts/DashBoardLayout'
 
 const UploadPicture = () => {
     return (
-        <div>
+        <DashBoardLayout>
             UploadPicture
-        </div>
+        </DashBoardLayout>
     )
 }
 

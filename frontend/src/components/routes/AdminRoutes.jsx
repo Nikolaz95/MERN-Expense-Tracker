@@ -1,4 +1,4 @@
-import DashBoardPage from "../page/BackendPage/DashBoardPage";
+import DashBoardPage from "../page/BackendPage/AdminPage/DashBoardPage/DashBoardPage";
 
 export const AdminRoutes = [
     {
