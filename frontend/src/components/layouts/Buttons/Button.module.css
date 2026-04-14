@@ -17,10 +17,14 @@
   border: 1px solid;
 }
 
+.btnTable {
+  padding:  0px;
+  background-color: transparent;
+}
+
 /* -------- SIZES -------- */
 .sm {
-  padding:  10px;
-
+  padding:  0px;
 }
 
 .md {
@@ -44,6 +48,10 @@
 
 .btnIconDef {
     height: 30px;
+}
+
+.btnTable {
+  background-color: transparent;
 }
 
 

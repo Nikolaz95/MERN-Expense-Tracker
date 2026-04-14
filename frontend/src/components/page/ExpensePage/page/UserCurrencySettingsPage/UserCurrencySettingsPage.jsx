@@ -9,19 +9,19 @@ import styled from "styled-components";
 import "./UserCurrencySettingsPage.css";
 import { useCurrency } from '../../../../../context/CurrencyContext';
 
-const UserCurrencySettingsLayout = styled.section`
-display: flex;
+const UserCurrencySettingsLayout = styled.main`
+    display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
     border: 1px solid;
+    padding: 10px;
+    gap: 20px;
 `;
 
-const UserCurrencySettingsContents = styled.section`
-display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+const CurrencyValueSection = styled.select`
+width: 100px;
 `;
 
 const UserCurrencySettingsPage = () => {
@@ -32,13 +32,13 @@ const UserCurrencySettingsPage = () => {
             <UserExpenseLayout>
                 <section className='userCurrencySettingLayout'>
                     <h1>User Currency Settings</h1>
-                    <main className='userCurrencySettingMain'>
+                    <UserCurrencySettingsLayout>
                         <h1>Choose Currency</h1>
                         <p>Current currency: <strong>{currency.value}</strong></p>
                         {loading ? (
                             <p>Loading currencies...</p>
                         ) : (
-                            <select
+                            <CurrencyValueSection
                                 value={currency.value}
                                 onChange={(e) => changeCurrency(e.target.value)}
                             >
@@ -47,9 +47,9 @@ const UserCurrencySettingsPage = () => {
                                         {c.value}
                                     </option>
                                 ))}
-                            </select>
+                            </CurrencyValueSection>
                         )}
-                    </main>
+                    </UserCurrencySettingsLayout>
                 </section>
 
             </UserExpenseLayout>

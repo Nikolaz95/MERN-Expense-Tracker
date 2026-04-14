@@ -55,6 +55,10 @@ const DescriptionTextArea = styled.textarea`
     scrollbar-width: none;
 `;
 
+const DescriptionCounter = styled.p`
+   text-align: right;
+`;
+
 
 const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText, placholderTextDescription }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -92,9 +96,9 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
                             maxLength={MAX_LENGTH}>
 
                         </DescriptionTextArea>
-                        <p className='charCounterSection'>
+                        <DescriptionCounter>
                             {trimmedNotes.length === 0 ? 0 : notes.length}/{MAX_LENGTH}
-                        </p>
+                        </DescriptionCounter>
 
                     </DescriptionTransactionSection>
 

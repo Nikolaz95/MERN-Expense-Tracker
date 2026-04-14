@@ -9,6 +9,8 @@ import PaginationComponent from '../../../../layouts/Pagination/PaginationCompon
 // styled css
 import styled from "styled-components";
 import TransactionTable from '../../../../layouts/Table/TransactionTable';
+import Table from '../../../../layouts/Table/Table';
+import { transactionColumns } from '../../../../layouts/Table/TableColumns/TransactionColumns';
 
 const IncomExpenseLayout = styled.section`
 display: flex;
@@ -72,7 +74,8 @@ const IncomExpensLayout = ({ titleText, descriptionText, buttonText, onButtonCli
             </IncomExpenseOverviewSection>
             <IncomExpenseHistorySection>
                 <h1>{tableTitle}</h1>
-                <TransactionTable currentTrans={currentTrans} />
+                <Table data={currentTrans} columns={transactionColumns} />
+                {/* <TransactionTable currentTrans={currentTrans} /> */}
                 <PaginationComponent
                     data={fullData}
                     itemsPerPage={10}

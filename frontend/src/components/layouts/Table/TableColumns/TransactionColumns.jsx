@@ -2,6 +2,18 @@ import React from 'react'
 import Image from '../../Images/Image';
 import { DashBoardTitleIcon } from '../../../../assets/IconTitle';
 import { transactionCategories } from '../../../constants/transactionCategories.js';
+import Button from '../../Buttons/Button.jsx';
+// styled css
+import styled from "styled-components";
+import { iconDelete, iconInfo } from '../../../../assets/BtnIcons.jsx';
+
+const TtnTableColumn = styled.span`
+display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+`;
+
 
 export const transactionColumns = [
     {
@@ -32,6 +44,7 @@ export const transactionColumns = [
     {
         header: "Amount",
         field: "amount",
+        className: "tableRowMidle",
         render: (row) => (
             <span
                 style={{
@@ -41,6 +54,17 @@ export const transactionColumns = [
             >
                 €{row.amount}
             </span>
+        ),
+    },
+    {
+        header: "Info",
+        field: "date",
+        /* className: "tableRowMidle", */
+        render: (row) => (
+            <TtnTableColumn>
+                <Button variant='btnTable' className='btnTable' title="Info" icon={iconInfo}></Button>
+                <Button variant='btnTable' title="Delete Transaction" icon={iconDelete}></Button>
+            </TtnTableColumn>
         ),
     },
 ];

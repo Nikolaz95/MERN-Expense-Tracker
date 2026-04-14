@@ -15,12 +15,10 @@ import PaginationComponent from '../../../../layouts/Pagination/PaginationCompon
 import Table from '../../../../layouts/Table/Table';
 import { transactionColumns } from '../../../../layouts/Table/TableColumns/TransactionColumns';
 import SearchForm from '../../../../layouts/SearchForm/SearchForm';
-import useMediaQuery from '../../../../hooks/useMediaQuery';
-import { iconSearch } from '../../../../../assets/BtnIcons';
-import { Filter, SortByIcon } from '../../../../../assets/Icons';
-import Image from '../../../../layouts/Images/Image';
 import { useSearchParams } from 'react-router-dom';
 import { sortTransactions } from '../../../../constants/sortOptions';
+import transitionAllData from '../../../../data/TransactionData';
+
 
 const UserTransactionsPage = () => {
     titleName('User Transactions Page', TransactionsTitleIcon);

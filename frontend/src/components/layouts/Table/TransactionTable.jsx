@@ -15,7 +15,8 @@ const TransactionTable = ({ currentTrans }) => {
                             <th>Recipient</th>
                             <th className='tableRowMidle'>Category</th>
                             <th className='tableRowMidle'>Transaction Date</th>
-                            <th>Amount</th>
+                            <th className='tableRowMidle'>Amount</th>
+                            <th>Info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,8 +39,12 @@ const TransactionTable = ({ currentTrans }) => {
                                     <div className='tableDataContent'>{transition.date}</div>
                                 </td>
 
-                                <td>
+                                <td className='tableRowMidle'>
                                     <div className='tableDataContent'>{transition.amount}</div>
+                                </td>
+                                <td>
+                                    <button>a</button>
+                                    <button>b</button>
                                 </td>
                             </tr>
 
