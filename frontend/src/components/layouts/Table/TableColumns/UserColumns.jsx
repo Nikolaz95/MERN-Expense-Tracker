@@ -10,7 +10,7 @@ const ActionButtons = styled.div`
     justify-content: center;
 `;
 
-export const userColumns = [
+export const userColumns = (onUpdateClick, onDeleteClick) => [
     {
         header: "#ID",
         field: "id",
@@ -53,10 +53,17 @@ export const userColumns = [
         header: "Actions",
         render: (row) => (
             <ActionButtons>
-                <Button variant='btnTable' icon={iconUpdate} title="User Update" />
-                <Button variant='btnTable' icon={iconDelete} title="Delete User"
-                        /* onClick={() => console.log(`Delete user ${row.id}`)} */ />
+                <Button variant='btnTable'
+                    icon={iconUpdate}
+                    title="User Update"
+                    onClick={() => onUpdateClick(row.id)} />
+                <Button
+                    variant='btnTable'
+                    icon={iconDelete} title="Delete User"
+                    onClick={() => onDeleteClick(row.id)} />
             </ActionButtons>
         ),
     },
+
+
 ];
