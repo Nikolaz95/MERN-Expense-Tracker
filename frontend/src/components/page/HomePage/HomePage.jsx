@@ -10,10 +10,11 @@ import { HomePageImg } from '../../../assets/LogoIcons';
 import Button from '../../layouts/Buttons/Button';
 import Navigation from '../../layouts/NavigatioLinkComponent/Navigation';
 import { FundAccounting } from '../../../assets/BtnIcons';
+import { LogoImg } from '../../../assets/NavIcons';
 
 
 const HomePage = () => {
-    titleName('Home Page');
+    titleName('Home Page', LogoImg);
     return (
         <>
             <MainLayout>

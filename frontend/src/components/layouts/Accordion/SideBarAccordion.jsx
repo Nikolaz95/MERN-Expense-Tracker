@@ -29,7 +29,7 @@ const SideBarAccordion = ({ user, onClose }) => {
                     {/* LOGIKA: Pokaži Dashboard samo ako je user logiran I ima role 'admin' */}
                     {user?.role === "admin" && (
                         <li>
-                            <Navigation to="/dashboard" onClick={onClose}>
+                            <Navigation to="/admin/dashBoard" onClick={onClose}>
                                 <span>Dashboard</span>
                             </Navigation>
                         </li>

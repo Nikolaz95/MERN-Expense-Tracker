@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styled from "styled-components";
+import useGreeting from '../../../../../hooks/useGreeting';
 
 const MessageTextSection = styled.section`
     text-align: center;
@@ -13,24 +14,11 @@ const Header = styled.h1`
 `;
 
 const DashBoardTopMessage = () => {
+    const greeting = useGreeting();
 
-
-    const getGreeting = () => {
-        const hour = new Date().getHours();
-
-        if (hour >= 5 && hour < 12) {
-            return "Good Morning";
-        } else if (hour >= 12 && hour < 18) {
-            return "Good Afternoon";
-        } else if (hour >= 18 && hour < 22) {
-            return "Good Evening";
-        } else {
-            return "Good Evening";
-        }
-    };
     return (
         <MessageTextSection>
-            <Header>{getGreeting()}, Nikola</Header>
+            <Header>{greeting}, Nikola</Header>
             <p>This is your finance report</p>
         </MessageTextSection>
     )

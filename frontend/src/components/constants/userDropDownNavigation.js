@@ -16,7 +16,7 @@ export const baseUserLinks = [
 export const adminLinks = [
     {
         id: 0,
-        path: "/dashboard",
+        path: "/admin/dashBoard",
         label: "Dashboard",
         /* icon: DashBoard */
     }

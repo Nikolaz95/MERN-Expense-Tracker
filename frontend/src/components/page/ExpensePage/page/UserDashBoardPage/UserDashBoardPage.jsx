@@ -31,8 +31,7 @@ import DashboardTop from './components/DashboardTop';
 import DashboardMidlleSection from './components/DashboardMidlleSection';
 
 const UserDashBoardPage = () => {
-    titleName('User Expense Page', DashBoardTitleIcon);
-
+    titleName('User DashBoard Page', DashBoardTitleIcon);
     const dashboardDataStore = {
         daily: {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -60,11 +59,8 @@ const UserDashBoardPage = () => {
         <>
             <UserExpenseLayout icon={DashBoardTitleIcon}>
                 <SectionUserDashBoard>
-
                     <DashboardTop />
-
                     <DashboardMidlleSection />
-
                     <GrupedBarChart dataStore={dashboardDataStore} />
                 </SectionUserDashBoard>
             </UserExpenseLayout>

@@ -9,8 +9,10 @@ import MyPortfolio from '../assets/pictures/iconPortfolio.png';
 import HomePageImg from '../assets/pictures/LayoutPicture.png';
 import ErrorImg from '../assets/pictures/errorImg.png';
 import ErrorLayoutImg from '../assets/pictures/errorLayout.png';
+import ErrorIcon from '../assets/pictures/iconError.png';
 
 
 export {
-    CopyRight, GitHub, Gmail, LinkeDin, Location, MyPortfolio, HomePageImg, ErrorImg, ErrorLayoutImg
+    CopyRight, GitHub, Gmail, LinkeDin, Location, MyPortfolio, HomePageImg,
+    ErrorImg, ErrorLayoutImg, ErrorIcon
 }

@@ -5,7 +5,7 @@ import { useMoveBack } from '../../hooks/useMoveBack';
 //import css
 import "./ErrorPage.css";
 import Image from '../../layouts/Images/Image';
-import { ErrorImg, ErrorLayoutImg } from '../../../assets/LogoIcons';
+import { ErrorIcon, ErrorImg, ErrorLayoutImg } from '../../../assets/LogoIcons';
 import MainLayout from '../../layouts/ContentLayout/MainLayout';
 import ImageBackground from '../../layouts/ImageBackground/ImageBackground';
 import Button from '../../layouts/Buttons/Button';
@@ -13,7 +13,7 @@ import { GoBack } from '../../../assets/BtnIcons';
 
 const ErrorPage = () => {
     const goBack = useMoveBack();
-    titleName('Error Page');
+    titleName('Error Page', ErrorIcon);
     return (
         <>
             <MainLayout>

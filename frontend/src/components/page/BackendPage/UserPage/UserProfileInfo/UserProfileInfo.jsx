@@ -1,33 +1,26 @@
 import React from 'react'
 import DashBoardLayout from '../../Layouts/DashBoardLayout'
-import style from "styled-components"
+import titleName from '../../../../hooks/useTitle';
 
 //import css
 import "./UserProfileInfo.css"
-import { DefoultProfile, LogOut } from '../../../../../assets/SideBarIcons'
+import { DefoultProfile, LogOut, UserIcon } from '../../../../../assets/SideBarIcons'
 import Image from '../../../../layouts/Images/Image'
+import UserInfoLayout from '../LayoutUI/UserInfoLayout';
 
-const UserProfileLayouts = style.section`
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-    gap: 20px;
-    height: 100%;
-`
 const UserProfileInfo = () => {
+    titleName('Profile Info', UserIcon);
 
     const user = {
         name: "nikola",
         role: "admin",
         email: "nikolajoe@gmail.com",
         createdAt: "2026-04-15",
-
     }
     return (
         <DashBoardLayout>
             <h1>Profile Info</h1>
-            <UserProfileLayouts>
+            <UserInfoLayout>
                 <div className="userProfileConteiner">
                     <div className="userProfileConteinerTop">
                         <Image src={
@@ -51,8 +44,7 @@ const UserProfileInfo = () => {
                         </div>
                     </div>
                 </div>
-
-            </UserProfileLayouts>
+            </UserInfoLayout>
         </DashBoardLayout>
     )
 }
