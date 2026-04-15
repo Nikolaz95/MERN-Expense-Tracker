@@ -71,7 +71,9 @@ const UserTransactionsPage = () => {
 
                         <section className='transactionSectionMiddle'>
                             <h1>All Transactions :</h1>
-                            <Table data={currentTrans} columns={transactionColumns} />
+                            <Table
+                                noDataText="No transactions found for this category yet !"
+                                data={currentTrans} columns={transactionColumns} />
 
                             <PaginationComponent
                                 data={sortedData}

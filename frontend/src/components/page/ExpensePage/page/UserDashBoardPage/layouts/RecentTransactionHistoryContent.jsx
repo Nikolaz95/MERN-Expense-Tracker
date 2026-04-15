@@ -81,7 +81,8 @@ const RecentTransactionHistoryContent = () => {
                 </Navigation>
             </RecentTransactionTop>
             <section className='recentTransactionSection'>
-                <Table data={transitionData} columns={dashboardColumns} />
+                <Table noDataText="No transactions found for this category yet !"
+                    data={transitionData} columns={dashboardColumns} />
             </section>
         </RecentTransactionArticle>
     )

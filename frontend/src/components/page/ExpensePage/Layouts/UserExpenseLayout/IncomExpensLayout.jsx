@@ -74,7 +74,8 @@ const IncomExpensLayout = ({ titleText, descriptionText, buttonText, onButtonCli
             </IncomExpenseOverviewSection>
             <IncomExpenseHistorySection>
                 <h1>{tableTitle}</h1>
-                <Table data={currentTrans} columns={transactionColumns} />
+                <Table noDataText="No transactions found for this category yet !"
+                    data={currentTrans} columns={transactionColumns} />
                 {/* <TransactionTable currentTrans={currentTrans} /> */}
                 <PaginationComponent
                     data={fullData}

@@ -3,12 +3,25 @@ import React from 'react'
 //import css
 import "./Table.css";
 
-const Table = ({ data = [], columns = [], }) => {
+import styled from "styled-components";
+
+
+
+/* styled css */
+
+const TalbeSectionNoData = styled.section`
+    display: flex;
+    justify-content: center;
+`;
+
+
+
+const Table = ({ data = [], columns = [], noDataText }) => {
     if (data.length === 0) {
         return (
-            <section className='talbeSection'>
-                <p className='noData'>No transactions found for this category.</p>
-            </section>
+            <TalbeSectionNoData>
+                <p className='noDataText'>{noDataText}</p>
+            </TalbeSectionNoData>
         );
     }
     return (
