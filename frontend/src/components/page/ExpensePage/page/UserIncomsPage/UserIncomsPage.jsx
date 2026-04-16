@@ -11,6 +11,7 @@ import transitionData from '../../../../data/TransactionData';
 import Modal from '../../../../layouts/ModalComponent/Modal';
 import Modal1 from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/Modal1';
 import IncomeExpenseModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/IncExp/IncomeExpenseModal';
+import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 
 const UserIncomsPage = () => {
     useTitle('User Income Page', IncomeTitleIcon);
@@ -42,13 +43,19 @@ const UserIncomsPage = () => {
 
     // State to track which modal is open
     const [activeModal, setActiveModal] = useState("");
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
     // Function to close the modal
     const closeModal = () => {
         setActiveModal("");
     };
 
-    const openModal = () => {
+    const openModalAddIncome = () => {
         setActiveModal("content");
+    };
+
+    const openModalDeleteTransaction = (transaction) => {
+        setSelectedTransaction(transaction);
+        setActiveModal("deleteTransaction");
     };
 
     return (
@@ -57,7 +64,8 @@ const UserIncomsPage = () => {
                 <IncomExpensLayout titleText="Income Overview"
                     descriptionText={`${user.userName}, here is your income Overview`}
                     buttonText="Add Income"
-                    onButtonClick={openModal}
+                    openModalAddIncome={openModalAddIncome}
+                    openModalDeleteTransaction={openModalDeleteTransaction}
                     chartTitle="Income Statistics"
                     dataStore={incomeDataStore}
                     themeColor="#4CAF50"
@@ -65,7 +73,7 @@ const UserIncomsPage = () => {
                     fullData={incomeOnlyData} />
             </UserExpenseLayout>
 
-            {/* Modal for Text1 */}
+            {/* Modal for add IncomeExpenseModal */}
             <Modal isOpen={activeModal === "content"} onClose={closeModal}>
                 <IncomeExpenseModal
                     titleText="Add Income"
@@ -75,6 +83,17 @@ const UserIncomsPage = () => {
                     placholderTextDescription="Description about your Income !"
                     type="income"
                     onClose={closeModal} />
+            </Modal>
+
+            {/* Modal Delete */}
+            <Modal isOpen={activeModal === "deleteTransaction"} onClose={closeModal}>
+                <DeleteModal
+                    deleteTitleText="Do you really wanna delete this transaction ?"
+                    underPText={`Are you sure you want to his transaction ?`}
+                    underPText2="This action cannot be undone."
+                    /* onConfirm={confirmDelete} */ // Proslijedi funkciju za brisanje!
+                    onClose={closeModal}
+                />
             </Modal>
         </>
     )

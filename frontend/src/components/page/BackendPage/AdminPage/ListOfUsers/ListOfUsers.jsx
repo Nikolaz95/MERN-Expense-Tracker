@@ -14,6 +14,8 @@ import { UserList } from '../../../../../assets/SideBarIcons';
 import UpdateProfileModal from '../../../../layouts/ModalComponent/UpdateProfileModal/UpdateProfileModal';
 import Modal from '../../../../layouts/ModalComponent/Modal';
 
+import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
+
 
 
 /* styled css */
@@ -46,13 +48,16 @@ const ListOfUsers = () => {
 
     const handleDeleteClick = (userId) => {
         setSelectedUserId(userId);
-        // Ovdje bi išao poziv za delete modal ili confirm
-        console.log("Brisanje korisnika ID:", userId);
-        setActiveModal("deleteAccountAdmin");
+        setActiveModal("deleteUserAccount");
     };
 
-    // ISPRAVLJENO: Proslijeđujemo handleUpdateClick i handleDeleteClick
     const columns = userColumns(handleUpdateClick, handleDeleteClick);
+
+    // Simulacija brisanja za UI test
+    const confirmDelete = () => {
+        console.log("Korisnik obrisan:", selectedUserId);
+        closeModal();
+    };
 
 
     return (
@@ -77,11 +82,22 @@ const ListOfUsers = () => {
                 </section>
             </ListOfUsersSection>
 
+
+            {/* modal update users profile */}
             <Modal isOpen={activeModal === "updateAccount"} onClose={closeModal}>
                 <UpdateProfileModal userId={selectedUserId} onClose={closeModal} />
             </Modal>
 
-
+            {/* Modal Delete */}
+            <Modal isOpen={activeModal === "deleteUserAccount"} onClose={closeModal}>
+                <DeleteModal
+                    deleteTitleText="Do you really wanna delete account?"
+                    underPText={`Are you sure you want to delete user ?`}
+                    underPText2="This action cannot be undone."
+                    onConfirm={confirmDelete} // Proslijedi funkciju za brisanje!
+                    onClose={closeModal}
+                />
+            </Modal>
         </DashBoardLayout>
     )
 }

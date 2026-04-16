@@ -11,7 +11,7 @@ import Image from '../../../../layouts/Images/Image';
 import { DefoultProfile } from '../../../../../assets/SideBarIcons';
 import { iconDelete } from '../../../../../assets/BtnIcons';
 import Modal from '../../../../layouts/ModalComponent/Modal';
-import DeleteAccountModalUser from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteAccountModal/DeleteAccountModalUser';
+import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 
 
 const DeleteAccount = () => {
@@ -65,7 +65,7 @@ const DeleteAccount = () => {
 
             {/* Modal for delete modal */}
             <Modal isOpen={activeModal === "deleteAccountUser"} onClose={closeModal}>
-                <DeleteAccountModalUser onClose={closeModal} /* userId={selectedUserId} */ />
+                <DeleteModal onClose={closeModal} /* userId={selectedUserId} */ />
             </Modal>
         </DashBoardLayout>
     )

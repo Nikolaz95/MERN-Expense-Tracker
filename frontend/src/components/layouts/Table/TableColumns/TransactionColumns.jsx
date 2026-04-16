@@ -15,7 +15,7 @@ display: flex;
 `;
 
 
-export const transactionColumns = [
+export const transactionColumns = (onUpdateClick, openModalDeleteTransaction) => [
     {
         header: "Recipient",
         field: "recipient",
@@ -63,7 +63,11 @@ export const transactionColumns = [
         render: (row) => (
             <TtnTableColumn>
                 <Button variant='btnTable' className='btnTable' title="Info" icon={iconInfo}></Button>
-                <Button variant='btnTable' title="Delete Transaction" icon={iconDelete}></Button>
+                <Button variant='btnTable'
+                    title="Delete Transaction"
+                    icon={iconDelete}
+                    onClick={() => openModalDeleteTransaction(row)}
+                ></Button>
             </TtnTableColumn>
         ),
     },

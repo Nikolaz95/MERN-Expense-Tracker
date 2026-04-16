@@ -60,6 +60,11 @@ const DescriptionCounter = styled.p`
 `;
 
 
+const BottomSection = styled.section`
+   display: flex;
+   justify-content: center;
+`
+
 const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText, placholderTextDescription }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -102,7 +107,11 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
 
                     </DescriptionTransactionSection>
 
-                    <Button>{buttonText}</Button>
+                    <BottomSection>
+                        <Button>{buttonText}</Button>
+
+                    </BottomSection>
+
                 </SectionContent>
             </CustomModalMainContent>
 

@@ -45,7 +45,7 @@ display: flex;
     gap: 20px;
 `;
 
-const IncomExpensLayout = ({ titleText, descriptionText, buttonText, onButtonClick, chartTitle, dataStore, themeColor, tableTitle, fullData }) => {
+const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAddIncome, chartTitle, dataStore, themeColor, tableTitle, fullData, openModalDeleteTransaction }) => {
     const [currentTrans, setCurrentTrans] = useState([]);
     return (
         <IncomExpenseLayout>
@@ -55,7 +55,7 @@ const IncomExpensLayout = ({ titleText, descriptionText, buttonText, onButtonCli
                     <p>{descriptionText}</p>
                 </div>
                 <div className='incomSectionTopLeft'>
-                    <Button onClick={onButtonClick}>
+                    <Button onClick={openModalAddIncome}>
                         {buttonText}
                     </Button>
                 </div>
@@ -75,7 +75,7 @@ const IncomExpensLayout = ({ titleText, descriptionText, buttonText, onButtonCli
             <IncomExpenseHistorySection>
                 <h1>{tableTitle}</h1>
                 <Table noDataText="No transactions found for this category yet !"
-                    data={currentTrans} columns={transactionColumns} />
+                    data={currentTrans} columns={transactionColumns(null, openModalDeleteTransaction)} />
                 {/* <TransactionTable currentTrans={currentTrans} /> */}
                 <PaginationComponent
                     data={fullData}

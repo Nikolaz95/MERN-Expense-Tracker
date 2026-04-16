@@ -4,36 +4,38 @@ import Button from '../../Buttons/Button';
 import { CancelUpdate, SaveUpdate } from '../../../../assets/Icons';
 
 
-const UpdateAccountModalLayout = styled.div`
-    display: flex;
+const CustomModalSection = styled.section`
+display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: bisque;
-    border-radius: 30px;
-`
+    gap: 10px;
+`;
+
+
 const UpdateAccountModalContent = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 20px;
-    background-color: bisque;
-    border-radius: 30px;
 `
 
+const BottonModalSection = styled.section`
+display: flex;
+flex-direction: row;
+gap: 10px;
+
+`;
+
+
 const Input = styled.input`
-border: none;
+border: 1px solid black;
   border-radius: 10px;
 padding: 10px;
 `;
 
 const InputSelect = styled.select`
 width: 100%;
-border: none;
+border: 1px solid black;
 text-align: center;
 border-radius: 10px;
 padding: 10px;
@@ -47,8 +49,8 @@ const UpdateProfileModal = () => {
         createdAt: "2026-04-15",
     } */
     return (
-        <UpdateAccountModalLayout>
-            <h1>Update Profile</h1>
+        <CustomModalSection>
+            <h1 h1 > Update Profile</h1 >
             <UpdateAccountModalContent /* onSubmit={submitHandler} */>
                 <label htmlFor="name_field" className="formLabel">Name:</label>
                 <Input type="text" id="name_field"
@@ -70,17 +72,20 @@ const UpdateProfileModal = () => {
                     <option value="admin">admin</option>
                 </InputSelect>
 
-                <Button type="submit" icon={SaveUpdate}>
-                    {/* <Image src={SaveUpdate} variant='icon' alt="" title='Update' /> */}
-                    Update
-                </Button>
-                <Button type="submit" icon={CancelUpdate}>
-                    {/* <Image src={SaveUpdate} variant='icon' alt="" title='Update' /> */}
-                    Cancel
-                </Button>
+                <BottonModalSection>
+
+                    <Button type="submit" icon={SaveUpdate}>
+                        {/* <Image src={SaveUpdate} variant='icon' alt="" title='Update' /> */}
+                        Update
+                    </Button>
+                    <Button type="submit" icon={CancelUpdate}>
+                        {/* <Image src={SaveUpdate} variant='icon' alt="" title='Update' /> */}
+                        Cancel
+                    </Button>
+                </BottonModalSection>
 
             </UpdateAccountModalContent>
-        </UpdateAccountModalLayout>
+        </CustomModalSection>
     )
 }
 
