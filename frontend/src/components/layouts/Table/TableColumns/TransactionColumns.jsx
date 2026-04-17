@@ -7,7 +7,7 @@ import Button from '../../Buttons/Button.jsx';
 import styled from "styled-components";
 import { iconDelete, iconInfo } from '../../../../assets/BtnIcons.jsx';
 
-const TtnTableColumn = styled.span`
+const BtnTableColumn = styled.span`
 display: flex;
     flex-direction: row;
     justify-content: center;
@@ -61,7 +61,7 @@ export const transactionColumns = (onInfo, onDelete) => [
         field: "date",
         /* className: "tableRowMidle", */
         render: (row) => (
-            <TtnTableColumn>
+            <BtnTableColumn>
                 <Button
                     variant='btnTable'
                     title="Info"
@@ -74,7 +74,7 @@ export const transactionColumns = (onInfo, onDelete) => [
                     icon={iconDelete}
                     onClick={() => onDelete(row)}
                 />
-            </TtnTableColumn>
+            </BtnTableColumn>
         ),
     },
 ];

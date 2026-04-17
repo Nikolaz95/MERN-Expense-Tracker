@@ -48,15 +48,17 @@ display: flex;
 const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAddIncome, chartTitle, dataStore, themeColor, tableTitle, fullData, openModalDeleteTransaction, openModalInfoTransaction }) => {
     const [currentTrans, setCurrentTrans] = useState([]);
 
-    const handleInfo = (row) => {
+    const handleOpenModalInfo = (row) => {
+        console.log("INFO TRANSACTION:", row);
         openModalInfoTransaction(row);
     };
 
-    const handleDelete = (row) => {
+    const handleOpenModalDelete = (row) => {
+        console.log("DELETE TRANSACTION:", row);
         openModalDeleteTransaction(row);
     };
 
-    const columns = transactionColumns(handleInfo, handleDelete);
+    const columns = transactionColumns(handleOpenModalInfo, handleOpenModalDelete);
     return (
         <IncomExpenseLayout>
             <IncomExpenseSectionTop>

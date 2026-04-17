@@ -13,6 +13,7 @@ import Modal1 from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent
 import IncomeExpenseModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/IncExp/IncomeExpenseModal';
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
+import useTransactionModal from '../../../../hooks/useModal';
 
 const UserIncomsPage = () => {
     useTitle('User Income Page', IncomeTitleIcon);
@@ -42,37 +43,29 @@ const UserIncomsPage = () => {
         userName: "Nikola",
     }
 
-    // State to track which modal is open
-    const [activeModal, setActiveModal] = useState("");
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
-    // Function to close the modal
-    const closeModal = () => {
-        setActiveModal("");
-    };
-
-    const openModalAddIncome = () => {
-        setActiveModal("content");
-    };
-
-    const openModalDeleteTransaction = (transaction) => {
-        setSelectedTransaction(transaction);
-        setActiveModal("deleteTransaction");
-    };
-
-    const openModalInfoTransaction = (transaction) => {
-        setSelectedTransaction(transaction);
-        setActiveModal("infoTransaction");
-    };
+    // ✅ HOOK ZA INFO / DELETE
+    const {
+        activeModal,
+        selectedTransaction,
+        openAddIncomeModal,
+        openInfoModal,
+        openDeleteModal,
+        closeModal
+    } = useTransactionModal();
 
     return (
         <>
             <UserExpenseLayout icon={IncomeTitleIcon}>
-                <IncomExpensLayout titleText="Income Overview"
+                <IncomExpensLayout
+                    titleText="Income Overview"
                     descriptionText={`${user.userName}, here is your income Overview`}
                     buttonText="Add Income"
-                    openModalAddIncome={openModalAddIncome}
-                    openModalDeleteTransaction={openModalDeleteTransaction}
-                    openModalInfoTransaction={openModalInfoTransaction}
+
+                    // ✅ OVO JE KLJUČ
+                    openModalAddIncome={openAddIncomeModal}
+                    openModalDeleteTransaction={openDeleteModal}
+                    openModalInfoTransaction={openInfoModal}
+
                     chartTitle="Income Statistics"
                     dataStore={incomeDataStore}
                     themeColor="#4CAF50"
@@ -81,7 +74,7 @@ const UserIncomsPage = () => {
             </UserExpenseLayout>
 
             {/* Modal for add IncomeExpenseModal */}
-            <Modal isOpen={activeModal === "content"} onClose={closeModal}>
+            <Modal isOpen={activeModal === "addIncome"} onClose={closeModal}>
                 <IncomeExpenseModal
                     titleText="Add Income"
                     underTitleText="Choose a category to set a income budget. These categories can help you monitor spending."
@@ -94,23 +87,24 @@ const UserIncomsPage = () => {
 
 
             {/* Modal Info transaction */}
-            <Modal isOpen={activeModal === "infoTransaction"} onClose={closeModal}>
+            <Modal isOpen={activeModal === "info"} onClose={closeModal}>
                 <InfoTransactionModal
                     deleteTitleText="Do you really wanna delete this transaction ?"
                     underPText={`Are you sure you want to his transaction ?`}
                     underPText2="This action cannot be undone."
-                    /* onConfirm={confirmDelete} */ // Proslijedi funkciju za brisanje!
+
+                    transaction={selectedTransaction}
                     onClose={closeModal}
                 />
             </Modal>
 
             {/* Modal Delete */}
-            <Modal isOpen={activeModal === "deleteTransaction"} onClose={closeModal}>
+            <Modal isOpen={activeModal === "delete"} onClose={closeModal}>
                 <DeleteModal
-                    deleteTitleText="Do you really wanna delete this transaction ?"
-                    underPText={`Are you sure you want to his transaction ?`}
-                    underPText2="This action cannot be undone."
-                    /* onConfirm={confirmDelete} */ // Proslijedi funkciju za brisanje!
+                    deleteTitleText="Are you sure you want to his transaction ?"
+                    underPText="This action cannot be undone."
+
+                    transaction={selectedTransaction}
                     onClose={closeModal}
                 />
             </Modal>

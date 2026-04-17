@@ -17,7 +17,7 @@
   border: 1px solid;
 }
 
-.btnTable {
+.btnTable, .btnModal {
   padding:  0px;
   background-color: transparent;
 }

@@ -11,36 +11,33 @@ const DeleteModalLayout = style.section`
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 20px;
-    background-color: bisque;
-    border-radius: 20px;
+        border-radius: 20px;
+        background-color: bisque;
 `
-const DeleteModalContent = style.main`
+const DeleteModalBtnContent = style.main`
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 20px;
-    background-color: bisque;
+    
 `
 
-const DeleteModal = ({ deleteTitleText, underPText, underPText2, onConfirm, onClose }) => {
+const DeleteModal = ({ deleteTitleText, underPText, onConfirm, onClose }) => {
     return (
         <DeleteModalLayout>
             <h1>{deleteTitleText}</h1>
             <p>{underPText}</p>
-            <p>{underPText2}</p>
-            <DeleteModalContent>
+            <DeleteModalBtnContent>
                 {/* Potvrda brisanja */}
-                <Button onClick={onConfirm}>
+                <Button onClick={onConfirm} variant='btnModal'>
                     <Image src={ConfirmUpdate} variant='iconImg' />
                 </Button>
                 {/* Odustajanje */}
-                <Button onClick={onClose}>
+                <Button variant='btnModal' onClick={onClose}>
                     <Image src={CancelUpdate} variant='iconImg' />
                 </Button>
-            </DeleteModalContent>
+            </DeleteModalBtnContent>
         </DeleteModalLayout>
     )
 }

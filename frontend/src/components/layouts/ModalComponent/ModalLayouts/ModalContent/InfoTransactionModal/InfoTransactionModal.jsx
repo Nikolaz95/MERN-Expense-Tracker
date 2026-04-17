@@ -17,18 +17,18 @@ const UpdateAccountModalContent = styled.form`
     gap: 20px;
 `
 
-const InfoTransactionModal = () => {
+const InfoTransactionModal = ({ transaction, onClose }) => {
     return (
         <CustomModalSection>
             <UpdateAccountModalContent>
                 <h2>Recipient</h2>
-                <p>Tech Solutions Inc</p>
+                <p>{transaction.recipient}</p>
                 <h2>Category</h2>
-                <p>salary</p>
+                <p>{transaction.category}</p>
                 <h2>Transaction Date</h2>
-                <p>Feb 1, 2026</p>
+                <p>{transaction.date}</p>
                 <h2>Amount</h2>
-                <p>€4200</p>
+                <p>{transaction.amount}</p>
             </UpdateAccountModalContent>
         </CustomModalSection>
     )

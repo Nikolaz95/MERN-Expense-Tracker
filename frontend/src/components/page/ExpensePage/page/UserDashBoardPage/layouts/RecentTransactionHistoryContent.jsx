@@ -41,28 +41,10 @@ display: flex;
 
 // import data
 import transitionData from '../../../../../data/TransactionData';
-import useTransactionModal from '../../../../../hooks/useTransactionModal'
+import useTransactionModal from '../../../../../hooks/useModal'
 const RecentTransactionHistoryContent = () => {
-
-    // ✅ moraš imati dummy funkcije (jer kolone to očekuju)
-    /* const handleInfo = (row) => {
-        console.log("INFO:", row);
-    };
-
-    const handleDelete = (row) => {
-        console.log("DELETE:", row);
-    }; */
-
-    const {
-        activeModal,
-        selectedTransaction,
-        openInfo,
-        openDelete,
-        closeModal
-    } = useTransactionModal();
-
     // ✅ OVO JE KLJUČ — POZIVAŠ FUNKCIJU
-    const columns = transactionColumns(openInfo, openDelete);
+    const columns = transactionColumns();
 
     // ✅ SAD možeš koristiti filter
     const dashboardColumns = columns.filter(col =>
@@ -82,7 +64,7 @@ const RecentTransactionHistoryContent = () => {
             <section className='recentTransactionSection'>
                 <Table noDataText="No transactions found for this category yet !"
                     data={transitionData}
-                    columns={columns} />
+                    columns={dashboardColumns} />
             </section>
         </RecentTransactionArticle>
     )

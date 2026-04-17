@@ -4,14 +4,19 @@ const useTransactionModal = () => {
     const [activeModal, setActiveModal] = useState("");
     const [selectedTransaction, setSelectedTransaction] = useState(null);
 
+    // OPEN Add Income
+    const openAddIncomeModal = () => {
+        setActiveModal("addIncome");
+    };
+
     // OPEN INFO
-    const openInfo = (transaction) => {
+    const openInfoModal = (transaction) => {
         setSelectedTransaction(transaction);
         setActiveModal("info");
     };
 
     // OPEN DELETE
-    const openDelete = (transaction) => {
+    const openDeleteModal = (transaction) => {
         setSelectedTransaction(transaction);
         setActiveModal("delete");
     };
@@ -25,8 +30,9 @@ const useTransactionModal = () => {
     return {
         activeModal,
         selectedTransaction,
-        openInfo,
-        openDelete,
+        openAddIncomeModal,
+        openInfoModal,
+        openDeleteModal,
         closeModal
     };
 };
