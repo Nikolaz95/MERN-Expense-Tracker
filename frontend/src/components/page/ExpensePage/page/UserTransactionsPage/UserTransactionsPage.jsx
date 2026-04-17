@@ -51,7 +51,15 @@ const UserTransactionsPage = () => {
     }
 
 
+    const handleInfo = (row) => {
+        console.log("INFO:", row);
+    };
 
+    const handleDelete = (row) => {
+        console.log("DELETE:", row);
+    };
+
+    const columns = transactionColumns(handleInfo, handleDelete);
 
     return (
         <>
@@ -73,7 +81,8 @@ const UserTransactionsPage = () => {
                             <h1>All Transactions :</h1>
                             <Table
                                 noDataText="No transactions found for this category yet !"
-                                data={currentTrans} columns={transactionColumns} />
+                                data={currentTrans}
+                                columns={columns} />
 
                             <PaginationComponent
                                 data={sortedData}

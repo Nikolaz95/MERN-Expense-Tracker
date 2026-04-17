@@ -12,6 +12,7 @@ import Modal from '../../../../layouts/ModalComponent/Modal';
 import Modal1 from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/Modal1';
 import IncomeExpenseModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/IncExp/IncomeExpenseModal';
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
+import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
 
 const UserIncomsPage = () => {
     useTitle('User Income Page', IncomeTitleIcon);
@@ -58,6 +59,11 @@ const UserIncomsPage = () => {
         setActiveModal("deleteTransaction");
     };
 
+    const openModalInfoTransaction = (transaction) => {
+        setSelectedTransaction(transaction);
+        setActiveModal("infoTransaction");
+    };
+
     return (
         <>
             <UserExpenseLayout icon={IncomeTitleIcon}>
@@ -66,6 +72,7 @@ const UserIncomsPage = () => {
                     buttonText="Add Income"
                     openModalAddIncome={openModalAddIncome}
                     openModalDeleteTransaction={openModalDeleteTransaction}
+                    openModalInfoTransaction={openModalInfoTransaction}
                     chartTitle="Income Statistics"
                     dataStore={incomeDataStore}
                     themeColor="#4CAF50"
@@ -83,6 +90,18 @@ const UserIncomsPage = () => {
                     placholderTextDescription="Description about your Income !"
                     type="income"
                     onClose={closeModal} />
+            </Modal>
+
+
+            {/* Modal Info transaction */}
+            <Modal isOpen={activeModal === "infoTransaction"} onClose={closeModal}>
+                <InfoTransactionModal
+                    deleteTitleText="Do you really wanna delete this transaction ?"
+                    underPText={`Are you sure you want to his transaction ?`}
+                    underPText2="This action cannot be undone."
+                    /* onConfirm={confirmDelete} */ // Proslijedi funkciju za brisanje!
+                    onClose={closeModal}
+                />
             </Modal>
 
             {/* Modal Delete */}

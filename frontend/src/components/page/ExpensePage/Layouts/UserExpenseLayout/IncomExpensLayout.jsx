@@ -45,8 +45,18 @@ display: flex;
     gap: 20px;
 `;
 
-const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAddIncome, chartTitle, dataStore, themeColor, tableTitle, fullData, openModalDeleteTransaction }) => {
+const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAddIncome, chartTitle, dataStore, themeColor, tableTitle, fullData, openModalDeleteTransaction, openModalInfoTransaction }) => {
     const [currentTrans, setCurrentTrans] = useState([]);
+
+    const handleInfo = (row) => {
+        openModalInfoTransaction(row);
+    };
+
+    const handleDelete = (row) => {
+        openModalDeleteTransaction(row);
+    };
+
+    const columns = transactionColumns(handleInfo, handleDelete);
     return (
         <IncomExpenseLayout>
             <IncomExpenseSectionTop>
@@ -75,8 +85,7 @@ const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAd
             <IncomExpenseHistorySection>
                 <h1>{tableTitle}</h1>
                 <Table noDataText="No transactions found for this category yet !"
-                    data={currentTrans} columns={transactionColumns(null, openModalDeleteTransaction)} />
-                {/* <TransactionTable currentTrans={currentTrans} /> */}
+                    data={currentTrans} columns={columns} />
                 <PaginationComponent
                     data={fullData}
                     itemsPerPage={10}

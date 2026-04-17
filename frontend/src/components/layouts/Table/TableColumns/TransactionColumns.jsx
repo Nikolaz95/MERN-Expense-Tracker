@@ -15,7 +15,7 @@ display: flex;
 `;
 
 
-export const transactionColumns = (onUpdateClick, openModalDeleteTransaction) => [
+export const transactionColumns = (onInfo, onDelete) => [
     {
         header: "Recipient",
         field: "recipient",
@@ -62,12 +62,18 @@ export const transactionColumns = (onUpdateClick, openModalDeleteTransaction) =>
         /* className: "tableRowMidle", */
         render: (row) => (
             <TtnTableColumn>
-                <Button variant='btnTable' className='btnTable' title="Info" icon={iconInfo}></Button>
-                <Button variant='btnTable'
-                    title="Delete Transaction"
+                <Button
+                    variant='btnTable'
+                    title="Info"
+                    icon={iconInfo}
+                    onClick={() => onInfo(row)}
+                />
+                <Button
+                    variant='btnTable'
+                    title="Delete"
                     icon={iconDelete}
-                    onClick={() => openModalDeleteTransaction(row)}
-                ></Button>
+                    onClick={() => onDelete(row)}
+                />
             </TtnTableColumn>
         ),
     },
