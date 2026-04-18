@@ -15,6 +15,7 @@ import UpdateProfileModal from '../../../../layouts/ModalComponent/UpdateProfile
 import Modal from '../../../../layouts/ModalComponent/Modal';
 
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
+import { useModal } from '../../../../context/modals/ModalContext';
 
 
 
@@ -36,29 +37,9 @@ const ListOfUsers = () => {
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [currentUsers, setCurrentUsers] = useState([]);
 
-    const closeModal = () => {
-        setActiveModal("");
-        setSelectedUserId(null);
-    };
+    const { openUpdateUserModal, openDeleteUserModal } = useModal();
 
-    const handleUpdateClick = (userId) => {
-        setSelectedUserId(userId);
-        setActiveModal("updateAccount");
-    };
-
-    const handleDeleteClick = (userId) => {
-        setSelectedUserId(userId);
-        setActiveModal("deleteUserAccount");
-    };
-
-    const columns = userColumns(handleUpdateClick, handleDeleteClick);
-
-    // Simulacija brisanja za UI test
-    const confirmDelete = () => {
-        console.log("Korisnik obrisan:", selectedUserId);
-        closeModal();
-    };
-
+    const columns = userColumns(openUpdateUserModal, openDeleteUserModal);
 
     return (
         <DashBoardLayout>
@@ -70,7 +51,6 @@ const ListOfUsers = () => {
                         data={currentUsers}
                         columns={columns}
                     />
-
                 </section>
 
                 <section className='listOfUsersPagination'>
@@ -81,23 +61,6 @@ const ListOfUsers = () => {
                     />
                 </section>
             </ListOfUsersSection>
-
-
-            {/* modal update users profile */}
-            <Modal isOpen={activeModal === "updateAccount"} onClose={closeModal}>
-                <UpdateProfileModal userId={selectedUserId} onClose={closeModal} />
-            </Modal>
-
-            {/* Modal Delete */}
-            <Modal isOpen={activeModal === "deleteUserAccount"} onClose={closeModal}>
-                <DeleteModal
-                    deleteTitleText="Do you really wanna delete account?"
-                    underPText={`Are you sure you want to delete user ?`}
-                    underPText2="This action cannot be undone."
-                    onConfirm={confirmDelete} // Proslijedi funkciju za brisanje!
-                    onClose={closeModal}
-                />
-            </Modal>
         </DashBoardLayout>
     )
 }

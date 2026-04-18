@@ -12,6 +12,7 @@ import Modal from '../../../../layouts/ModalComponent/Modal';
 import useTransactionModal from '../../../../hooks/useModal';
 import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
+import { useModal } from '../../../../context/modals/ModalContext';
 
 
 const UserExpasePage = () => {
@@ -43,14 +44,8 @@ const UserExpasePage = () => {
         }
     };
 
-    const {
-        activeModal,
-        selectedTransaction,
-        openAddExpenseModal,
-        openInfoModal,
-        openDeleteModal,
-        closeModal
-    } = useTransactionModal();
+    // ← SAMO OVO, bez useState, bez starih hookova
+    const { openAddExpenseModal, openInfoModal, openDeleteModal } = useModal();
 
     return (
         <>
@@ -69,38 +64,6 @@ const UserExpasePage = () => {
                     tableTitle="Expense History"
                     fullData={expenseOnlyData} />
             </UserExpenseLayout>
-
-            {/* ADD EXPENSE MODAL */}
-            <Modal isOpen={activeModal === "addExpense"} onClose={closeModal}>
-                <IncomeExpenseModal
-                    titleText="Add Expense"
-                    underTitleText="Choose a category to set a expense budget. These categories can help you monitor spending."
-                    buttonText="Add Expense"
-                    placholderText="Expense Amount"
-                    placholderTextDescription="Description about your expense !"
-                    type="expense"
-                    onClose={closeModal} />
-            </Modal>
-
-
-            {/* Modal Info transaction */}
-            <Modal isOpen={activeModal === "info"} onClose={closeModal}>
-                <InfoTransactionModal
-                    transaction={selectedTransaction}
-                    onClose={closeModal}
-                />
-            </Modal>
-
-            {/* Modal Delete */}
-            <Modal isOpen={activeModal === "delete"} onClose={closeModal}>
-                <DeleteModal
-                    deleteTitleText="Are you sure you wanna delete this transaction ?"
-                    underPText="This action cannot be undone."
-
-                    transaction={selectedTransaction}
-                    onClose={closeModal}
-                />
-            </Modal>
         </>
     )
 }
