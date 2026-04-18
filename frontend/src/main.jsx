@@ -12,13 +12,13 @@ import UserExpasePage from './components/page/ExpensePage/page/UserExpasePage/Us
 import SingIn from './components/page/AuthPage/SingIn/SingIn.jsx';
 import Register from './components/page/AuthPage/Register/Register.jsx';
 import UserCurrencySettingsPage from './components/page/ExpensePage/page/UserCurrencySettingsPage/UserCurrencySettingsPage.jsx';
-import { CurrencyProvider } from './context/CurrencyContext.jsx';
 import UserDashBoardPage from './components/page/ExpensePage/page/UserDashBoardPage/UserDashBoardPage.jsx';
 import { AdminRoutes } from './components/routes/AdminRoutes.jsx';
 import { UserRoutes } from './components/routes/UserRoutes.jsx';
 import GlobalModals from './components/context/modals/GlobalModals.jsx';
 import { ModalProvider } from './components/context/modals/ModalContext.jsx';
 import DashboardLayout from './components/layouts/DashboardLayout.jsx';
+import { CurrencyProvider } from './components/context/CurrencyContext/CurrencyContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -78,37 +78,13 @@ const router = createBrowserRouter([
     ]
   }
 
-  /* {
-    path: "/userDashBoard",
-    element: <UserDashBoardPage />
-  },
-  {
-    path: "/userTransactions",
-    element: <UserTransactionsPage />
-  },
-  {
-    path: "/userIncoms",
-    element: <UserIncomsPage />
-  },
-  {
-    path: "/userExpenses",
-    element: <UserExpasePage />
-  },
-  {
-    path: "/currencySettings",
-    element: <UserCurrencySettingsPage />
-  }, */
-
-
-
-
 ])
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <CurrencyProvider>
-      <ModalProvider>              {/* ← dodaš ovdje */}
+      <ModalProvider>
         <RouterProvider router={router} />
       </ModalProvider>
     </CurrencyProvider>

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import useFetch from "../components/hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 
 const CurrencyContext = createContext();
 

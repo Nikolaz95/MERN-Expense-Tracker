@@ -6,6 +6,7 @@ import Button from '../../Buttons/Button.jsx';
 // styled css
 import styled from "styled-components";
 import { iconDelete, iconInfo } from '../../../../assets/BtnIcons.jsx';
+import { useCurrency } from '../../../context/CurrencyContext/CurrencyContext.jsx';
 
 const BtnTableColumn = styled.span`
 display: flex;
@@ -15,66 +16,70 @@ display: flex;
 `;
 
 
-export const transactionColumns = (onInfo, onDelete) => [
-    {
-        header: "Recipient",
-        field: "recipient",
-        render: (row) => {
-            const categoryObj = transactionCategories.find(c => c.value === row.category);
-            const icon = categoryObj?.icon ?? "💳";
+export const transactionColumns = (onInfo, onDelete) => {
+    const { convert, currency } = useCurrency();
+    return [
 
-            return (
-                <div className="tableDataContent">
-                    <span style={{ fontSize: "1.5rem" }}>{icon}</span>
-                    <span>{row.recipient}</span>
-                </div>
-            );
+        {
+            header: "Recipient",
+            field: "recipient",
+            render: (row) => {
+                const categoryObj = transactionCategories.find(c => c.value === row.category);
+                const icon = categoryObj?.icon ?? "💳";
+
+                return (
+                    <div className="tableDataContent">
+                        <span style={{ fontSize: "1.5rem" }}>{icon}</span>
+                        <span>{row.recipient}</span>
+                    </div>
+                );
+            },
         },
-    },
-    {
-        header: "Category",
-        field: "category",
-        className: "tableRowMidle",
-    },
-    {
-        header: "Transaction Date",
-        field: "date",
-        className: "tableRowMidle",
-    },
-    {
-        header: "Amount",
-        field: "amount",
-        className: "tableRowMidle",
-        render: (row) => (
-            <span
-                style={{
-                    color: row.amount < 0 ? "red" : "green",
-                    fontWeight: "bold",
-                }}
-            >
-                €{row.amount}
-            </span>
-        ),
-    },
-    {
-        header: "Info",
-        field: "date",
-        /* className: "tableRowMidle", */
-        render: (row) => (
-            <BtnTableColumn>
-                <Button
-                    variant='btnTable'
-                    title="Info"
-                    icon={iconInfo}
-                    onClick={() => onInfo(row)}
-                />
-                <Button
-                    variant='btnTable'
-                    title="Delete"
-                    icon={iconDelete}
-                    onClick={() => onDelete(row)}
-                />
-            </BtnTableColumn>
-        ),
-    },
-];
+        {
+            header: "Category",
+            field: "category",
+            className: "tableRowMidle",
+        },
+        {
+            header: "Transaction Date",
+            field: "date",
+            className: "tableRowMidle",
+        },
+        {
+            header: "Amount",
+            field: "amount",
+            className: "tableRowMidle",
+            render: (row) => (
+                <span
+                    style={{
+                        color: row.amount < 0 ? "red" : "green",
+                        fontWeight: "bold",
+                    }}
+                >
+                    {currency.symbol} {convert(row.amount)}
+                </span>
+            ),
+        },
+        {
+            header: "Info",
+            field: "date",
+            /* className: "tableRowMidle", */
+            render: (row) => (
+                <BtnTableColumn>
+                    <Button
+                        variant='btnTable'
+                        title="Info"
+                        icon={iconInfo}
+                        onClick={() => onInfo(row)}
+                    />
+                    <Button
+                        variant='btnTable'
+                        title="Delete"
+                        icon={iconDelete}
+                        onClick={() => onDelete(row)}
+                    />
+                </BtnTableColumn>
+            ),
+        },
+    ]
+};

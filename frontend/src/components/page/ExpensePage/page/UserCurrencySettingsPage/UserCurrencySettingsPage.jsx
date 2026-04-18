@@ -7,7 +7,7 @@ import { CurrencyExchange } from '../../../../../assets/SideBarIcons';
 import styled from "styled-components";
 //import css
 import "./UserCurrencySettingsPage.css";
-import { useCurrency } from '../../../../../context/CurrencyContext';
+import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext';
 
 const UserCurrencySettingsLayout = styled.main`
     display: flex;
