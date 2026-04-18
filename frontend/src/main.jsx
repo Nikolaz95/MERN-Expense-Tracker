@@ -16,6 +16,9 @@ import { CurrencyProvider } from './context/CurrencyContext.jsx';
 import UserDashBoardPage from './components/page/ExpensePage/page/UserDashBoardPage/UserDashBoardPage.jsx';
 import { AdminRoutes } from './components/routes/AdminRoutes.jsx';
 import { UserRoutes } from './components/routes/UserRoutes.jsx';
+import GlobalModals from './components/context/modals/GlobalModals.jsx';
+import { ModalProvider } from './components/context/modals/ModalContext.jsx';
+import DashboardLayout from './components/layouts/DashboardLayout.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +53,32 @@ const router = createBrowserRouter([
   },
 
   {
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "/userDashBoard",
+        element: <UserDashBoardPage />
+      },
+      {
+        path: "/userTransactions",
+        element: <UserTransactionsPage />
+      },
+      {
+        path: "/userIncoms",
+        element: <UserIncomsPage />
+      },
+      {
+        path: "/userExpenses",
+        element: <UserExpasePage />
+      },
+      {
+        path: "/currencySettings",
+        element: <UserCurrencySettingsPage />
+      },
+    ]
+  }
+
+  /* {
     path: "/userDashBoard",
     element: <UserDashBoardPage />
   },
@@ -68,7 +97,7 @@ const router = createBrowserRouter([
   {
     path: "/currencySettings",
     element: <UserCurrencySettingsPage />
-  },
+  }, */
 
 
 
@@ -79,7 +108,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <CurrencyProvider>
-      <RouterProvider router={router} />
+      <ModalProvider>              {/* ← dodaš ovdje */}
+        <RouterProvider router={router} />
+      </ModalProvider>
     </CurrencyProvider>
   </StrictMode>,
 )

@@ -18,6 +18,7 @@ import SearchForm from '../../../../layouts/SearchForm/SearchForm';
 import { useSearchParams } from 'react-router-dom';
 import { sortTransactions } from '../../../../constants/sortOptions';
 import transitionAllData from '../../../../data/TransactionData';
+import { useModal } from '../../../../context/modals/ModalContext';
 
 
 const UserTransactionsPage = () => {
@@ -50,13 +51,17 @@ const UserTransactionsPage = () => {
         setSearchParams(searchParams);
     }
 
+    // ← SAMO OVO, bez useState, bez starih hookova
+    const { openInfoModal, openDeleteModal } = useModal();
 
     const handleInfo = (row) => {
-        console.log("INFO:", row);
+        console.log("INFO TRANSACTION:", row);
+        openInfoModal(row);
     };
 
     const handleDelete = (row) => {
-        console.log("DELETE:", row);
+        console.log("DELETE TRANSACTION:", row);
+        openDeleteModal(row);
     };
 
     const columns = transactionColumns(handleInfo, handleDelete);

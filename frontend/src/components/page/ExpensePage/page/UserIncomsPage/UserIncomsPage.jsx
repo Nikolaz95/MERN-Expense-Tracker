@@ -14,6 +14,7 @@ import IncomeExpenseModal from '../../../../layouts/ModalComponent/ModalLayouts/
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
 import useTransactionModal from '../../../../hooks/useModal';
+import { useModal } from '../../../../context/modals/ModalContext';
 
 const UserIncomsPage = () => {
     useTitle('User Income Page', IncomeTitleIcon);
@@ -43,15 +44,8 @@ const UserIncomsPage = () => {
         userName: "Nikola",
     }
 
-    // ✅ HOOK ZA INFO / DELETE
-    const {
-        activeModal,
-        selectedTransaction,
-        openAddIncomeModal,
-        openInfoModal,
-        openDeleteModal,
-        closeModal
-    } = useTransactionModal();
+    // ← SAMO OVO, bez useState, bez starih hookova
+    const { openAddIncomeModal, openInfoModal, openDeleteModal } = useModal();
 
     return (
         <>
@@ -63,8 +57,8 @@ const UserIncomsPage = () => {
 
                     // ✅ OVO JE KLJUČ
                     openModalAddIncome={openAddIncomeModal}
-                    openModalDeleteTransaction={openDeleteModal}
                     openModalInfoTransaction={openInfoModal}
+                    openModalDeleteTransaction={openDeleteModal}
 
                     chartTitle="Income Statistics"
                     dataStore={incomeDataStore}
@@ -72,38 +66,6 @@ const UserIncomsPage = () => {
                     tableTitle="Income History"
                     fullData={incomeOnlyData} />
             </UserExpenseLayout>
-
-            {/* Modal for add IncomeExpenseModal */}
-            <Modal isOpen={activeModal === "addIncome"} onClose={closeModal}>
-                <IncomeExpenseModal
-                    titleText="Add Income"
-                    underTitleText="Choose a category to set a income budget. These categories can help you monitor spending."
-                    buttonText="Add Income"
-                    placholderText="Income Amount"
-                    placholderTextDescription="Description about your Income !"
-                    type="income"
-                    onClose={closeModal} />
-            </Modal>
-
-
-            {/* Modal Info transaction */}
-            <Modal isOpen={activeModal === "info"} onClose={closeModal}>
-                <InfoTransactionModal
-                    transaction={selectedTransaction}
-                    onClose={closeModal}
-                />
-            </Modal>
-
-            {/* Modal Delete */}
-            <Modal isOpen={activeModal === "delete"} onClose={closeModal}>
-                <DeleteModal
-                    deleteTitleText="Are you sure you wanna delete this transaction ?"
-                    underPText="This action cannot be undone."
-
-                    transaction={selectedTransaction}
-                    onClose={closeModal}
-                />
-            </Modal>
         </>
     )
 }
