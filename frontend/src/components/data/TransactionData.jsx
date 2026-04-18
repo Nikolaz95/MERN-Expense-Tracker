@@ -122,7 +122,77 @@ const TransactionData = [
         type: 'income',
     },
 
+    {
+        id: 37,
+        recipient: 'Dividend Payout',
+        category: 'savings',
+        date: 'Apr 13, 2026',
+        amount: 12000,
+        type: 'income',
+    },
+
+    {
+        id: 38,
+        recipient: 'Dividend Payout',
+        category: 'savings',
+        date: 'Apr 14, 2026',
+        amount: 15000,
+        type: 'income',
+    },
+
+    {
+        id: 43,
+        recipient: 'Dividend Payout',
+        category: 'savings',
+        date: 'Apr 6, 2026',
+        amount: 12000,
+        type: 'income',
+    },
+
+    {
+        id: 44,
+        recipient: 'Dividend Payout',
+        category: 'savings',
+        date: 'Apr 8, 2026',
+        amount: 15000,
+        type: 'income',
+    },
+
     // --- EXPENSES (Rashodi) ---
+
+    {
+        id: 39,
+        recipient: 'Dividend Payout',
+        category: 'utilities',
+        date: 'Apr 13, 2026',
+        amount: -10000,
+        type: 'expense',
+    },
+    {
+        id: 40,
+        recipient: 'Dividend Payout',
+        category: 'utilities',
+        date: 'Apr 14, 2026',
+        amount: -20000,
+        type: 'expense',
+    },
+
+    {
+        id: 41,
+        recipient: 'Dividend Payout',
+        category: 'utilities',
+        date: 'Apr 6, 2026',
+        amount: -10000,
+        type: 'expense',
+    },
+    {
+        id: 42,
+        recipient: 'Dividend Payout',
+        category: 'utilities',
+        date: 'Apr 8, 2026',
+        amount: -20000,
+        type: 'expense',
+    },
     {
         id: 16,
         recipient: 'Apartment Owner',

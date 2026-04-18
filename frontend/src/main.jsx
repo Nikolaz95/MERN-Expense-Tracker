@@ -19,6 +19,7 @@ import GlobalModals from './components/context/modals/GlobalModals.jsx';
 import { ModalProvider } from './components/context/modals/ModalContext.jsx';
 import DashboardLayout from './components/layouts/DashboardLayout.jsx';
 import { CurrencyProvider } from './components/context/CurrencyContext/CurrencyContext.jsx';
+import { TransactionProvider } from './components/context/TransactionContext/TransactionContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -84,9 +85,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <CurrencyProvider>
-      <ModalProvider>
-        <RouterProvider router={router} />
-      </ModalProvider>
+      <TransactionProvider>
+        <ModalProvider>
+          <RouterProvider router={router} />
+        </ModalProvider>
+      </TransactionProvider>
     </CurrencyProvider>
   </StrictMode>,
 )

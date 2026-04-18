@@ -6,7 +6,6 @@ import Button from '../../Buttons/Button.jsx';
 // styled css
 import styled from "styled-components";
 import { iconDelete, iconInfo } from '../../../../assets/BtnIcons.jsx';
-import { useCurrency } from '../../../context/CurrencyContext/CurrencyContext.jsx';
 
 const BtnTableColumn = styled.span`
 display: flex;
@@ -16,8 +15,7 @@ display: flex;
 `;
 
 
-export const transactionColumns = (onInfo, onDelete) => {
-    const { convert, currency } = useCurrency();
+export const transactionColumns = (onInfo, onDelete, convert, currency) => {
     return [
 
         {

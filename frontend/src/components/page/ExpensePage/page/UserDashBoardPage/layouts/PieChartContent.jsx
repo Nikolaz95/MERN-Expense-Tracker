@@ -1,6 +1,7 @@
 import React from 'react'
 import PieChart from '../../../../../layouts/Chart/PieChart'
 import styled from "styled-components";
+import { useTransaction } from '../../../../../context/TransactionContext/TransactionContext';
 
 
 const PieChartMainSection = styled.article`
@@ -16,11 +17,7 @@ display: flex;
 const PieChartContent = () => {
     return (
         <PieChartMainSection>
-            <PieChart
-                income={110}
-                expenses={20}
-                title="Financial Overview"
-            />
+            <PieChart title="Financial Overview" />
         </PieChartMainSection>
     )
 }

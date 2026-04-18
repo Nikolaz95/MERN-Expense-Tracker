@@ -15,34 +15,15 @@ import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalCo
 import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
 import useTransactionModal from '../../../../hooks/useModal';
 import { useModal } from '../../../../context/modals/ModalContext';
+import { useTransaction } from '../../../../context/TransactionContext/TransactionContext';
 
 const UserIncomsPage = () => {
     useTitle('User Income Page', IncomeTitleIcon);
+    const user = { id: 1, userName: "Nikola" }
     const incomeOnlyData = transitionData.filter(item => item.type === 'income');
 
-    // Samo podaci koji su specifični za Income
-    const incomeDataStore = {
-        '7days': {
-            labels: ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'],
-            values: [120, 190, 300, 500, 220, 340, 410],
-        },
-        'month': {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-            values: [1200, 1900, 1500, 2100, 1200, 1900, 1500, 2100, 1200, 1900, 1500, 2100],
-        },
-        'year': {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-            years: [
-                { label: '2026', values: [500, 600, 700, 550, 800, 750, 500, 600, 700, 550, 800, 750] },
-                { label: '2027', values: [650, 720, 800, 600, 950, 1100, 650, 720, 800, 600, 950, 1100] }
-            ]
-        }
-    };
 
-    const user = {
-        id: 1,
-        userName: "Nikola",
-    }
+    const { incomeDataStore } = useTransaction();
 
     // ← SAMO OVO, bez useState, bez starih hookova
     const { openAddIncomeModal, openInfoModal, openDeleteModal } = useModal();

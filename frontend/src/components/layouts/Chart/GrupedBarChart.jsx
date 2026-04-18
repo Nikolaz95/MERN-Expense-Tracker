@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
+    Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend
 } from 'chart.js';
 import ChartFilterButtons from './layouts/ChartFilterButtons';
 import styled from "styled-components";
+import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
 
 
 
@@ -70,6 +65,7 @@ const periods = [
 
 const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
     const [period, setPeriod] = useState('daily');
+    const { convert, currency } = useCurrency();
     const currentData = dataStore[period];
 
     const datasets = [
@@ -118,12 +114,21 @@ const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                            legend: { position: 'top', labels: { usePointStyle: true } }
+                            legend: { position: 'top', labels: { usePointStyle: true } },
+                            tooltip: {
+                                callbacks: {
+                                    // ← convert ovdje
+                                    label: (context) => ` ${context.dataset.label}: ${currency?.symbol} ${convert(Math.abs(context.raw))}`
+                                }
+                            }
                         },
                         scales: {
                             y: {
                                 ticks: {
-                                    callback: (value) => value < 0 ? `-$${Math.abs(value)}` : `$${value}`
+                                    // ← currency?.symbol umjesto hardkodiranog $
+                                    callback: (value) => value < 0
+                                        ? `-${currency?.symbol} ${convert(Math.abs(value))}`
+                                        : `${currency?.symbol} ${convert(value)}`
                                 }
                             }
                         }
