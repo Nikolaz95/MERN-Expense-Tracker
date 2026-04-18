@@ -9,7 +9,13 @@ import transitionData from '../../../../data/TransactionData';
 import IncomExpensLayout from '../../Layouts/UserExpenseLayout/IncomExpensLayout';
 import IncomeExpenseModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/IncExp/IncomeExpenseModal';
 import Modal from '../../../../layouts/ModalComponent/Modal';
+import useTransactionModal from '../../../../hooks/useModal';
+import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
+import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
+
+
 const UserExpasePage = () => {
+    titleName('User Expase Page', ExpensesTitleIcon);
     const user = {
         id: 1,
         userName: "Nikola",
@@ -37,27 +43,26 @@ const UserExpasePage = () => {
         }
     };
 
-    // State to track which modal is open
-    const [activeModal, setActiveModal] = useState("");
-    // Function to close the modal
-    const closeModal = () => {
-        setActiveModal("");
-    };
+    const {
+        activeModal,
+        selectedTransaction,
+        openAddExpenseModal,
+        openInfoModal,
+        openDeleteModal,
+        closeModal
+    } = useTransactionModal();
 
-    const openModal = () => {
-        setActiveModal("content");
-    };
-
-
-
-    titleName('User Expase Page', ExpensesTitleIcon);
     return (
         <>
             <UserExpenseLayout icon={ExpensesTitleIcon}>
                 <IncomExpensLayout titleText="Expense Overview"
                     descriptionText={`${user.userName}, here is your expense Overview`}
                     buttonText="Add expense"
-                    onButtonClick={openModal}
+
+                    openModalAddIncome={openAddExpenseModal}
+                    openModalInfoTransaction={openInfoModal}
+                    openModalDeleteTransaction={openDeleteModal}
+
                     chartTitle="Expense Statistics"
                     dataStore={expenseDataStore}
                     themeColor="#ba2626"
@@ -65,8 +70,8 @@ const UserExpasePage = () => {
                     fullData={expenseOnlyData} />
             </UserExpenseLayout>
 
-            {/* Modal for Text1 */}
-            <Modal isOpen={activeModal === "content"} onClose={closeModal}>
+            {/* ADD EXPENSE MODAL */}
+            <Modal isOpen={activeModal === "addExpense"} onClose={closeModal}>
                 <IncomeExpenseModal
                     titleText="Add Expense"
                     underTitleText="Choose a category to set a expense budget. These categories can help you monitor spending."
@@ -75,6 +80,26 @@ const UserExpasePage = () => {
                     placholderTextDescription="Description about your expense !"
                     type="expense"
                     onClose={closeModal} />
+            </Modal>
+
+
+            {/* Modal Info transaction */}
+            <Modal isOpen={activeModal === "info"} onClose={closeModal}>
+                <InfoTransactionModal
+                    transaction={selectedTransaction}
+                    onClose={closeModal}
+                />
+            </Modal>
+
+            {/* Modal Delete */}
+            <Modal isOpen={activeModal === "delete"} onClose={closeModal}>
+                <DeleteModal
+                    deleteTitleText="Are you sure you wanna delete this transaction ?"
+                    underPText="This action cannot be undone."
+
+                    transaction={selectedTransaction}
+                    onClose={closeModal}
+                />
             </Modal>
         </>
     )

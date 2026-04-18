@@ -89,10 +89,6 @@ const UserIncomsPage = () => {
             {/* Modal Info transaction */}
             <Modal isOpen={activeModal === "info"} onClose={closeModal}>
                 <InfoTransactionModal
-                    deleteTitleText="Do you really wanna delete this transaction ?"
-                    underPText={`Are you sure you want to his transaction ?`}
-                    underPText2="This action cannot be undone."
-
                     transaction={selectedTransaction}
                     onClose={closeModal}
                 />
@@ -101,7 +97,7 @@ const UserIncomsPage = () => {
             {/* Modal Delete */}
             <Modal isOpen={activeModal === "delete"} onClose={closeModal}>
                 <DeleteModal
-                    deleteTitleText="Are you sure you want to his transaction ?"
+                    deleteTitleText="Are you sure you wanna delete this transaction ?"
                     underPText="This action cannot be undone."
 
                     transaction={selectedTransaction}
