@@ -42,14 +42,18 @@ display: flex;
 // import data
 import transitionData from '../../../../../data/TransactionData';
 import useTransactionModal from '../../../../../hooks/useModal'
+import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext'
 const RecentTransactionHistoryContent = () => {
-    // ✅ OVO JE KLJUČ — POZIVAŠ FUNKCIJU
-    const columns = transactionColumns();
+    const { convert, currency } = useCurrency();
 
-    // ✅ SAD možeš koristiti filter
-    const dashboardColumns = columns.filter(col =>
+    const allColumns = transactionColumns(null, null, convert, currency); // ← null jer nema modala
+
+    const dashboardColumns = allColumns.filter(col =>
         ["recipient", "category", "amount"].includes(col.field)
     );
+
+    const recentTransactionsData = [...transitionData]
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
 
     return (
         <RecentTransactionArticle>
@@ -63,7 +67,7 @@ const RecentTransactionHistoryContent = () => {
             </RecentTransactionTop>
             <section className='recentTransactionSection'>
                 <Table noDataText="No transactions found for this category yet !"
-                    data={transitionData}
+                    data={recentTransactionsData}
                     columns={dashboardColumns} />
             </section>
         </RecentTransactionArticle>

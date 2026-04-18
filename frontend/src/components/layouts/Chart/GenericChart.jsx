@@ -5,6 +5,7 @@ import {
 } from 'chart.js';
 import ChartWrapper from './layouts/ChartWrapper';
 import ChartFilterButtons from './layouts/ChartFilterButtons';
+import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -16,6 +17,7 @@ const periods = [
 
 const GenericChart = ({ title, dataStore, themeColor }) => {
     const [period, setPeriod] = useState('7days');
+    const { convert, currency } = useCurrency();
     const currentData = dataStore[period];
 
     const datasets = period === 'year' && currentData.years
@@ -38,8 +40,28 @@ const GenericChart = ({ title, dataStore, themeColor }) => {
             <Bar
                 data={{ labels: currentData.labels, datasets }}
                 options={{
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: period === 'year' } }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: period === 'year' },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const value = context.raw; // ← bez Math.abs(), uzmi stvarnu vrijednost
+                                    return ` ${context.dataset.label}: ${currency?.symbol} ${convert(value)}`
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: (value) => value < 0
+                                    ? `-${currency?.symbol} ${convert(Math.abs(value))}` // ← ovdje Math.abs() je ok jer samo formatiramo prikaz
+                                    : `${currency?.symbol} ${convert(value)}`
+                            }
+                        }
+                    }
                 }}
             />
         </ChartWrapper>

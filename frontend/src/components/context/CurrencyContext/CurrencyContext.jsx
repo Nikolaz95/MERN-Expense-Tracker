@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
-
+import transitionData from '../../data/TransactionData';
 const CurrencyContext = createContext();
 
 export const CurrencyProvider = ({ children }) => {
@@ -37,7 +37,14 @@ export const CurrencyProvider = ({ children }) => {
     }
 
     return (
-        <CurrencyContext.Provider value={{ currency, changeCurrency, currencies, convert, loading, error }}>
+        <CurrencyContext.Provider value={{
+            currency,
+            changeCurrency,
+            currencies,
+            convert,
+            loading,
+            error
+        }}>
             {children}
         </CurrencyContext.Provider>
     );

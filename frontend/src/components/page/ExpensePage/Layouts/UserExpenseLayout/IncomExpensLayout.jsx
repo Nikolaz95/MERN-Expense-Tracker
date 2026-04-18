@@ -11,6 +11,7 @@ import styled from "styled-components";
 import TransactionTable from '../../../../layouts/Table/TransactionTable';
 import Table from '../../../../layouts/Table/Table';
 import { transactionColumns } from '../../../../layouts/Table/TableColumns/TransactionColumns';
+import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext';
 
 const IncomExpenseLayout = styled.section`
 display: flex;
@@ -48,6 +49,8 @@ display: flex;
 const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAddIncome, chartTitle, dataStore, themeColor, tableTitle, fullData, openModalDeleteTransaction, openModalInfoTransaction }) => {
     const [currentTrans, setCurrentTrans] = useState([]);
 
+    const { convert, currency } = useCurrency();
+
     const handleOpenModalInfo = (row) => {
         console.log("INFO TRANSACTION:", row);
         openModalInfoTransaction(row);
@@ -58,7 +61,8 @@ const IncomExpensLayout = ({ titleText, descriptionText, buttonText, openModalAd
         openModalDeleteTransaction(row);
     };
 
-    const columns = transactionColumns(handleOpenModalInfo, handleOpenModalDelete);
+    const columns = transactionColumns(handleOpenModalInfo, handleOpenModalDelete, convert,
+        currency);
     return (
         <IncomExpenseLayout>
             <IncomExpenseSectionTop>

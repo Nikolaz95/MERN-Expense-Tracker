@@ -3,6 +3,8 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ChartWrapper from './layouts/ChartWrapper';
 import styled from "styled-components";
+import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
+import { useTransaction } from '../../context/TransactionContext/TransactionContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -31,8 +33,6 @@ position: relative;
 }
 `;
 
-
-
 const ChartHeaderText = styled.h3`
     text-align: center;
    font-size: 25px;
@@ -47,7 +47,6 @@ flex-direction: column;
 gap: 5px;
 `;
 
-
 const LineOvetTotalBalance = styled.div`
     border: 1px solid rgb(0, 0, 0);
 `;
@@ -57,8 +56,6 @@ font-size: 15px;
     color: rgb(5, 5, 5);
     font-weight: 500;
 `;
-
-
 
 const ChartBalanceInfo = styled.h3`
   font-size: 25px;
@@ -70,14 +67,14 @@ const ChartBalanceInfo = styled.h3`
     }};
 `;
 
-const PieChart = ({ income, expenses, title = "Financial Overview" }) => {
-    const totalBalance = income - Math.abs(expenses);
-    const profit = totalBalance;
+const PieChart = ({ title = "Financial Overview" }) => {
+    const { convert, currency } = useCurrency();
+    const { totalIncome, totalExpense, totalBalance } = useTransaction();
 
     const data = {
         labels: ['Expenses', 'Income', 'Profit'],
         datasets: [{
-            data: [Math.abs(expenses), income, profit > 0 ? profit : 0],
+            data: [totalExpense, totalIncome, totalBalance > 0 ? totalBalance : 0],
             backgroundColor: ['#f87171', '#34c317', '#60a5fa'],
             hoverBackgroundColor: ['#ef4444', '#21790f', '#3b82f6'],
             borderWidth: 1,
@@ -98,12 +95,11 @@ const PieChart = ({ income, expenses, title = "Financial Overview" }) => {
             },
             tooltip: {
                 callbacks: {
-                    label: (context) => ` ${context.label}: $${context.raw.toLocaleString()}`
+                    label: (context) => ` ${context.label}:  ${currency?.symbol} ${convert(context.raw)}`
                 }
             }
         },
     };
-
 
     return (
         <PieChartMainSection>
@@ -123,7 +119,7 @@ const PieChart = ({ income, expenses, title = "Financial Overview" }) => {
                     Total Balance
                 </TotalBalanceText>
                 <ChartBalanceInfo $totalBalance={totalBalance}>
-                    ${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {currency?.symbol} {convert(totalBalance)}
                 </ChartBalanceInfo>
             </BotomSection>
         </PieChartMainSection>

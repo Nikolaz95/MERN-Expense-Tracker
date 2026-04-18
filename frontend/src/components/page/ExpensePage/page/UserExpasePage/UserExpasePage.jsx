@@ -13,7 +13,7 @@ import useTransactionModal from '../../../../hooks/useModal';
 import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import { useModal } from '../../../../context/modals/ModalContext';
-
+import { useTransaction } from '../../../../context/TransactionContext/TransactionContext';
 
 const UserExpasePage = () => {
     titleName('User Expase Page', ExpensesTitleIcon);
@@ -24,28 +24,10 @@ const UserExpasePage = () => {
 
     const expenseOnlyData = transitionData.filter(item => item.type === 'expense');
 
-
-    // Samo podaci koji su specifični za Income
-    const expenseDataStore = {
-        '7days': {
-            labels: ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'],
-            values: [-120, -190, -300, -500, -220, -340, -410],
-        },
-        'month': {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-            values: [-1200, -1900, -1500, -2100, -1200, -1900, -1500, -2100, -1200, -1900, -1500, -2100],
-        },
-        'year': {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-            years: [
-                { label: '2026', values: [-500, -600, -700, -550, -800, -750, -500, -600, -700, -550, -800, -750] },
-                { label: '2027', values: [-650, -720, -800, -600, -950, -1100, -650, -720, -800, -600, -950, -1100] }
-            ]
-        }
-    };
+    const { expenseDataStore } = useTransaction();
 
     // ← SAMO OVO, bez useState, bez starih hookova
-    const { openAddExpenseModal, openInfoModal, openDeleteModal } = useModal();
+    const { openAddExpenseModal, openInfoModal, openDeleteModal, } = useModal();
 
     return (
         <>

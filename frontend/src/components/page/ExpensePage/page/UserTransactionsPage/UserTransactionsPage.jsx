@@ -19,6 +19,7 @@ import { useSearchParams } from 'react-router-dom';
 import { sortTransactions } from '../../../../constants/sortOptions';
 import transitionAllData from '../../../../data/TransactionData';
 import { useModal } from '../../../../context/modals/ModalContext';
+import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext';
 
 
 const UserTransactionsPage = () => {
@@ -64,7 +65,9 @@ const UserTransactionsPage = () => {
         openDeleteModal(row);
     };
 
-    const columns = transactionColumns(handleInfo, handleDelete);
+    const { convert, currency } = useCurrency();
+
+    const columns = transactionColumns(handleInfo, handleDelete, convert, currency);
 
     return (
         <>

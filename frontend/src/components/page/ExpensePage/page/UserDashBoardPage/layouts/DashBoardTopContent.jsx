@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from "styled-components";
+import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
+import transitionData from '../../../../../data/TransactionData';
+import { useTransaction } from '../../../../../context/TransactionContext/TransactionContext';
 
 
 const UserDashBoardTopSection = styled.section`
@@ -35,19 +38,22 @@ const UserDashBoardInfo = styled.article`
 
 
 const DashBoardTopContent = () => {
+    const { convert, currency } = useCurrency();
+    const { totalIncome, totalExpense, totalBalance } = useTransaction();
+
     return (
         <UserDashBoardTopSection>
             <UserDashBoardInfo>
                 <h1>Total Balance</h1>
-                <p>$4,836.00</p>
+                <p>{currency?.symbol} {convert(totalBalance)}</p>
             </UserDashBoardInfo>
             <UserDashBoardInfo>
                 <h1>Total Income</h1>
-                <p>$3,814.25</p>
+                <p>{currency?.symbol} {convert(totalIncome)}</p>
             </UserDashBoardInfo>
             <UserDashBoardInfo>
                 <h1>Total Expenses</h1>
-                <p>$1,700.50</p>
+                <p>{currency?.symbol} {convert(totalExpense)}</p>
             </UserDashBoardInfo>
         </UserDashBoardTopSection>
     )

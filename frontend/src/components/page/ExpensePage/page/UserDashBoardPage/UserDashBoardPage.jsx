@@ -29,10 +29,12 @@ import GrupedBarChart from '../../../../layouts/Chart/GrupedBarChart';
 
 import DashboardTop from './components/DashboardTop';
 import DashboardMidlleSection from './components/DashboardMidlleSection';
+import { useTransaction } from '../../../../context/TransactionContext/TransactionContext';
 
 const UserDashBoardPage = () => {
     titleName('User DashBoard Page', DashBoardTitleIcon);
-    const dashboardDataStore = {
+    const { dashboardDataStore } = useTransaction();
+    /* const dashboardDataStore = {
         daily: {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             income: [100, 200, 150, 300, 250, 400, 350],
@@ -53,7 +55,7 @@ const UserDashBoardPage = () => {
             income: [5000, 2000, 9000, 8000],
             expenses: [3000, 2000, 1000, 5000]
         }
-    };
+    }; */
 
     return (
         <>
