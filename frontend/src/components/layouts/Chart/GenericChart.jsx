@@ -6,6 +6,7 @@ import {
 import ChartWrapper from './layouts/ChartWrapper';
 import ChartFilterButtons from './layouts/ChartFilterButtons';
 import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
+import { formatNumber } from '../../utils/formatNumber';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -48,7 +49,7 @@ const GenericChart = ({ title, dataStore, themeColor }) => {
                             callbacks: {
                                 label: (context) => {
                                     const value = context.raw; // ← bez Math.abs(), uzmi stvarnu vrijednost
-                                    return ` ${context.dataset.label}: ${currency?.symbol} ${convert(value)}`
+                                    return ` ${context.dataset.label}: ${currency?.symbol} ${formatNumber(convert(context.raw))}`
                                 }
                             }
                         }
@@ -57,8 +58,8 @@ const GenericChart = ({ title, dataStore, themeColor }) => {
                         y: {
                             ticks: {
                                 callback: (value) => value < 0
-                                    ? `-${currency?.symbol} ${convert(Math.abs(value))}` // ← ovdje Math.abs() je ok jer samo formatiramo prikaz
-                                    : `${currency?.symbol} ${convert(value)}`
+                                    ? `-${currency?.symbol} ${formatNumber(convert(Math.abs(value)))}`
+                                    : `${currency?.symbol} ${formatNumber(convert(value))}`
                             }
                         }
                     }

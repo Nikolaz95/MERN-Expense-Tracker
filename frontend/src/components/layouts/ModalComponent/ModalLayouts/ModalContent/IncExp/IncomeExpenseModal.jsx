@@ -5,6 +5,8 @@ import Button from '../../../../Buttons/Button';
 import FilterCategory from '../../../../FilterCategory/FilterCategory';
 import DatePicker from 'react-datepicker';
 import DataPicker from '../../../../DataComponents/DatePicker';
+import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
+import { formatNumber } from '../../../../../utils/formatNumber';
 
 const CustomModalSection = styled.section`
 display: flex;
@@ -67,10 +69,20 @@ const BottomSection = styled.section`
 
 const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText, placholderTextDescription }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [amount, setAmount] = useState("");
+    const { currency } = useCurrency();
 
     const [notes, setNotes] = useState("");
     const MAX_LENGTH = 200;
     const trimmedNotes = notes.trim();
+
+    const handleAmountChange = (e) => {
+        const raw = e.target.value.replace(/\s/g, ''); // makni spaces
+        if (isNaN(raw)) return; // samo brojevi
+        setAmount(raw);
+    };
+
+    const formattedAmount = amount ? formatNumber(amount) : "";
 
     return (
         <CustomModalSection>
@@ -85,8 +97,13 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
                 <FilterCategory type={type} variant={type} />
                 <SectionContent>
 
-                    <h5>Amount</h5>
-                    <input type="number" placeholder={placholderText} min="0" />
+                    <h5>Amount ({currency?.symbol})</h5>
+                    <input
+                        type="text"                        // ← text umjesto number
+                        placeholder={placholderText}
+                        value={formattedAmount}            // ← formatirani broj
+                        onChange={handleAmountChange}
+                    />
                     <h5>Date</h5>
                     <DataPicker
                         selected={selectedDate}

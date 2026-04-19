@@ -5,6 +5,7 @@ import ChartWrapper from './layouts/ChartWrapper';
 import styled from "styled-components";
 import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
 import { useTransaction } from '../../context/TransactionContext/TransactionContext';
+import { formatNumber } from '../../utils/formatNumber';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -95,7 +96,7 @@ const PieChart = ({ title = "Financial Overview" }) => {
             },
             tooltip: {
                 callbacks: {
-                    label: (context) => ` ${context.label}:  ${currency?.symbol} ${convert(context.raw)}`
+                    label: (context) => ` ${context.label}:  ${currency?.symbol} ${formatNumber(convert(context.raw))}`
                 }
             }
         },
@@ -119,7 +120,7 @@ const PieChart = ({ title = "Financial Overview" }) => {
                     Total Balance
                 </TotalBalanceText>
                 <ChartBalanceInfo $totalBalance={totalBalance}>
-                    {currency?.symbol} {convert(totalBalance)}
+                    {currency?.symbol} {formatNumber(convert(totalBalance))}
                 </ChartBalanceInfo>
             </BotomSection>
         </PieChartMainSection>

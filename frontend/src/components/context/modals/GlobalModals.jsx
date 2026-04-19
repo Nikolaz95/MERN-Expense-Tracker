@@ -19,32 +19,22 @@ const GlobalModals = () => {
     return (
         <>
 
-            {/* modal add Income */}
-            <Modal isOpen={activeModal === "addIncome"} onClose={closeModal}>
+            {/* modal add/expense Income */}
+            <Modal isOpen={activeModal === "addIncome" || activeModal === "addExpense"} onClose={closeModal}>
                 <IncomeExpenseModal
-                    titleText="Add Income"
-                    underTitleText="Choose a category to set an income budget."
-                    buttonText="Add Income"
-                    placholderText="Income Amount"
-                    placholderTextDescription="Description about your Income!"
-                    type="income"
+                    titleText={activeModal === "addIncome" ? "Add Income" : "Add Expense"}
+                    underTitleText={activeModal === "addIncome"
+                        ? "Choose a category to set an income budget."
+                        : "Choose a category to set an expense budget."}
+                    buttonText={activeModal === "addIncome" ? "Add Income" : "Add Expense"}
+                    placholderText={activeModal === "addIncome" ? "Income Amount" : "Expense Amount"}
+                    placholderTextDescription={activeModal === "addIncome"
+                        ? "Description about your Income!"
+                        : "Description about your Expense!"}
+                    type={activeModal === "addIncome" ? "income" : "expense"}
                     onClose={closeModal}
                 />
             </Modal>
-
-            {/* modal add Expense */}
-            <Modal isOpen={activeModal === "addExpense"} onClose={closeModal}>
-                <IncomeExpenseModal
-                    titleText="Add Expense"
-                    underTitleText="Choose a category to set an expense budget."
-                    buttonText="Add Expense"
-                    placholderText="Expense Amount"
-                    placholderTextDescription="Description about your Expense!"
-                    type="expense"
-                    onClose={closeModal}
-                />
-            </Modal>
-
 
             {/* modal Info Transaction */}
             <Modal isOpen={activeModal === "info"} onClose={closeModal}>

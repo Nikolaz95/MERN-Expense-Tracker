@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
 import transitionData from '../../../../../data/TransactionData';
 import { useTransaction } from '../../../../../context/TransactionContext/TransactionContext';
+import { formatNumber } from '../../../../../utils/formatNumber';
 
 
 const UserDashBoardTopSection = styled.section`
@@ -45,15 +46,15 @@ const DashBoardTopContent = () => {
         <UserDashBoardTopSection>
             <UserDashBoardInfo>
                 <h1>Total Balance</h1>
-                <p>{currency?.symbol} {convert(totalBalance)}</p>
+                <p>{currency?.symbol} {formatNumber(convert(totalBalance))}</p>
             </UserDashBoardInfo>
             <UserDashBoardInfo>
                 <h1>Total Income</h1>
-                <p>{currency?.symbol} {convert(totalIncome)}</p>
+                <p>{currency?.symbol} {formatNumber(convert(totalIncome))}</p>
             </UserDashBoardInfo>
             <UserDashBoardInfo>
                 <h1>Total Expenses</h1>
-                <p>{currency?.symbol} {convert(totalExpense)}</p>
+                <p>{currency?.symbol} {formatNumber(convert(totalExpense))}</p>
             </UserDashBoardInfo>
         </UserDashBoardTopSection>
     )

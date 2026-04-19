@@ -6,6 +6,7 @@ import Button from '../../Buttons/Button.jsx';
 // styled css
 import styled from "styled-components";
 import { iconDelete, iconInfo } from '../../../../assets/BtnIcons.jsx';
+import { formatNumber } from '../../../utils/formatNumber.js';
 
 const BtnTableColumn = styled.span`
 display: flex;
@@ -54,7 +55,7 @@ export const transactionColumns = (onInfo, onDelete, convert, currency) => {
                         fontWeight: "bold",
                     }}
                 >
-                    {currency.symbol} {convert(row.amount)}
+                    {currency.symbol} {formatNumber(convert(row.amount))}
                 </span>
             ),
         },

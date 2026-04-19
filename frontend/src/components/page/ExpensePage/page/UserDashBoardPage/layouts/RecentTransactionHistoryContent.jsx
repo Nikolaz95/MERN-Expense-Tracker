@@ -55,6 +55,7 @@ const RecentTransactionHistoryContent = () => {
     const recentTransactionsData = [...transitionData]
         .sort((a, b) => new Date(b.date) - new Date(a.date))
 
+
     return (
         <RecentTransactionArticle>
             <RecentTransactionTop>
