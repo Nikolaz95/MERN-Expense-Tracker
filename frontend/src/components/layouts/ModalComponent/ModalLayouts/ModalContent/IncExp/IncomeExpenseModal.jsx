@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import DataPicker from '../../../../DataComponents/DatePicker';
 import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
 import { formatNumber } from '../../../../../utils/formatNumber';
+import { useWordCount } from '../../../../../hooks/useWordCount';
 
 const CustomModalSection = styled.section`
 display: flex;
@@ -71,15 +72,26 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [amount, setAmount] = useState("");
     const { currency } = useCurrency();
-
     const [notes, setNotes] = useState("");
-    const MAX_LENGTH = 200;
-    const trimmedNotes = notes.trim();
+
+    const MAX_WORDS = 200;
+    const { wordCount, isOverLimit } = useWordCount(notes, MAX_WORDS);
 
     const handleAmountChange = (e) => {
         const raw = e.target.value.replace(/\s/g, ''); // makni spaces
         if (isNaN(raw)) return; // samo brojevi
         setAmount(raw);
+    };
+
+    const handleDescriptionChange = (e) => {
+        const newValue = e.target.value;
+        // Ovdje koristimo hook logiku da provjerimo bi li novi unos prešao limit
+        const newWordCount = newValue.trim().split(/\s+/).filter(Boolean).length;
+
+        // Dopusti promjenu samo ako je unutar limita ili ako korisnik briše tekst
+        if (newWordCount <= MAX_WORDS || newValue.length < notes.length) {
+            setNotes(newValue);
+        }
     };
 
     const formattedAmount = amount ? formatNumber(amount) : "";
@@ -113,13 +125,13 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
                         <label htmlFor="descriptionText">Description</label>
                         <DescriptionTextArea name="" id="descriptionText"
                             value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
+                            onChange={handleDescriptionChange}
                             placeholder={placholderTextDescription}
-                            maxLength={MAX_LENGTH}>
+                            maxLength={MAX_WORDS}>
 
                         </DescriptionTextArea>
                         <DescriptionCounter>
-                            {trimmedNotes.length === 0 ? 0 : notes.length}/{MAX_LENGTH}
+                            {wordCount}/{MAX_WORDS}
                         </DescriptionCounter>
 
                     </DescriptionTransactionSection>

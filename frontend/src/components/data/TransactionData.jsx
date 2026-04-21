@@ -8,6 +8,7 @@ const TransactionData = [
         date: 'Feb 1, 2026',
         amount: 4200.00,
         type: 'income',
+        description: 'Monthly salary',
     },
     {
         id: 2,
@@ -16,6 +17,7 @@ const TransactionData = [
         date: 'Feb 5, 2026',
         amount: 850.00,
         type: 'income',
+        description: 'Freelance project',
     },
     {
         id: 3,
@@ -24,6 +26,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: 120.00,
         type: 'income',
+        description: 'Dividend payment',
     },
     {
         id: 4,
@@ -32,6 +35,7 @@ const TransactionData = [
         date: 'Feb 1, 2026',
         amount: 4200.00,
         type: 'income',
+        description: 'Regular income',
     },
     {
         id: 5,
@@ -40,6 +44,7 @@ const TransactionData = [
         date: 'Feb 5, 2026',
         amount: 850.00,
         type: 'income',
+        description: 'Work bonus',
     },
     {
         id: 6,
@@ -48,6 +53,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: 120.00,
         type: 'income',
+        description: 'Quarterly profit',
     },
     {
         id: 7,
@@ -56,6 +62,7 @@ const TransactionData = [
         date: 'Feb 1, 2026',
         amount: 4200.00,
         type: 'income',
+        description: 'Payroll deposit',
     },
     {
         id: 8,
@@ -64,6 +71,7 @@ const TransactionData = [
         date: 'Feb 5, 2026',
         amount: 850.00,
         type: 'income',
+        description: 'Extra fee',
     },
     {
         id: 9,
@@ -72,6 +80,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: 120.00,
         type: 'income',
+        description: 'Stock yield',
     },
     {
         id: 10,
@@ -80,6 +89,7 @@ const TransactionData = [
         date: 'Feb 1, 2026',
         amount: 4200.00,
         type: 'income',
+        description: 'Main salary',
     },
     {
         id: 11,
@@ -88,6 +98,7 @@ const TransactionData = [
         date: 'Feb 5, 2026',
         amount: 850.00,
         type: 'income',
+        description: 'Client payment',
     },
     {
         id: 12,
@@ -96,6 +107,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: 120.00,
         type: 'income',
+        description: 'Passive income',
     },
     {
         id: 13,
@@ -104,6 +116,7 @@ const TransactionData = [
         date: 'Feb 1, 2026',
         amount: 4200.00,
         type: 'income',
+        description: 'Feb salary',
     },
     {
         id: 14,
@@ -112,6 +125,7 @@ const TransactionData = [
         date: 'Feb 5, 2026',
         amount: 850.00,
         type: 'income',
+        description: 'Project bonus',
     },
     {
         id: 15,
@@ -120,8 +134,8 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: 120.00,
         type: 'income',
+        description: 'Savings gain',
     },
-
     {
         id: 37,
         recipient: 'Dividend Payout',
@@ -129,8 +143,8 @@ const TransactionData = [
         date: 'Apr 13, 2026',
         amount: 12000,
         type: 'income',
+        description: 'Annual dividend',
     },
-
     {
         id: 38,
         recipient: 'Dividend Payout',
@@ -138,8 +152,8 @@ const TransactionData = [
         date: 'Apr 14, 2026',
         amount: 15000,
         type: 'income',
+        description: 'Investment bonus',
     },
-
     {
         id: 43,
         recipient: 'Dividend Payout',
@@ -147,8 +161,8 @@ const TransactionData = [
         date: 'Apr 6, 2026',
         amount: 12000,
         type: 'income',
+        description: 'Investment return',
     },
-
     {
         id: 44,
         recipient: 'Dividend Payout',
@@ -156,10 +170,8 @@ const TransactionData = [
         date: 'Apr 8, 2026',
         amount: 15000,
         type: 'income',
+        description: 'Large payout',
     },
-
-    // --- EXPENSES (Rashodi) ---
-
     {
         id: 39,
         recipient: 'Dividend Payout',
@@ -167,6 +179,7 @@ const TransactionData = [
         date: 'Apr 13, 2026',
         amount: -10000,
         type: 'expense',
+        description: 'Maintenance cost',
     },
     {
         id: 40,
@@ -175,8 +188,8 @@ const TransactionData = [
         date: 'Apr 14, 2026',
         amount: -20000,
         type: 'expense',
+        description: 'Annual tax',
     },
-
     {
         id: 41,
         recipient: 'Dividend Payout',
@@ -184,6 +197,7 @@ const TransactionData = [
         date: 'Apr 6, 2026',
         amount: -10000,
         type: 'expense',
+        description: 'Transfer fee',
     },
     {
         id: 42,
@@ -192,6 +206,7 @@ const TransactionData = [
         date: 'Apr 8, 2026',
         amount: -20000,
         type: 'expense',
+        description: 'Property insurance',
     },
     {
         id: 16,
@@ -200,6 +215,7 @@ const TransactionData = [
         date: 'Feb 2, 2026',
         amount: -1200.00,
         type: 'expense',
+        description: 'Rent payment',
     },
     {
         id: 17,
@@ -208,6 +224,7 @@ const TransactionData = [
         date: 'Feb 3, 2026',
         amount: -150.00,
         type: 'expense',
+        description: 'Utility bills',
     },
     {
         id: 18,
@@ -216,6 +233,7 @@ const TransactionData = [
         date: 'Feb 4, 2026',
         amount: -45.00,
         type: 'expense',
+        description: 'Phone bill',
     },
     {
         id: 19,
@@ -224,6 +242,7 @@ const TransactionData = [
         date: 'Feb 5, 2026',
         amount: -85.30,
         type: 'expense',
+        description: 'Weekly groceries',
     },
     {
         id: 20,
@@ -232,6 +251,7 @@ const TransactionData = [
         date: 'Feb 6, 2026',
         amount: -32.00,
         type: 'expense',
+        description: 'Restaurant lunch',
     },
     {
         id: 21,
@@ -240,6 +260,7 @@ const TransactionData = [
         date: 'Feb 7, 2026',
         amount: -70.00,
         type: 'expense',
+        description: 'Car fuel',
     },
     {
         id: 22,
@@ -248,6 +269,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: -15.99,
         type: 'expense',
+        description: 'Netflix sub',
     },
     {
         id: 23,
@@ -256,6 +278,7 @@ const TransactionData = [
         date: 'Feb 9, 2026',
         amount: -9.99,
         type: 'expense',
+        description: 'Spotify sub',
     },
     {
         id: 24,
@@ -264,6 +287,7 @@ const TransactionData = [
         date: 'Feb 10, 2026',
         amount: -210.00,
         type: 'expense',
+        description: 'Flight ticket',
     },
     {
         id: 25,
@@ -272,6 +296,7 @@ const TransactionData = [
         date: 'Feb 11, 2026',
         amount: -25.50,
         type: 'expense',
+        description: 'Meds & vitamins',
     },
     {
         id: 26,
@@ -280,6 +305,7 @@ const TransactionData = [
         date: 'Feb 12, 2026',
         amount: -40.00,
         type: 'expense',
+        description: 'Monthly gym fee',
     },
     {
         id: 27,
@@ -288,6 +314,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: -15.99,
         type: 'expense',
+        description: 'Video streaming',
     },
     {
         id: 28,
@@ -296,6 +323,7 @@ const TransactionData = [
         date: 'Feb 9, 2026',
         amount: -9.99,
         type: 'expense',
+        description: 'Music streaming',
     },
     {
         id: 29,
@@ -304,6 +332,7 @@ const TransactionData = [
         date: 'Feb 10, 2026',
         amount: -210.00,
         type: 'expense',
+        description: 'Holiday travel',
     },
     {
         id: 30,
@@ -312,6 +341,7 @@ const TransactionData = [
         date: 'Feb 11, 2026',
         amount: -25.50,
         type: 'expense',
+        description: 'Healthcare',
     },
     {
         id: 31,
@@ -320,6 +350,7 @@ const TransactionData = [
         date: 'Feb 12, 2026',
         amount: -40.00,
         type: 'expense',
+        description: 'Fitness fee',
     },
     {
         id: 32,
@@ -328,6 +359,7 @@ const TransactionData = [
         date: 'Feb 8, 2026',
         amount: -15.99,
         type: 'expense',
+        description: 'TV subscription',
     },
     {
         id: 33,
@@ -336,6 +368,7 @@ const TransactionData = [
         date: 'Feb 9, 2026',
         amount: -9.99,
         type: 'expense',
+        description: 'Premium music',
     },
     {
         id: 34,
@@ -344,6 +377,7 @@ const TransactionData = [
         date: 'Feb 10, 2026',
         amount: -210.00,
         type: 'expense',
+        description: 'Flight booking',
     },
     {
         id: 35,
@@ -352,6 +386,7 @@ const TransactionData = [
         date: 'Feb 11, 2026',
         amount: -25.50,
         type: 'expense',
+        description: 'Pharmacy visit',
     },
     {
         id: 36,
@@ -360,7 +395,8 @@ const TransactionData = [
         date: 'Feb 12, 2026',
         amount: -40.00,
         type: 'expense',
+        description: 'Gym access',
     },
-]
+];
 
 export default TransactionData
