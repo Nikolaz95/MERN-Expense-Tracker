@@ -4,6 +4,8 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import './index.css'
 import App from './App.jsx'
 import Root from './Root.jsx';
+import { Provider } from 'react-redux'
+
 import ErrorPage from './components/page/ErrorPage/ErrorPage.jsx';
 import HomePage from './components/page/HomePage/HomePage.jsx';
 import UserIncomsPage from './components/page/ExpensePage/page/UserIncomsPage/UserIncomsPage.jsx';
@@ -20,6 +22,7 @@ import { ModalProvider } from './components/context/modals/ModalContext.jsx';
 import DashboardLayout from './components/layouts/DashboardLayout.jsx';
 import { CurrencyProvider } from './components/context/CurrencyContext/CurrencyContext.jsx';
 import { TransactionProvider } from './components/context/TransactionContext/TransactionContext.jsx';
+import { store } from './redux/store.js';
 
 const router = createBrowserRouter([
   {
@@ -84,12 +87,14 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CurrencyProvider>
-      <TransactionProvider>
-        <ModalProvider>
-          <RouterProvider router={router} />
-        </ModalProvider>
-      </TransactionProvider>
-    </CurrencyProvider>
+    <Provider store={store}>
+      <CurrencyProvider>
+        <TransactionProvider>
+          <ModalProvider>
+            <RouterProvider router={router} />
+          </ModalProvider>
+        </TransactionProvider>
+      </CurrencyProvider>
+    </Provider>
   </StrictMode>,
 )
