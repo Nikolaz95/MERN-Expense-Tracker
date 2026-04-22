@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import Navigation from '../../../NavigatioLinkComponent/Navigation'
+import Image from '../../../Images/Image';
+import { AboutUs, SingIn } from '../../../../../assets/NavIcons';
+import UserNavigation from '../UserNavigationSection/UserNavigation';
+import { useGetMeQuery } from '../../../../../redux/api/userApi';
+import { useSelector } from 'react-redux';
 
 
 //import css
 import "./HeaderNavigation.css";
-import Image from '../../../Images/Image';
-import { AboutUs, SingIn } from '../../../../../assets/NavIcons';
-import UserNavigation from '../UserNavigationSection/UserNavigation';
 
-const HeaderNavigation = ({ isSideMenuOpen, toggleSideMenu, user }) => {
+const HeaderNavigation = ({ isSideMenuOpen, toggleSideMenu, }) => {
+
+    const { isLoading } = useGetMeQuery();
+
+    const { user } = useSelector((state) => state.auth);
+
 
     return (
         <nav className={`navigationSection ${isSideMenuOpen ? "active" : "close"}`}>
