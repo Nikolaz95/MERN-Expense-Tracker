@@ -31,7 +31,7 @@ export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
 
 
 // Get user's transaction - /transaction/me
-export const getVisitiList = catchAsyncErrors(async (req, res, next) => {
+export const getTransactionList = catchAsyncErrors(async (req, res, next) => {
 
     const userTransactionList = await Transition.find() // Now using the query object
         .sort({ date: -1 }); // Newest first
