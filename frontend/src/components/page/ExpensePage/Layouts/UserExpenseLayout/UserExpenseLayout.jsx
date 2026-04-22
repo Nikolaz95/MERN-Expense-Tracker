@@ -9,6 +9,10 @@ import Button from '../../../../layouts/Buttons/Button';
 import Menu from '../../../../layouts/Menu/Menu';
 import useClickOutside from '../../../../hooks/useClickOutside';
 import { adminLinks, baseUserLinks } from '../../../../constants/userDropDownNavigation';
+import { useNavigate } from 'react-router-dom';
+import { useGetMeQuery } from '../../../../../redux/api/userApi';
+import { useLazyLogoutQuery } from '../../../../../redux/api/authApi';
+import { useSelector } from 'react-redux';
 
 const SectionUserExpaseDashBoard = styled.section`
     display: flex;
@@ -54,16 +58,28 @@ gap: 20px;
 `;
 
 const UserExpenseLayout = ({ children }) => {
-    const [isLogin, setIsLogin] = useState(true)
-    const user = {
-        name: "nikola",
-        role: "user"
-    }
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+    const { isLoading } = useGetMeQuery();
+    const [logout] = useLazyLogoutQuery();
+
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const menuRef = useRef(null)
 
     useClickOutside(menuRef, () => setIsMenuOpen(false));
+
+    const handleLogOut = async () => {
+        try {
+            await logout().unwrap();
+            localStorage.removeItem('token');
+            navigate("/", { replace: true }); // Replace in history
+            window.location.reload(); // Force full reset if needed
+        } catch (err) {
+            toast.error(err?.data?.message || "Logout failed");
+        }
+    };
 
     const menuItems = [
         // Ako je admin, dodajemo Dashboard link na početak (iz tvog data fajla)
@@ -73,7 +89,7 @@ const UserExpenseLayout = ({ children }) => {
         ...baseUserLinks,
 
         // Logout ručno dodajemo
-        { id: 99, label: "Logout", onClick: () => console.log("logout") },
+        { id: 99, label: "Logout", onClick: handleLogOut },
     ]
     return (
         <SectionUserExpaseDashBoard>
@@ -94,7 +110,7 @@ const UserExpenseLayout = ({ children }) => {
                         <Image
                             src={user?.avatar?.url ?? DefoultProfile}
                             variant="smallImg"
-                            title={user.name}
+                            title={user?.name}
                             onClick={() => setIsMenuOpen(prev => !prev)}
                             style={{ cursor: "pointer" }}
                         />

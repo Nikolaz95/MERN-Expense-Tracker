@@ -7,7 +7,8 @@ import Menu from '../../../Menu/Menu';
 import { adminLinks, baseUserLinks } from '../../../../constants/userDropDownNavigation';
 import useClickOutside from '../../../../hooks/useClickOutside';
 
-const UserNavigation = ({ user }) => {
+
+const UserNavigation = ({ user, handleLogOut }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const wrapperRef = useRef(null);
     useClickOutside(wrapperRef, () => setIsDropdownOpen(false));
@@ -22,10 +23,7 @@ const UserNavigation = ({ user }) => {
         {
             id: 99,
             label: "Logout",
-            onClick: () => {
-                console.log("User logged out");
-                // Ovdje ide tvoja prava logout logika
-            }
+            onClick: handleLogOut
         }
     ];
 
