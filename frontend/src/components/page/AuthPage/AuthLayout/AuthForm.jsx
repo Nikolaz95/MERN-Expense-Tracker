@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from '../../../layouts/Images/Image'
 import { HidePassword, ShowPassword } from '../../../../assets/Icons'
 import Button from '../../../layouts/Buttons/Button'
@@ -7,10 +7,34 @@ import Navigation from '../../../layouts/NavigatioLinkComponent/Navigation'
 import Form from '../../../layouts/FormComponents/FormWrapper/Form'
 import Label from '../../../layouts/FormComponents/FormWrapper/Label/Label'
 import Input from '../../../layouts/FormComponents/FormWrapper/Input/Input'
+import { useLoginMutation, useRegisterMutation } from '../../../../redux/api/authApi'
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'
 
 const AuthForm = ({ type }) => {
-
     const isRegister = type === "register";
+    const navigate = useNavigate();
+
+
+    // 1. KORISTI ALIASE (NADIMKE) ZA VARIJABLE
+    const [login, { isLoading: isLoginLoading, error: loginError, data: loginData }] = useLoginMutation();
+    const [register, { isLoading: isRegLoading, error: regError, data: regData }] = useRegisterMutation();
+
+    // Spojimo ih u zajedničke konstante radi lakšeg korišćenja u JSX-u
+    const isLoading = isLoginLoading || isRegLoading;
+    const error = loginError || regError;
+    const data = loginData || regData;
+
+
+    console.log("====================");
+    console.log("logIn data", loginData);
+    console.log("====================");
+
+
+    console.log("====================");
+    console.log("register data", regData);
+    console.log("====================");
+
 
     const [formData, setFormData] = useState({
         username: "",
@@ -19,8 +43,48 @@ const AuthForm = ({ type }) => {
     });
 
     const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        if (error) {
+            console.log("ERROR FULL:", error);
+            toast.error(error?.data?.message || "Login failed");
+        }
+    }, [error]);
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        if (isRegister) {
+
+            const singUpData = {
+                name: formData.username,
+                email: formData.email,
+                password: formData.password,
+            };
+
+            register(singUpData);
+
+        }
+
+        else {
+            const loginData = {
+                email: formData.email,
+                password: formData.password,
+            };
+
+            login(loginData);
+        }
+    }
+
+
+    const onChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
     return (
-        <Form>
+        <Form onSubmit={submitHandler}>
 
             {/* USERNAME SAMO ZA REGISTER */}
             {isRegister && (
@@ -28,37 +92,34 @@ const AuthForm = ({ type }) => {
                     <Label htmlFor="username">Your Username:</Label>
                     <Input
                         type="text"
+                        name="username"
                         id="username"
                         variant="inputFormRegSig"
                         placeholder="username..."
-                        onChange={(e) =>
-                            setFormData({ ...formData, username: e.target.value })
-                        }
+                        onChange={onChange}
                     />
                 </>
             )}
 
             <Label htmlFor="mail">Your Email:</Label>
             <Input
+                name="email"
                 type="email"
                 id="mail"
                 variant="inputFormRegSig"
                 placeholder="fake@email..."
-                onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                }
+                onChange={onChange}
             />
 
             <Label htmlFor="passw">Password:</Label>
             <section className='paswordContentAuth'>
                 <Input
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     id="passw"
                     variant="inputFormRegSig"
                     placeholder="password..."
-                    onChange={(e) =>
-                        setFormData({ ...formData, password: e.target.value })
-                    }
+                    onChange={onChange}
                 />
 
                 <Image
@@ -72,12 +133,12 @@ const AuthForm = ({ type }) => {
             {/* BUTTON SECTION */}
             <section className='bottonFormSection'>
 
-                <Button
-                    variant="loginBtn"
-                    icon={iconSingIn}
-                    iconPosition="left"
-                >
-                    {isRegister ? "Create Account" : "Log In"}
+                <Button variant="loginBtn" icon={iconSingIn} iconPosition="left"
+                    type="submit" disabled={isLoading}>
+                    {isRegister
+                        ? (isLoading ? "Creating..." : "Create a New Account")
+                        : (isLoading ? "Authenticating..." : "Log In")
+                    }
                 </Button>
 
                 <span className='dividerText'>Or:</span>
