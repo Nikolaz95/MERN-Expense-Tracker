@@ -10,6 +10,7 @@ import Input from '../../../layouts/FormComponents/FormWrapper/Input/Input'
 import { useLoginMutation, useRegisterMutation } from '../../../../redux/api/authApi'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const AuthForm = ({ type }) => {
     const isRegister = type === "register";
@@ -35,6 +36,7 @@ const AuthForm = ({ type }) => {
     console.log("register data", regData);
     console.log("====================");
 
+    const { isAuthenticated, user } = useSelector((state) => state.auth)
 
     const [formData, setFormData] = useState({
         username: "",
@@ -45,11 +47,16 @@ const AuthForm = ({ type }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/user/settings-Profile");
+            const userName = user?.name || "User";
+            toast.success(`Welcome back, ${userName}!`);
+        }
         if (error) {
             console.log("ERROR FULL:", error);
             toast.error(error?.data?.message || "Login failed");
         }
-    }, [error]);
+    }, [isAuthenticated, error]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -60,6 +67,7 @@ const AuthForm = ({ type }) => {
                 email: formData.email,
                 password: formData.password,
             };
+            console.log("PODACI IZ REGISTRACIJE:", singUpData);
 
             register(singUpData);
 
