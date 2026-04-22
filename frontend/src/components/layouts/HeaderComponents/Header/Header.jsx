@@ -20,7 +20,7 @@ const HeaderSection = styled.header`
 `;
 
 const Header = () => {
-    const [isLogin, setIsLogin] = useState(true)
+    const [isLogin, setIsLogin] = useState(false)
     const user = {
         name: "nikola",
         role: "admin"
