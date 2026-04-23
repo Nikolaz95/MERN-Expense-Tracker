@@ -22,7 +22,7 @@ border: 1px solid black;
 
 .navigationLink.active {
     border-radius: 20px;
-    padding: 10px;
+    padding: 4px;
     color: #fff500;
     font-size: 25px;
     font-weight: bold;

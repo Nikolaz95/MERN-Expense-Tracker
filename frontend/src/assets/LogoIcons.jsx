@@ -10,9 +10,11 @@ import HomePageImg from '../assets/pictures/LayoutPicture.png';
 import ErrorImg from '../assets/pictures/errorImg.png';
 import ErrorLayoutImg from '../assets/pictures/errorLayout.png';
 import ErrorIcon from '../assets/pictures/iconError.png';
+import AboutUsIcon from '../assets/pictures/iconAbout.png';
+import SingInIcon from '../assets/pictures/iconSingIn.png';
 
 
 export {
     CopyRight, GitHub, Gmail, LinkeDin, Location, MyPortfolio, HomePageImg,
-    ErrorImg, ErrorLayoutImg, ErrorIcon
+    ErrorImg, ErrorLayoutImg, ErrorIcon, AboutUsIcon, SingInIcon
 }

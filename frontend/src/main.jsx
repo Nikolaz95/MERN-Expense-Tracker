@@ -23,6 +23,7 @@ import DashboardLayout from './components/layouts/DashboardLayout.jsx';
 import { CurrencyProvider } from './components/context/CurrencyContext/CurrencyContext.jsx';
 import { TransactionProvider } from './components/context/TransactionContext/TransactionContext.jsx';
 import { store } from './redux/store.js';
+import AboutUs from './components/page/AboutUs/AboutUs.jsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />
+      },
+      {
+        path: "/aboutUs",
+        element: <AboutUs />
       },
       {
         path: "/signIn",
