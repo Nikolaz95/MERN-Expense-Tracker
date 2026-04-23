@@ -7,13 +7,15 @@ import Navigation from '../../../layouts/NavigatioLinkComponent/Navigation'
 import "./DashboardSidebar.css";
 import { DefoultProfile, LogOut, openMenu } from '../../../../assets/SideBarIcons';
 import { DASHBOARD_SIDEBAR_CONFIG } from '../../../routes/sidebarConfig.js'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useLazyLogoutQuery } from '../../../../redux/api/authApi.js';
+import { useGetMeQuery } from '../../../../redux/api/userApi.js';
+import useAuthBtnFunction from '../../../hooks/useAuthBtnFunction.js';
 
 const DashboardSidebar = () => {
 
-    const user = {
-        name: "nikola",
-        role: "admin"
-    }
+    const { user, handleLogOut } = useAuthBtnFunction();
     const [curOpenDropdown, setCurOpenDropdown] = useState(null);
     const [sideIsOpen, setSideIsOpen] = useState(false);
 
@@ -26,7 +28,7 @@ const DashboardSidebar = () => {
         setSideIsOpen(!sideIsOpen);
     };
     // ← koristiš SIDEBAR_CONFIG[user.role] umjesto dataSideBarContent
-    const sidebarData = DASHBOARD_SIDEBAR_CONFIG[user.role] ?? []
+    const sidebarData = DASHBOARD_SIDEBAR_CONFIG[user?.role] ?? []
 
     const filteredSidebarData = sidebarData.filter(item => {
         // If no roles specified, show to everyone
@@ -36,7 +38,6 @@ const DashboardSidebar = () => {
     });
 
 
-
     return (
         <aside className={`dashBoardSideBarSection ${sideIsOpen ? 'open' : 'closed'}`}>
             <nav className='dashBoardSideBNav'>
@@ -44,7 +45,9 @@ const DashboardSidebar = () => {
                     <Button variant="openBtn">
                         <Image src={openMenu} variant="btnIcon" onClick={toggleSidebar} />
                     </Button>
-                    <Image src={user?.avatar ? user?.avatar?.url : DefoultProfile} variant="smallImg" />
+                    <Image src={user?.avatar ? user?.avatar?.url : DefoultProfile}
+                        title={user?.name}
+                        variant="smallImg" />
                     {user?.name}
                 </div>
 
@@ -74,7 +77,7 @@ const DashboardSidebar = () => {
                     ))}
 
                     <div className='sideNavLinklogOut'>
-                        <Button variant="sideBtnlogOut">
+                        <Button variant="sideBtnlogOut" onClick={handleLogOut}>
                             <Image src={LogOut} variant="iconDropDown" />
                             {sideIsOpen && <span className="navText">Log Out</span>}
                         </Button>

@@ -10,30 +10,13 @@ import { LogoImg } from '../../../../../assets/NavIcons';
 import Button from '../../../../layouts/Buttons/Button';
 
 import { EXPENSE_SIDEBAR_LINKS } from '../../../../routes/sidebarConfig.js'  // ← putanja do tvog filea
-import { useGetMeQuery } from '../../../../../redux/api/userApi.js';
-import { useLazyLogoutQuery } from '../../../../../redux/api/authApi.js';
-import { useSelector } from 'react-redux';
+import useAuthBtnFunction from '../../../../hooks/useAuthBtnFunction.js';
 
 
 const ExpenseSideBar = ({ isOpen, onClose }) => {
     const [collapsed, setCollapsed] = useState(false);
-    const navigate = useNavigate();
-    const { isLoading } = useGetMeQuery();
-    const [logout] = useLazyLogoutQuery();
+    const { user, handleLogOut } = useAuthBtnFunction();
 
-
-    const { user } = useSelector((state) => state.auth);
-
-    const handleLogOut = async () => {
-        try {
-            await logout().unwrap();
-            localStorage.removeItem('token');
-            navigate("/", { replace: true }); // Replace in history
-            window.location.reload(); // Force full reset if needed
-        } catch (err) {
-            toast.error(err?.data?.message || "Logout failed");
-        }
-    };
     return (
         <>
             <div className={`sidebar-overlay ${isOpen ? 'active' : ''}`} onClick={onClose} />
