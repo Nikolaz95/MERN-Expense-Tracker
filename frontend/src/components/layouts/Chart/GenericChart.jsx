@@ -11,9 +11,9 @@ import { formatNumber } from '../../utils/formatNumber';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const periods = [
-    { value: '7days', label: '7d' },
-    { value: 'month', label: 'Mjesec' },
-    { value: 'year', label: 'Godina' },
+    { value: '7days', label: '7days' },
+    { value: 'month', label: 'Month' },
+    { value: 'year', label: 'Year' },
 ];
 
 const GenericChart = ({ title, dataStore, themeColor }) => {
@@ -58,7 +58,7 @@ const GenericChart = ({ title, dataStore, themeColor }) => {
                         y: {
                             ticks: {
                                 callback: (value) => value < 0
-                                    ? `-${currency?.symbol} ${formatNumber(convert(Math.abs(value)))}`
+                                    ? `${currency?.symbol} - ${formatNumber(convert(Math.abs(value)))}`
                                     : `${currency?.symbol} ${formatNumber(convert(value))}`
                             }
                         }

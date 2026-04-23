@@ -127,7 +127,7 @@ const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
                                 ticks: {
                                     // ← currency?.symbol umjesto hardkodiranog $
                                     callback: (value) => value < 0
-                                        ? `-${currency?.symbol} ${convert(Math.abs(value))}`
+                                        ? `  ${currency?.symbol} ${convert(Math.abs(value))}`
                                         : `${currency?.symbol} ${convert(value)}`
                                 }
                             }

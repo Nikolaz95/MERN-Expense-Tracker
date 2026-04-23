@@ -3,35 +3,14 @@ import Navigation from '../../../NavigatioLinkComponent/Navigation'
 import Image from '../../../Images/Image';
 import { AboutUs, SingIn } from '../../../../../assets/NavIcons';
 import UserNavigation from '../UserNavigationSection/UserNavigation';
-import { useGetMeQuery } from '../../../../../redux/api/userApi';
-import { useSelector } from 'react-redux';
-import toast from 'react-hot-toast';
-
 
 //import css
 import "./HeaderNavigation.css";
-import { useLazyLogoutQuery } from '../../../../../redux/api/authApi';
-import { useNavigate } from 'react-router-dom';
+
+import useAuthBtnFunction from '../../../../hooks/useAuthBtnFunction';
 
 const HeaderNavigation = ({ isSideMenuOpen, toggleSideMenu, }) => {
-    const navigate = useNavigate();
-    const { isLoading } = useGetMeQuery();
-    const [logout] = useLazyLogoutQuery();
-
-
-    const { user } = useSelector((state) => state.auth);
-
-    const handleLogOut = async () => {
-        try {
-            await logout().unwrap();
-            localStorage.removeItem('token');
-            navigate("/", { replace: true }); // Replace in history
-            window.location.reload(); // Force full reset if needed
-        } catch (err) {
-            toast.error(err?.data?.message || "Logout failed");
-        }
-    };
-
+    const { user, handleLogOut } = useAuthBtnFunction();
 
     return (
         <nav className={`navigationSection ${isSideMenuOpen ? "active" : "close"}`}>

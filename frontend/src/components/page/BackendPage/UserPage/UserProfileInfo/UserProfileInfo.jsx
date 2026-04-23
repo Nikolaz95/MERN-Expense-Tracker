@@ -7,16 +7,12 @@ import "./UserProfileInfo.css"
 import { DefoultProfile, LogOut, UserIcon } from '../../../../../assets/SideBarIcons'
 import Image from '../../../../layouts/Images/Image'
 import UserInfoLayout from '../LayoutUI/UserInfoLayout';
+import useAuthBtnFunction from '../../../../hooks/useAuthBtnFunction';
 
 const UserProfileInfo = () => {
     titleName('Profile Info', UserIcon);
 
-    const user = {
-        name: "nikola",
-        role: "admin",
-        email: "nikolajoe@gmail.com",
-        createdAt: "2026-04-15",
-    }
+    const { user, handleLogOut } = useAuthBtnFunction();
     return (
         <DashBoardLayout>
             <h1>Profile Info</h1>
@@ -27,6 +23,7 @@ const UserProfileInfo = () => {
                             user?.avatar ? user?.avatar?.url : DefoultProfile
                         }
                             variant="profile"
+                            title={user?.name}
                             className='userProfileImg' alt="userImg" />
                     </div>
                     <div className="userProfileConteinerBottom">
