@@ -33,3 +33,14 @@
   }
 
 }
+
+
+/* Nova varijanta: "authVariant" */
+.authVariant {
+  @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+}

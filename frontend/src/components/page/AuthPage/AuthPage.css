@@ -45,3 +45,14 @@
     align-items: center;
     gap: 30px;
 }
+
+@media (max-width: 768px) {
+.formSection {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 30px;
+}
+
+
+}

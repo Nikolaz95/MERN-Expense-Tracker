@@ -1,16 +1,33 @@
 import React from 'react'
 
 //import css
-import "./MainLayout.css";
+import styled from "styled-components";
 import ImageBackground from '../ImageBackground/ImageBackground';
+
+
+
+/* styled css */
+
+const ContentLayoutSection = styled.section`
+    display: flex;
+    flex-direction: column;
+    height: 75.7vh;
+
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+`;
+
 
 const MainLayout = ({ children }) => {
     return (
         <>
             <ImageBackground />
-            <section className="contentLayout">
+            <ContentLayoutSection>
                 {children}
-            </section>
+            </ContentLayoutSection>
         </>
 
     )
