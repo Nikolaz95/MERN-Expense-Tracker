@@ -5,7 +5,7 @@ import { DefoultProfile } from '../../../assets/SideBarIcons'
 import Image from '../Images/Image'
 import useClickOutside from '../../hooks/useClickOutside'
 
-const SideBarAccordion = ({ user, onClose }) => {
+const SideBarAccordion = ({ user, onClose, handleLogOut }) => {
     const [isOpen, setIsOpen] = useState(false)
     const accordionRef = useRef(null);
     useClickOutside(accordionRef, () => setIsOpen(false));
@@ -41,13 +41,7 @@ const SideBarAccordion = ({ user, onClose }) => {
                         </Navigation>
                     </li>
                     <li>
-                        <button
-                            className="accordionLogout"
-                            onClick={() => {
-                                console.log("logout")
-                                onClose() // Zatvara sidebar nakon logouta
-                            }}
-                        >
+                        <button className="accordionLogout" onClick={handleLogOut} >
                             Logout
                         </button>
                     </li>

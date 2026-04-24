@@ -20,24 +20,20 @@ const HeaderSection = styled.header`
 `;
 
 const Header = () => {
-    const [isLogin, setIsLogin] = useState(false)
-    const user = {
-        name: "nikola",
-        role: "admin"
-    }
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(null);
 
     const toggleSideMenu = (e) => {
         e.stopPropagation();
         setIsSideMenuOpen((prevSideMenuOpen) => !prevSideMenuOpen);
     }
+
     return (
         <HeaderSection>
             <section className={styles.contentHeader}>
                 <Logo />
-                <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} user={isLogin ? user : null} />
+                <HeaderNavigation isSideMenuOpen={isSideMenuOpen} toggleSideMenu={toggleSideMenu} />
                 <HamMenu toggleSideMenu={toggleSideMenu} isSideMenuOpen={isSideMenuOpen} />
-                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} user={isLogin ? user : null} />
+                <HeaderSidebar isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
             </section>
         </HeaderSection>
     )

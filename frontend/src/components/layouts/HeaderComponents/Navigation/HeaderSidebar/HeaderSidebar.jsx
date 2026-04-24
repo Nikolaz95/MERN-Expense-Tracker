@@ -7,8 +7,10 @@ import UserNavigation from '../UserNavigationSection/UserNavigation';
 //import css
 import "./HeaderSidebar.css";
 import SideBarAccordion from '../../../Accordion/SideBarAccordion';
+import useAuthBtnFunction from '../../../../hooks/useAuthBtnFunction';
 
-const HeaderSidebar = ({ isOpen, onClose, user }) => {
+const HeaderSidebar = ({ isOpen, onClose, }) => {
+    const { user, handleLogOut } = useAuthBtnFunction();
 
 
     useEffect(() => {
@@ -24,10 +26,7 @@ const HeaderSidebar = ({ isOpen, onClose, user }) => {
     }, [isOpen]);
     return (
         <>
-            <div
-                className={`sidebar-overlay ${isOpen ? 'active' : ''}`}
-                onClick={onClose}
-            />
+            <div className={`sidebar-overlay ${isOpen ? 'active' : ''}`} onClick={onClose} />
             <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <button className="sidebar-close" onClick={onClose}>✕</button>
                 <nav>
@@ -39,35 +38,16 @@ const HeaderSidebar = ({ isOpen, onClose, user }) => {
                             </Navigation>
                         </li>
 
-                        {/* <UserNavigation user={user} /> */}
-
                         {user ? (
-                            <SideBarAccordion user={user} onClose={onClose} />
-
+                            <SideBarAccordion user={user} onClose={onClose} handleLogOut={handleLogOut} />
                         ) : (
-                            <li>
+                            <li >
                                 <Navigation to="/signIn">
                                     <Image src={SingIn} variant="headerImg" />
                                     <span>Sign in</span>
                                 </Navigation>
                             </li>
-
                         )}
-
-                        {user ? (
-
-                            <UserNavigation user={user} />
-
-                        ) : (
-                            <li className='navigationLi'>
-                                <Navigation to="/signIn" className="navigationLink">
-                                    <Image src={SingIn} variant="headerImg" />
-                                    <p>Sing in</p>
-                                </Navigation>
-                            </li>
-
-                        )}
-
                     </ul>
                 </nav>
             </aside>

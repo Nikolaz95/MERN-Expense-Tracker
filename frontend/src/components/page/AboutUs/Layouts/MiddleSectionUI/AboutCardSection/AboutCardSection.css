@@ -1,0 +1,29 @@
+
+
+.cardSection {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    @media (max-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 425px) {
+        display: grid;
+        grid-template-columns: 1fr ;
+    }
+}
+
+.Card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: bisque;
+
+    
+}
