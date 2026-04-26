@@ -48,15 +48,13 @@ const AboutUs = () => {
                 <section className='bottomAboutUsSection'>
                     <h1>Ready for control over finances?</h1>
                     <p>Create an account for free and start tracking money today.</p>
-                    <Button>Create Accoun</Button>
-                    <Button>Log In</Button>
+                    <div className="btnSection">
+                        <Button>Create Accoun</Button>
+                        <Button>Log In</Button>
+                    </div>
+
+
                 </section>
-
-
-
-
-
-
 
             </main>
         </>
