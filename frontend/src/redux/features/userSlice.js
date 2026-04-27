@@ -21,9 +21,7 @@ export const userSlice = createSlice({
         setLoading(state, action) {
             state.loading = action.payload
         },
-        setLoading(state, action) {
-            state.loading = action.payload
-        },
+
     }
 });
 
