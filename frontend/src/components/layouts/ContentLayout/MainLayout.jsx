@@ -11,7 +11,7 @@ import ImageBackground from '../ImageBackground/ImageBackground';
 const ContentLayoutSection = styled.section`
     display: flex;
     flex-direction: column;
-    height: 75.7vh;
+    min-height: 75.7vh;
 
     @media (max-width: 768px) {
         display: flex;
