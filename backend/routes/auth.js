@@ -1,5 +1,5 @@
 import express from "express"
-import { deleteUser, getAllUsers, getUserDetails, getUserProfile, loginUser, logoutUser, registerUser, updatePassword, updateProfile, updateUser } from "../controllers/authControllers.js";
+import { deleteUser, getAllUsers, getUserDetails, getUserProfile, loginUser, logoutUser, registerUser, updatePassword, updateProfile, updateUser, uploadAvatar } from "../controllers/authControllers.js";
 import { authorizeRoles, isAuthenticatedUser } from "../middlewares/auth.js";
 
 
@@ -13,7 +13,7 @@ router.route("/logout").get(logoutUser);
 router.route("/me").get(isAuthenticatedUser, getUserProfile);
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
-
+router.route("/me/upload_avatar").put(isAuthenticatedUser, uploadAvatar);
 
 //admin
 

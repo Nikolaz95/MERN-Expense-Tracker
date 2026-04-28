@@ -1,6 +1,7 @@
 import catchAsyncErrors from "../middlewares/catchAsyncErrors.js";
 import Transition from "../models/transaction.js";
 import User from "../models/user.js";
+import { delete_file, upload_file } from "../utils/claudinary.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import sendToken from "../utils/sendToken.js";
 
@@ -178,4 +179,26 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
         success: true,
     });
+});
+
+
+
+// Upload user avatar =>  /api/me/upload_avatar
+export const uploadAvatar = catchAsyncErrors(async (req, res, next) => {
+    const avatarResponse = await upload_file(req.body.avatar, "ExpenseTrackerApp/avatars");
+
+    //remove previous avatar picture
+
+    if (req?.user?.avatar?.url) {
+        await delete_file(req?.user?.avatar?.public_id);
+    }
+
+    const user = await User.findByIdAndUpdate(req?.user?._id, {
+        avatar: avatarResponse,
+    });
+
+    res.status(200).json({
+        user
+    });
+
 });
