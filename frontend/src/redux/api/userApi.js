@@ -63,10 +63,19 @@ export const userApi = createApi({
             },
         }),
 
+
+        /* user delete byself account */
+        deleteMyAccount: builder.mutation({
+            query: () => ({
+                url: "/me/deleteAccount",
+                method: "DELETE",
+            }),
+            invalidatesTags: ["User"],
+        }),
     })
 })
 
 
 
 export const { useGetMeQuery, useUpdateProfileMutation,
-    useUploadAvatarMutation, useUpdatePasswordMutation } = userApi;
+    useUploadAvatarMutation, useUpdatePasswordMutation, useDeleteMyAccountMutation } = userApi;

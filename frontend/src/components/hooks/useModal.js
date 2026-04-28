@@ -26,6 +26,12 @@ const useTransactionModal = () => {
         setActiveModal("delete");
     };
 
+    // OPEN DELETE Modal 
+    const openDeleteUserAccModal = (transaction) => {
+        setSelectedTransaction(transaction);
+        setActiveModal("deleteUserAccount");
+    };
+
     // CLOSE MODAL
     const closeModal = () => {
         setActiveModal("");
@@ -37,6 +43,7 @@ const useTransactionModal = () => {
         selectedTransaction,
         openAddIncomeModal,
         openAddExpenseModal,
+        openDeleteUserAccModal,
         openInfoModal,
         openDeleteModal,
         closeModal

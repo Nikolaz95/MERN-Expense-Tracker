@@ -117,6 +117,32 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
 });
 
 
+
+// Delete user own account =>  /api/me/deleteAccount
+export const deleteOwnAccount = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+    }
+
+    // Remove avatar from cloudinary if it exists
+    if (user?.avatar?.public_id) {
+        await delete_file(user.avatar.public_id);
+    }
+
+    // Remove the token cookie
+    res.clearCookie("token");
+
+    await user.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: "Your account has been deleted successfully."
+    });
+});
+
+
 /* admin stuff */
 
 // Get all users - admin   =>  /api/admin/allUsers

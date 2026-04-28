@@ -12,23 +12,25 @@ import { DefoultProfile } from '../../../../../assets/SideBarIcons';
 import { iconDelete } from '../../../../../assets/BtnIcons';
 import Modal from '../../../../layouts/ModalComponent/Modal';
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
+import { useModal } from '../../../../context/modals/ModalContext';
+import useAuthBtnFunction from '../../../../hooks/useAuthBtnFunction';
 
 
 const DeleteAccount = () => {
     titleName('Delete Account', iconDelete);
-    const user = {
-        name: "nikola",
-        role: "admin",
-        email: "nikolajoe@gmail.com",
-        createdAt: "2026-04-15",
-        password: "123456"
-    }
+    const { user, handleLogOut } = useAuthBtnFunction();
+    // ← SAMO OVO, bez useState, bez starih hookova
+    const { openDeleteUserModal } = useModal();
 
-    // State to track which modal is open
-    const [activeModal, setActiveModal] = useState("");
+    const [selectedUserId, setSelectedUserId] = useState(null);
 
-    // Function to close the modal
-    const closeModal = () => setActiveModal("");
+
+    const handleDeleteClick = (userId) => {
+        setSelectedUserId(userId);
+        openDeleteUserAccModal();
+    };
+
+
     return (
         <DashBoardLayout>
             <h1>Delete Account</h1>
@@ -36,9 +38,9 @@ const DeleteAccount = () => {
                 <section className='deleteAccountContent'>
                     <div className="deleteAccountContainer">
                         <div className="deleteAccountTop">
-                            <Image variant='profile' src={DefoultProfile} /* src={
-                                user?.avatar ? user?.avatar?.url : AvatarDefault
-                            } */
+                            <Image variant='profile' src={
+                                user?.avatar ? user?.avatar?.url : DefoultProfile
+                            }
                                 alt="" title="Your Profil picture"
                                 className='deleteAccountImg' />
                         </div>
@@ -52,7 +54,7 @@ const DeleteAccount = () => {
                                 <p>{user.email}</p>
                             </div>
                             <div className="deleteAccountBtnDelete">
-                                <Button onClick={() => setActiveModal("deleteAccountUser")}
+                                <Button onClick={() => openDeleteUserModal(user._id)}
                                     variant="deleteAccount" icon={iconDelete}
                                     title="Delete Account">
                                     Delete Account
@@ -64,9 +66,9 @@ const DeleteAccount = () => {
             </UserInfoLayout>
 
             {/* Modal for delete modal */}
-            <Modal isOpen={activeModal === "deleteAccountUser"} onClose={closeModal}>
-                <DeleteModal onClose={closeModal} /* userId={selectedUserId} */ />
-            </Modal>
+            {/* <Modal isOpen={activeModal === "deleteAccountUser"} onClose={closeModal}>
+                <DeleteModal onClose={closeModal}  />
+            </Modal> */}
         </DashBoardLayout>
     )
 }

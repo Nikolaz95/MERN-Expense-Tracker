@@ -23,14 +23,15 @@ const DeleteModalBtnContent = style.main`
     
 `
 
-const DeleteModal = ({ deleteTitleText, underPText, onConfirm, onClose }) => {
+const DeleteModal = ({ deleteTitleText, underPText, underPText2, confirmDelete, onClose }) => {
     return (
         <DeleteModalLayout>
             <h1>{deleteTitleText}</h1>
             <p>{underPText}</p>
+            <p>{underPText2}</p>
             <DeleteModalBtnContent>
                 {/* Potvrda brisanja */}
-                <Button onClick={onConfirm} variant='btnModal'>
+                <Button onClick={confirmDelete} variant='btnModal'>
                     <Image src={ConfirmUpdate} variant='iconImg' />
                 </Button>
                 {/* Odustajanje */}

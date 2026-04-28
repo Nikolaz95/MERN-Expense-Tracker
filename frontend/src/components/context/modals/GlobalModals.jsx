@@ -5,15 +5,35 @@ import IncomeExpenseModal from '../../layouts/ModalComponent/ModalLayouts/ModalC
 import InfoTransactionModal from '../../layouts/ModalComponent/ModalLayouts/ModalContent/InfoTransactionModal/InfoTransactionModal';
 import DeleteModal from '../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import UpdateProfileModal from '../../layouts/ModalComponent/UpdateProfileModal/UpdateProfileModal';
-
+import { useNavigate } from 'react-router-dom';
+import { useDeleteMyAccountMutation } from '../../../redux/api/userApi';
+import toast from 'react-hot-toast';
 
 
 const GlobalModals = () => {
     const { activeModal, selectedTransaction, selectedUserId, closeModal } = useModal();
 
-    const confirmDelete = () => {
+    const navigate = useNavigate();
+
+    const [deleteMyAccount, { isLoading }] = useDeleteMyAccountMutation();
+
+    const confirmDelete = async () => {
+        try {
+            // Call the backend API to delete the account
+            await deleteMyAccount().unwrap();
+            // Show success message
+            toast.success('Account has been deleted successfully');
+            // Remove token from localStorage or sessionStorage
+            localStorage.removeItem('token');
+
+            closeModal();
+            // Redirect to home page or login page
+            navigate('/', { replace: true });
+            window.location.reload(); // Optionally force a page reload to clear session data
+        } catch (error) {
+            toast.error(error?.data?.message || 'Failed to delete your account');
+        }
         console.log("Korisnik obrisan:", selectedUserId);
-        closeModal();
     };
 
     return (
@@ -60,13 +80,13 @@ const GlobalModals = () => {
                 <UpdateProfileModal userId={selectedUserId} onClose={closeModal} />
             </Modal>
 
-            {/* Modal Delete */}
+            {/* Modal Delete Account */}
             <Modal isOpen={activeModal === "deleteUserAccount"} onClose={closeModal}>
                 <DeleteModal
                     deleteTitleText="Do you really wanna delete account?"
                     underPText={`Are you sure you want to delete user ?`}
                     underPText2="This action cannot be undone."
-                    onConfirm={confirmDelete} // Proslijedi funkciju za brisanje!
+                    confirmDelete={confirmDelete}
                     onClose={closeModal}
                 />
             </Modal>
