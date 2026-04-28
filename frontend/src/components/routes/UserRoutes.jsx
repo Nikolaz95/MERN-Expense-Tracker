@@ -4,19 +4,23 @@ import UploadPicture from '../page/BackendPage/UserPage/UploadPicture/UploadPict
 import DeleteAccount from '../page/BackendPage/UserPage/DeleteAccount/DeleteAccount'
 import UpdatePassword from '../page/BackendPage/UserPage/UpdatePassword/UpdatePassword'
 import UpdateProfile from '../page/BackendPage/UserPage/UpdateProfile/UpdateProfile'
+import ProtectRoute from './ProtectRoute'
 
 export const UserRoutes = [
     {
         path: "/user/settings-Profile",
         element:
-
-            <UserProfileInfo />
+            <ProtectRoute>
+                <UserProfileInfo />
+            </ProtectRoute>
     },
 
     {
         path: "/user/update-Profile",
         element:
-            <UpdateProfile />
+            <ProtectRoute>
+                <UpdateProfile />
+            </ProtectRoute>
     },
 
     {
