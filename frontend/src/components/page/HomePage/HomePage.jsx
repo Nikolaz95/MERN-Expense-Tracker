@@ -25,7 +25,6 @@ const HomePage = () => {
                             <p>Start Tracking Now</p>
                         </Button>
                     </Navigation>
-
                 </section>
             </MainLayout>
         </>

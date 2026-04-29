@@ -24,6 +24,7 @@ import { CurrencyProvider } from './components/context/CurrencyContext/CurrencyC
 import { TransactionProvider } from './components/context/TransactionContext/TransactionContext.jsx';
 import { store } from './redux/store.js';
 import AboutUs from './components/page/AboutUs/AboutUs.jsx';
+import ProtectRoute from './components/routes/ProtectRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -66,23 +67,39 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/userDashBoard",
-        element: <UserDashBoardPage />
+        element:
+          <ProtectRoute>
+            <UserDashBoardPage />
+          </ProtectRoute>
+
       },
       {
         path: "/userTransactions",
-        element: <UserTransactionsPage />
+        element:
+          <ProtectRoute>
+            <UserTransactionsPage />
+          </ProtectRoute>
       },
       {
         path: "/userIncoms",
-        element: <UserIncomsPage />
+        element:
+          <ProtectRoute>
+            <UserIncomsPage />
+          </ProtectRoute>
       },
       {
         path: "/userExpenses",
-        element: <UserExpasePage />
+        element:
+          <ProtectRoute>
+            <UserExpasePage />
+          </ProtectRoute>
       },
       {
         path: "/currencySettings",
-        element: <UserCurrencySettingsPage />
+        element:
+          <ProtectRoute>
+            <UserCurrencySettingsPage />
+          </ProtectRoute>
       },
     ]
   }

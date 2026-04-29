@@ -10,6 +10,7 @@ import { AboutUsIcon, HomePageImg } from '../../../assets/LogoIcons'
 import Button from '../../layouts/Buttons/Button';
 import AboutCardSection from './Layouts/MiddleSectionUI/AboutCardSection/AboutCardSection';
 import AboutStepsCard from './Layouts/MiddleSectionUI/AboutStepsCardSection/AboutStepsCard';
+import Navigation from '../../layouts/NavigatioLinkComponent/Navigation';
 
 const AboutUs = () => {
     titleName('About Us Page', AboutUsIcon);
@@ -25,9 +26,12 @@ const AboutUs = () => {
 
                         <p>BudgetFlow gives you a clear picture of income and expenses — with real-time currency conversion and visual reports in one place.</p>
                         <div>
-                            <Button>
-                                Start free
-                            </Button>
+                            <Navigation to="/signIn" className="navigationLink">
+                                <Button>
+                                    Start free
+                                </Button>
+                            </Navigation>
+
                         </div>
                     </section>
 
@@ -50,8 +54,14 @@ const AboutUs = () => {
                         <h1>Ready for control over finances?</h1>
                         <p>Create an account for free and start tracking money today.</p>
                         <div className="btnSection">
-                            <Button>Create Accoun</Button>
-                            <Button>Log In</Button>
+                            <Navigation to="/registration" className="navigationLink">
+                                <Button>Create Accoun</Button>
+                            </Navigation>
+
+                            <Navigation to="/signIn" className="navigationLink">
+                                <Button>Log In</Button>
+                            </Navigation>
+
                         </div>
 
                     </section>

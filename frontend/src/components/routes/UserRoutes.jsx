@@ -26,18 +26,27 @@ export const UserRoutes = [
     {
         path: "/user/update-Picture",
         element:
-            <UploadPicture />
+            <ProtectRoute>
+                <UploadPicture />
+            </ProtectRoute>
+
     },
 
     {
         path: "/user/update-Password",
         element:
-            <UpdatePassword />
+            <ProtectRoute>
+                <UpdatePassword />
+            </ProtectRoute>
+
 
     },
     {
         path: "/user/delete-Account",
         element:
-            <DeleteAccount />
+            <ProtectRoute>
+                <DeleteAccount />
+            </ProtectRoute>
+
     },
 ]
