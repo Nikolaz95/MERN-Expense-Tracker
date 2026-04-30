@@ -6,34 +6,41 @@ import ErrorHandler from "../utils/errorHandler.js";
 
 export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
     // Step 1: 
-    req.body.user = req.user._id;
-    const transition = await Transition.create(req.body);
-    /* const { title, amount, type, category, description } = req.body;
+
+    const { title, amount, type, category, description } = req.body;
     const userId = req.user.id;
-    console.log("Adding to new transition:", { title, amount, type, category, description }); */
+    console.log("Adding to new transition:", { title, amount, type, category, description });
 
 
     // Step 2: create new Transition
-    /* const createTransition = await Transition.create({
+    const createTransition = await Transition.create({
         user: userId,
-        title, amount, type, category, description
-    }); */
+        title,
+        amount,
+        type,
+        category,
+        description
+    });
 
 
     // Step 3. 
     res.status(201).json({
         success: true,
         message: "Created new Transition successfully!",
-        transition,
-        /* createTransition, */
+        /* transition, */
+        createTransition,
     });
 })
 
 
 // Get user's transaction - /transaction/me
 export const getTransactionList = catchAsyncErrors(async (req, res, next) => {
+    const userId = req.user._id;
 
-    const userTransactionList = await Transition.find() // Now using the query object
+    // Base query - now actually used in the find()
+    const query = { user: userId };
+
+    const userTransactionList = await Transition.find(query) // Now using the query object
         .sort({ date: -1 }); // Newest first
 
     res.status(200).json({
