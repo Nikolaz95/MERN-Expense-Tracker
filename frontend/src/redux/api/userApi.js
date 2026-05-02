@@ -65,12 +65,53 @@ export const userApi = createApi({
 
 
         /* user delete byself account */
-        deleteMyAccount: builder.mutation({
+        deleteByUserAccount: builder.mutation({
             query: () => ({
                 url: "/me/deleteAccount",
                 method: "DELETE",
             }),
             invalidatesTags: ["User"],
+        }),
+
+
+        /* Admin Part */
+
+
+        /* ADMIN- get list of all  users  */
+        getAdminAllUsers: builder.query({
+            query: () => `/admin/allUsers`,
+            providesTags: ["AdminUsers"],
+        }),
+
+        /* ADMIN- get users details  */
+        getUserDetails: builder.query({
+            query: (id) => `/admin/users/${id}`,
+            providesTags: ["AdminUser"],
+        }),
+
+
+        /* ADMIN- uptade another users  */
+
+        updateUser: builder.mutation({
+            query({ id, body }) {
+                return {
+                    url: `/admin/users/${id}`,
+                    method: "PUT",
+                    body,
+                };
+            },
+            invalidatesTags: ["AdminUsers"],
+        }),
+
+        /* ADMIN- can delete another profiles  */
+        deleteUserByAdmin: builder.mutation({
+            query(id) {
+                return {
+                    url: `/admin/users/${id}`,
+                    method: "DELETE",
+                };
+            },
+            invalidatesTags: ["AdminUsers"],
         }),
     })
 })
@@ -78,4 +119,6 @@ export const userApi = createApi({
 
 
 export const { useGetMeQuery, useUpdateProfileMutation,
-    useUploadAvatarMutation, useUpdatePasswordMutation, useDeleteMyAccountMutation } = userApi;
+    useUploadAvatarMutation, useUpdatePasswordMutation,
+    useDeleteByUserAccountMutation, useDeleteUserByAdminMutation,
+    useGetAdminAllUsersQuery, useUpdateUserMutation, useGetUserDetailsQuery } = userApi;

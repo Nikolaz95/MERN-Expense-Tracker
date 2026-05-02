@@ -118,7 +118,7 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 
 
-// Delete user own account =>  /api/me/deleteAccount
+// Delete user own myself account =>  /api/me/deleteAccount
 export const deleteOwnAccount = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user._id);
 
@@ -190,8 +190,8 @@ export const updateUser = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
-// Delete  user  - admin   =>  /api/admin/users/:id
-export const deleteUser = catchAsyncErrors(async (req, res, next) => {
+// Delete  user  - admin delete   =>  /api/admin/users/:id
+export const deleteUserAdmin = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
     if (!user) {
         return next(

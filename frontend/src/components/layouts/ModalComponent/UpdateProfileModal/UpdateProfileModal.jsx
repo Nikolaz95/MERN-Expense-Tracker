@@ -2,6 +2,10 @@ import React from 'react'
 import styled from "styled-components"
 import Button from '../../Buttons/Button';
 import { CancelUpdate, SaveUpdate } from '../../../../assets/Icons';
+import { useGetUserDetailsQuery, useUpdateUserMutation } from '../../../../redux/api/userApi';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 
 const CustomModalSection = styled.section`
@@ -41,13 +45,39 @@ border-radius: 10px;
 padding: 10px;
 `;
 
-const UpdateProfileModal = () => {
-    /* const user = {
-        name: "nikola",
-        role: "admin",
-        email: "nikolajoe@gmail.com",
-        createdAt: "2026-04-15",
-    } */
+const UpdateProfileModal = ({ userId, onClose }) => {
+
+    const { data } = useGetUserDetailsQuery(userId);
+    console.log(data);
+    const [updateUser, { error, isSuccess }] = useUpdateUserMutation();
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        role: ""
+    });
+
+    useEffect(() => {
+        if (data?.user) {
+            setFormData({
+                name: data.user.name,
+                email: data.user.email,
+                role: data.user.role
+            });
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error?.data?.message);
+        }
+
+        if (isSuccess) {
+            toast.success("User Updated");
+            onClose();
+        }
+    }, [error, isSuccess, onClose]);
+
     return (
         <CustomModalSection>
             <h1 h1 > Update Profile</h1 >
@@ -55,19 +85,22 @@ const UpdateProfileModal = () => {
                 <label htmlFor="name_field" className="formLabel">Name:</label>
                 <Input type="text" id="name_field"
                     className="form-control" placeholder='fakeUserName'
-                    value={name} /* onChange={(e) =>
-                        setName(e.target.value)} */ name="name" />
+                    value={formData.name}
+                    name="name" />
                 <label htmlFor="email_field" className="form-label">Email:</label>
 
-                <Input type="email" placeholder='fake@email.com' /* value={email} */
+                <Input type="email" placeholder='fake@email.com'
+                    value={formData.email}
                     /* onChange={(e) => setEmail(e.target.value)} */
                     id="email_field" className="form-control" name="email" />
 
                 <label htmlFor="role_field">
                     Role
                 </label>
-                <InputSelect name="role" /* value={role} */
-                    /* onChange={(e) => setRole(e.target.value)} */ id="role_field">
+                <InputSelect name="role"
+                    value={formData.role}
+                    /* onChange={(e) => setRole(e.target.value)} */
+                    id="role_field">
                     <option value="user">user</option>
                     <option value="admin">admin</option>
                 </InputSelect>

@@ -7,7 +7,6 @@ import Table from '../../../../layouts/Table/Table';
 
 
 /* data tableColums*/
-import listOfUsersData from '../../../../data/UserData';
 import { userColumns } from '../../../../layouts/Table/TableColumns/UserColumns';
 import PaginationComponent from '../../../../layouts/Pagination/PaginationComponent';
 import { UserList } from '../../../../../assets/SideBarIcons';
@@ -16,6 +15,7 @@ import Modal from '../../../../layouts/ModalComponent/Modal';
 
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import { useModal } from '../../../../context/modals/ModalContext';
+import { useGetAdminAllUsersQuery } from '../../../../../redux/api/userApi';
 
 
 
@@ -36,15 +36,19 @@ const ListOfUsers = () => {
     const [activeModal, setActiveModal] = useState("");
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [currentUsers, setCurrentUsers] = useState([]);
+    const { openUpdateUserModal, openDeleteUsersByAdminModal } = useModal();
 
-    const { openUpdateUserModal, openDeleteUserModal } = useModal();
+    const { data, isLoading, isError, error } = useGetAdminAllUsersQuery();
 
-    const columns = userColumns(openUpdateUserModal, openDeleteUserModal);
+
+    const allUsers = data?.users || [];
+
+    const columns = userColumns(openUpdateUserModal, openDeleteUsersByAdminModal);
 
     return (
         <DashBoardLayout>
             <ListOfUsersSection>
-                <h1>List Of Users : {listOfUsersData.length}</h1>
+                <h1>List Of Users : {allUsers.length}</h1>
                 <section className='listOfUsersTableSection'>
                     <Table
                         noDataText="There is no user register yet !"
@@ -55,7 +59,7 @@ const ListOfUsers = () => {
 
                 <section className='listOfUsersPagination'>
                     <PaginationComponent
-                        data={listOfUsersData}
+                        data={allUsers}
                         itemsPerPage={10}
                         onPageData={setCurrentUsers}
                     />

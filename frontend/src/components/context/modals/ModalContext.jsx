@@ -32,6 +32,11 @@ export const ModalProvider = ({ children }) => {
         setActiveModal("deleteUserAccount");
     };
 
+    const openDeleteUsersByAdminModal = (userId) => {
+        setSelectedUserId(userId);
+        setActiveModal("deleteByAdminSection");
+    };
+
     const closeModal = () => {
         setActiveModal("");
         setSelectedTransaction(null);
@@ -48,6 +53,7 @@ export const ModalProvider = ({ children }) => {
             openDeleteModal,
             openUpdateUserModal,
             openDeleteUserModal,
+            openDeleteUsersByAdminModal,
             closeModal
         }}>
             {children}

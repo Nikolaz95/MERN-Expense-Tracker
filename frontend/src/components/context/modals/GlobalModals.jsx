@@ -6,8 +6,8 @@ import InfoTransactionModal from '../../layouts/ModalComponent/ModalLayouts/Moda
 import DeleteModal from '../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import UpdateProfileModal from '../../layouts/ModalComponent/UpdateProfileModal/UpdateProfileModal';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteMyAccountMutation } from '../../../redux/api/userApi';
 import toast from 'react-hot-toast';
+import { useDeleteByUserAccountMutation, useDeleteUserByAdminMutation } from '../../../redux/api/userApi';
 
 
 const GlobalModals = () => {
@@ -15,12 +15,13 @@ const GlobalModals = () => {
 
     const navigate = useNavigate();
 
-    const [deleteMyAccount, { isLoading }] = useDeleteMyAccountMutation();
+    const [deleteByUserAccount, { isLoading }] = useDeleteByUserAccountMutation();
+    const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
 
-    const confirmDelete = async () => {
+    const confirmDeleteOwnAccount = async () => {
         try {
             // Call the backend API to delete the account
-            await deleteMyAccount().unwrap();
+            await deleteByUserAccount().unwrap();
             // Show success message
             toast.success('Account has been deleted successfully');
             // Remove token from localStorage or sessionStorage
@@ -34,6 +35,19 @@ const GlobalModals = () => {
             toast.error(error?.data?.message || 'Failed to delete your account');
         }
         console.log("Korisnik obrisan:", selectedUserId);
+    };
+
+    const confirmDeleteByAdmin = async () => {
+        try {
+            await deleteUserByAdmin(selectedUserId).unwrap();
+
+            toast.success("User deleted successfully");
+
+            closeModal();
+
+        } catch (error) {
+            toast.error(error?.data?.message || "Delete failed");
+        }
     };
 
     return (
@@ -80,13 +94,25 @@ const GlobalModals = () => {
                 <UpdateProfileModal userId={selectedUserId} onClose={closeModal} />
             </Modal>
 
-            {/* Modal Delete Account */}
+            {/* Modal Delete bySelf just User Account */}
             <Modal isOpen={activeModal === "deleteUserAccount"} onClose={closeModal}>
                 <DeleteModal
                     deleteTitleText="Do you really wanna delete account?"
                     underPText={`Are you sure you want to delete user ?`}
                     underPText2="This action cannot be undone."
-                    confirmDelete={confirmDelete}
+                    confirmDelete={confirmDeleteOwnAccount}
+                    onClose={closeModal}
+                />
+            </Modal>
+
+
+            {/* Modal Delete Account by Admin Section */}
+            <Modal isOpen={activeModal === "deleteByAdminSection"} onClose={closeModal}>
+                <DeleteModal
+                    deleteTitleText="Do you really wanna delete account? admin"
+                    underPText={`Are you sure you want to delete user ?`}
+                    underPText2="This action cannot be undone."
+                    confirmDelete={confirmDeleteByAdmin}
                     onClose={closeModal}
                 />
             </Modal>

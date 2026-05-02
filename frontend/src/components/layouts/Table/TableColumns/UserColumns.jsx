@@ -10,6 +10,21 @@ const ActionButtons = styled.div`
     justify-content: center;
 `;
 
+const RoleColums = styled.div`
+text-align: center;
+
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+
+    background-color: ${({ role }) =>
+        role === "admin" ? "#ffebee" : "#e3f2fd"};
+
+    color: ${({ role }) =>
+        role === "admin" ? "#c62828" : "#1565c0"};
+`;
+
 export const userColumns = (onUpdateClick, onDeleteClick) => [
     {
         header: "#ID",
@@ -32,21 +47,17 @@ export const userColumns = (onUpdateClick, onDeleteClick) => [
     {
         header: "Joined Date",
         field: "createdAt",
+        render: (row) => (
+            <span>{row.createdAt?.substring(0, 10)}</span>
+        )
     },
     {
         header: "Role",
         field: "role",
         render: (row) => (
-            <span style={{
-                padding: "4px 8px",
-                borderRadius: "4px",
-                backgroundColor: row.role === 'admin' ? '#ffebee' : '#e3f2fd',
-                color: row.role === 'admin' ? '#c62828' : '#1565c0',
-                fontSize: "0.85rem",
-                fontWeight: "bold"
-            }}>
+            <RoleColums role={row.role}>
                 {row.role.toUpperCase()}
-            </span>
+            </RoleColums>
         )
     },
     {
@@ -56,11 +67,11 @@ export const userColumns = (onUpdateClick, onDeleteClick) => [
                 <Button variant='btnTable'
                     icon={iconUpdate}
                     title="User Update"
-                    onClick={() => onUpdateClick(row.id)} />
+                    onClick={() => onUpdateClick(row._id)} />
                 <Button
                     variant='btnTable'
                     icon={iconDelete} title="Delete User"
-                    onClick={() => onDeleteClick(row.id)} />
+                    onClick={() => onDeleteClick(row._id)} />
             </ActionButtons>
         ),
     },
