@@ -15,7 +15,7 @@ export const CurrencyProvider = ({ children }) => {
     );
 
     useEffect(() => {
-        if (!data) return;
+        if (!data || !data.conversion_rates) return;
         setRates(data.conversion_rates);
         const currencyList = Object.keys(data.conversion_rates).map(code => ({
             value: code,
