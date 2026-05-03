@@ -2,12 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import { transactionsApi } from './api/transactionsApi';
 import { authApi } from './api/authApi';
 import { userApi } from './api/userApi';
-import useReducer from "./features/userSlice"
+import userReducer from "./features/userSlice"
+import transactionReducer from "./features/transactionSlice";
+
 
 
 export const store = configureStore({
     reducer: {
-        auth: useReducer,
+        auth: userReducer,
+        transaction: transactionReducer,
         [authApi.reducerPath]: authApi.reducer,
         [userApi.reducerPath]: userApi.reducer,
         [transactionsApi.reducerPath]: transactionsApi.reducer,

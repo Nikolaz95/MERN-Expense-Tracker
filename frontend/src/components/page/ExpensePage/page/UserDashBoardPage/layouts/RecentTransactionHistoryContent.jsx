@@ -43,8 +43,21 @@ display: flex;
 import transitionData from '../../../../../data/TransactionData';
 import useTransactionModal from '../../../../../hooks/useModal'
 import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext'
+import { useGetUserTransactionsListQuery } from '../../../../../../redux/api/transactionsApi'
 const RecentTransactionHistoryContent = () => {
     const { convert, currency } = useCurrency();
+
+    const { data, isLoading, error } = useGetUserTransactionsListQuery();
+    console.log("*********");
+    console.log("transakcije: ", data);
+    console.log("*********");
+
+
+    const transactions = data?.userTransactionList || [];
+
+    console.log("*********");
+    console.log("transakcije 2: ", transactions);
+    console.log("*********");
 
     const allColumns = transactionColumns(null, null, convert, currency); // ← null jer nema modala
 
@@ -52,9 +65,8 @@ const RecentTransactionHistoryContent = () => {
         ["recipient", "category", "amount"].includes(col.field)
     );
 
-    const recentTransactionsData = [...transitionData]
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-
+    const recentTransactionsData = [...transactions]
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return (
         <RecentTransactionArticle>
