@@ -7,7 +7,6 @@ import UserExpenseLayout from '../../Layouts/UserExpenseLayout/UserExpenseLayout
 import IncomExpensLayout from '../../Layouts/UserExpenseLayout/IncomExpensLayout';
 
 // import data
-import transitionData from '../../../../data/TransactionData';
 import Modal from '../../../../layouts/ModalComponent/Modal';
 import Modal1 from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/Modal1';
 import IncomeExpenseModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/IncExp/IncomeExpenseModal';
@@ -16,14 +15,21 @@ import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayout
 import useTransactionModal from '../../../../hooks/useModal';
 import { useModal } from '../../../../context/modals/ModalContext';
 import { useTransaction } from '../../../../context/TransactionContext/TransactionContext';
+import { useGetUserTransactionsListQuery } from '../../../../../redux/api/transactionsApi';
+import { useSelector } from 'react-redux';
 
 const UserIncomsPage = () => {
     useTitle('User Income Page', IncomeTitleIcon);
-    const user = { id: 1, userName: "Nikola" }
-    const incomeOnlyData = transitionData.filter(item => item.type === 'income');
+    const { user } = useSelector((state) => state.auth);
+    console.log(user);
 
+    const { data, isLoading } = useGetUserTransactionsListQuery();
+    const transitionData = data?.userTransactionList || [];
 
-    const { incomeDataStore } = useTransaction();
+    const incomeOnlyData = transitionData.filter(
+        item => item.type === "income"
+    );
+    const { incomeDataStore } = useTransaction()
 
     // ← SAMO OVO, bez useState, bez starih hookova
     const { openAddIncomeModal, openInfoModal, openDeleteModal } = useModal();
@@ -33,7 +39,7 @@ const UserIncomsPage = () => {
             <UserExpenseLayout icon={IncomeTitleIcon}>
                 <IncomExpensLayout
                     titleText="Income Overview"
-                    descriptionText={`${user.userName}, here is your income Overview`}
+                    descriptionText={`${user?.name}, here is your income Overview`}
                     buttonText="Add Income"
 
                     // ✅ OVO JE KLJUČ

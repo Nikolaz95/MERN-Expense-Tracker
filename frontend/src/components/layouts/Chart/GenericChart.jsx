@@ -19,6 +19,7 @@ const periods = [
 const GenericChart = ({ title, dataStore, themeColor }) => {
     const [period, setPeriod] = useState('7days');
     const { convert, currency } = useCurrency();
+
     const currentData = dataStore[period];
 
     const datasets = period === 'year' && currentData.years
@@ -35,14 +36,10 @@ const GenericChart = ({ title, dataStore, themeColor }) => {
             filters={
                 <ChartFilterButtons periods={periods}
                     period={period} setPeriod={setPeriod}
-                    themeColor={themeColor} />
-            }
-        >
-            <Bar
-                data={{ labels: currentData.labels, datasets }}
+                    themeColor={themeColor} />}>
+            <Bar data={{ labels: currentData.labels, datasets }}
                 options={{
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     plugins: {
                         legend: { display: period === 'year' },
                         tooltip: {

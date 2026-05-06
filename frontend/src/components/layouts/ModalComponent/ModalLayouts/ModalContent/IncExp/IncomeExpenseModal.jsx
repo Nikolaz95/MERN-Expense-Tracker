@@ -8,6 +8,7 @@ import DataPicker from '../../../../DataComponents/DatePicker';
 import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
 import { formatNumber } from '../../../../../utils/formatNumber';
 import { useWordCount } from '../../../../../hooks/useWordCount';
+import toast from 'react-hot-toast';
 
 const CustomModalSection = styled.section`
 display: flex;

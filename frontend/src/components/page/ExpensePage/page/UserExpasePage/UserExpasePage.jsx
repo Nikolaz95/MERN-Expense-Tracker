@@ -14,17 +14,23 @@ import InfoTransactionModal from '../../../../layouts/ModalComponent/ModalLayout
 import DeleteModal from '../../../../layouts/ModalComponent/ModalLayouts/ModalContent/DeleteModal/DeleteModal';
 import { useModal } from '../../../../context/modals/ModalContext';
 import { useTransaction } from '../../../../context/TransactionContext/TransactionContext';
+import { useSelector } from 'react-redux';
+import { useGetUserTransactionsListQuery } from '../../../../../redux/api/transactionsApi';
 
 const UserExpasePage = () => {
     titleName('User Expase Page', ExpensesTitleIcon);
-    const user = {
-        id: 1,
-        userName: "Nikola",
-    }
+    const { user } = useSelector((state) => state.auth);
+    console.log(user);
 
-    const expenseOnlyData = transitionData.filter(item => item.type === 'expense');
+    const { data, isLoading } = useGetUserTransactionsListQuery();
+    const transactions = data?.userTransactionList || []
+
+    const expenseOnlyData = transactions.filter(
+        item => item.type === "expense"
+    );;
 
     const { expenseDataStore } = useTransaction();
+
 
     // ← SAMO OVO, bez useState, bez starih hookova
     const { openAddExpenseModal, openInfoModal, openDeleteModal, } = useModal();
@@ -33,7 +39,7 @@ const UserExpasePage = () => {
         <>
             <UserExpenseLayout icon={ExpensesTitleIcon}>
                 <IncomExpensLayout titleText="Expense Overview"
-                    descriptionText={`${user.userName}, here is your expense Overview`}
+                    descriptionText={`${user?.name}, here is your expense Overview`}
                     buttonText="Add expense"
 
                     openModalAddIncome={openAddExpenseModal}

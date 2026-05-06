@@ -29,7 +29,7 @@ export const transactionColumns = (onInfo, onDelete, convert, currency) => {
                 return (
                     <div className="tableDataContent">
                         <span style={{ fontSize: "1.5rem" }}>{icon}</span>
-                        <span>{row.recipient}</span>
+                        <span>{row.title}</span>
                     </div>
                 );
             },
@@ -43,6 +43,9 @@ export const transactionColumns = (onInfo, onDelete, convert, currency) => {
             header: "Transaction Date",
             field: "date",
             className: "tableRowMidle",
+            render: (row) => (
+                <span>{row.date?.substring(0, 10)}</span>
+            ),
         },
         {
             header: "Amount",

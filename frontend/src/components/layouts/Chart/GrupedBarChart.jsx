@@ -6,6 +6,7 @@ import {
 import ChartFilterButtons from './layouts/ChartFilterButtons';
 import styled from "styled-components";
 import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
+import { formatNumber } from '../../utils/formatNumber';
 
 
 
@@ -66,16 +67,20 @@ const periods = [
 const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
     const [period, setPeriod] = useState('daily');
     const { convert, currency } = useCurrency();
+    // ← provjeri da li dataStore i currentData postoje
+    if (!dataStore || !dataStore[period]) {
+        return <p>No data available</p>;
+    }
+
     const currentData = dataStore[period];
 
+    // ← provjeri da li ima podataka
+    const hasData = currentData.labels?.length > 0;
+    if (!hasData) {
+        return <p>No transactions found for this period</p>;
+    }
+
     const datasets = [
-        {
-            label: 'Profit',
-            data: currentData.income.map((inc, i) => inc - Math.abs(currentData.expenses[i])),
-            backgroundColor: '#60a5fa',
-            stack: 'Stack 0',
-            borderRadius: { topLeft: 4, topRight: 4 },
-        },
         {
             label: 'Income',
             data: currentData.income,
@@ -84,10 +89,27 @@ const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
         },
         {
             label: 'Expenses',
-            data: currentData.expenses.map(val => -Math.abs(val)),
+            data: currentData.expenses,
             backgroundColor: '#f87171',
             stack: 'Stack 0',
-            borderRadius: { bottomLeft: 4, bottomRight: 4 },
+        },
+        {
+            label: 'Profit',
+            data: currentData.income.map((inc, i) => {
+                const balance = inc + currentData.expenses[i]; // expenses su negativni
+                return balance > 0 ? balance : 0;
+            }),
+            backgroundColor: '#60a5fa',
+            stack: 'Stack 0', // ← DRUGI stack, ne zbrajaj sa income/expenses
+        },
+        {
+            label: 'Loss',
+            data: currentData.income.map((inc, i) => {
+                const balance = inc + currentData.expenses[i];
+                return balance < 0 ? balance : 0;
+            }),
+            backgroundColor: '#f97316',
+            stack: 'Stack 0', // ← DRUGI stack
         },
     ];
 
@@ -117,10 +139,14 @@ const GrupedBarChart = ({ dataStore, title = "Financial Overview" }) => {
                             legend: { position: 'top', labels: { usePointStyle: true } },
                             tooltip: {
                                 callbacks: {
-                                    // ← convert ovdje
-                                    label: (context) => ` ${context.dataset.label}: ${currency?.symbol} ${convert(Math.abs(context.raw))}`
+                                    label: (context) => {
+                                        const value = context.raw;
+                                        if (value === 0) return null; // ← ne prikazuj 0 vrijednosti
+                                        const sign = value < 0 ? '-' : '';
+                                        return ` ${context.dataset.label}: ${sign}${currency?.symbol} ${formatNumber(convert(Math.abs(value)))}`;
+                                    }
                                 }
-                            }
+                            },
                         },
                         scales: {
                             y: {

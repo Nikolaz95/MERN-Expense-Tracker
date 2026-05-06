@@ -72,12 +72,35 @@ const PieChart = ({ title = "Financial Overview" }) => {
     const { convert, currency } = useCurrency();
     const { totalIncome, totalExpense, totalBalance } = useTransaction();
 
+    const profit = totalBalance > 0 ? totalBalance : 0;
+    const loss = totalBalance < 0 ? Math.abs(totalBalance) : 0;
+
+    // ← dinamički labele i boje
+    const labels = ['Expenses', 'Income'];
+    const dataValues = [Math.abs(totalExpense), totalIncome];
+    const backgroundColors = ['#f87171', '#34c317'];
+    const hoverColors = ['#ef4444', '#21790f'];
+
+    if (profit > 0) {
+        labels.push('Profit');
+        dataValues.push(profit);
+        backgroundColors.push('#60a5fa');
+        hoverColors.push('#3b82f6');
+    }
+
+    if (loss > 0) {
+        labels.push('Loss');
+        dataValues.push(loss);
+        backgroundColors.push('#f97316');
+        hoverColors.push('#ea580c');
+    }
+
     const data = {
-        labels: ['Expenses', 'Income', 'Profit'],
+        labels,
         datasets: [{
-            data: [totalExpense, totalIncome, totalBalance > 0 ? totalBalance : 0],
-            backgroundColor: ['#f87171', '#34c317', '#60a5fa'],
-            hoverBackgroundColor: ['#ef4444', '#21790f', '#3b82f6'],
+            data: dataValues,
+            backgroundColor: backgroundColors,
+            hoverBackgroundColor: hoverColors,
             borderWidth: 1,
         }],
     };
@@ -96,7 +119,12 @@ const PieChart = ({ title = "Financial Overview" }) => {
             },
             tooltip: {
                 callbacks: {
-                    label: (context) => ` ${context.label}:  ${currency?.symbol} ${formatNumber(convert(context.raw))}`
+                    label: (context) => {
+                        const value = context.raw;
+                        const label = context.label;
+                        const sign = label === 'Expenses' || label === 'Loss' ? '-' : '';
+                        return ` ${label}: ${sign}${currency?.symbol} ${formatNumber(convert(value))}`;
+                    }
                 }
             }
         },

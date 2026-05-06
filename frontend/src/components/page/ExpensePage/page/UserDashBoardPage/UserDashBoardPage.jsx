@@ -35,6 +35,8 @@ const UserDashBoardPage = () => {
     titleName('User DashBoard Page', DashBoardTitleIcon);
     const { dashboardDataStore } = useTransaction();
 
+    console.log("DASHBOARD DATA:", dashboardDataStore?.daily);
+
     return (
         <>
             <UserExpenseLayout icon={DashBoardTitleIcon}>
