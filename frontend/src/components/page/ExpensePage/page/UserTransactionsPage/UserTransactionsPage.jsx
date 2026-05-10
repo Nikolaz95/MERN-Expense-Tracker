@@ -19,13 +19,28 @@ import { useSearchParams } from 'react-router-dom';
 import { sortTransactions } from '../../../../constants/sortOptions';
 import transitionAllData from '../../../../data/TransactionData';
 import { useModal } from '../../../../context/modals/ModalContext';
-import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../../../hooks/useCurrency';
+
+import { useGetUserTransactionsListQuery } from '../../../../../redux/api/transactionsApi';
 
 
 const UserTransactionsPage = () => {
     titleName('User Transactions Page', TransactionsTitleIcon);
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentTrans, setCurrentTrans] = useState([]);
+
+
+    const { data, isLoading, error } = useGetUserTransactionsListQuery();
+    console.log("*********");
+    console.log("transakcije: ", data);
+    console.log("*********");
+
+    const transactions = data?.userTransactionList || [];
+
+    console.log("*********");
+    console.log("transakcije 2: ", transactions);
+    console.log("*********");
+
 
     const search = searchParams.get("search") || "";
 
@@ -34,18 +49,18 @@ const UserTransactionsPage = () => {
     const category = searchParams.get("category") || "all";
 
     const sortedData = useMemo(() => {
-        let filtered = transitionData;
+        let filtered = transactions;
 
         if (category !== "all")
             filtered = filtered.filter(t => t.category === category);
 
         if (search)
             filtered = filtered.filter(t =>
-                t.recipient.toLowerCase().includes(search.toLowerCase())
+                t.title.toLowerCase().includes(search.toLowerCase())
             );
 
         return sortTransactions(filtered, sortBy);
-    }, [sortBy, category, search]);
+    }, [transactions, sortBy, category, search]);
 
     function handleSortChange(value) {
         searchParams.set("sortBy", value);

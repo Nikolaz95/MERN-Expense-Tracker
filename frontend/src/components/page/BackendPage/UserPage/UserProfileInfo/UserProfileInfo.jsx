@@ -8,11 +8,12 @@ import { DefoultProfile, LogOut, UserIcon } from '../../../../../assets/SideBarI
 import Image from '../../../../layouts/Images/Image'
 import UserInfoLayout from '../LayoutUI/UserInfoLayout';
 import useAuthBtnFunction from '../../../../hooks/useAuthBtnFunction';
+import { useSelector } from 'react-redux';
 
 const UserProfileInfo = () => {
     titleName('Profile Info', UserIcon);
 
-    const { user, handleLogOut } = useAuthBtnFunction();
+    const { user, isAuthenticated } = useSelector((state) => state.auth);
     return (
         <DashBoardLayout>
             <h1>Profile Info</h1>

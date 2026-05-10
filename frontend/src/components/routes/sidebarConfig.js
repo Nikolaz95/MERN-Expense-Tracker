@@ -94,11 +94,6 @@ const trackerSidebar = [
                 path: PATHS.USER_EXPENSE_TRACKER.EXPENSES_USER_PAGE,
                 icon: Expenses
             },
-            {
-                title: "Currency Settings",
-                path: PATHS.USER_EXPENSE_TRACKER.CURRENCY_SETTINGS_USER_PAGE,
-                icon: CurrencyExchange
-            }
         ]
     }
 ]

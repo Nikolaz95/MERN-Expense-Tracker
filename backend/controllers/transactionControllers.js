@@ -11,12 +11,13 @@ export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
     const userId = req.user.id;
     console.log("Adding to new transition:", { title, amount, type, category, description });
 
+    const finalAmount = type === 'expense' ? -Math.abs(amount) : Math.abs(amount);
 
     // Step 2: create new Transition
     const createTransition = await Transition.create({
         user: userId,
         title,
-        amount,
+        amount: finalAmount,
         type,
         category,
         description

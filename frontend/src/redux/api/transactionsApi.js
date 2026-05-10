@@ -4,15 +4,46 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const transactionsApi = createApi({
     reducerPath: "transactionsApi",
     baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
-    tagTypes: ["TransactionsList"],
+    tagTypes: ["Transactions", "Transaction"],
     endpoints: (builder) => ({
 
-        getTransactionsList: builder.query({
-            query: () => "/visitlist/me",
-            providesTags: ["VisitList"],
+        /* get all transactions of users */
+        getUserTransactionsList: builder.query({
+            query: () => "/transaction/me",
+
+            providesTags: ["Transactions"],
+        }),
+
+
+        //  create transaction
+        createTransaction: builder.mutation({
+            query(body) {
+                return {
+                    url: "/transaction/add",
+                    method: "POST",
+                    body,
+                };
+            },
+            invalidatesTags: ["Transactions"], // ← automatski refetch liste
+        }),
+
+
+        //  delete transaction
+
+        deleteTransaction: builder.mutation({
+            query(id) {
+                return {
+                    url: `/transaction/${id}`,
+                    method: "DELETE",
+                };
+            },
+            invalidatesTags: ["Transactions"], // ← automatski refetch liste
         }),
 
     })
 })
 
-export const { useGetTransactionsListQuery } = transactionsApi;
+export const { useGetUserTransactionsListQuery,
+    useCreateTransactionMutation,
+    useDeleteTransactionMutation
+} = transactionsApi;

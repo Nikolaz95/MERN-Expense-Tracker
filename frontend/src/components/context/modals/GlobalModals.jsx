@@ -8,16 +8,32 @@ import UpdateProfileModal from '../../layouts/ModalComponent/UpdateProfileModal/
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useDeleteByUserAccountMutation, useDeleteUserByAdminMutation } from '../../../redux/api/userApi';
+import { useDeleteTransactionMutation } from '../../../redux/api/transactionsApi';
 
 
 const GlobalModals = () => {
     const { activeModal, selectedTransaction, selectedUserId, closeModal } = useModal();
+    const [deleteTransaction] = useDeleteTransactionMutation();
 
     const navigate = useNavigate();
 
     const [deleteByUserAccount, { isLoading }] = useDeleteByUserAccountMutation();
     const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
 
+    /* funckija delete transaction */
+    const confirmDeleteTransaction = async () => {
+        try {
+            await deleteTransaction(selectedTransaction?._id).unwrap();
+            toast.success("Transaction deleted successfully!");
+            closeModal();
+        } catch (err) {
+            toast.error(err?.data?.message || "Delete failed!");
+        }
+
+        console.log("Transakcija obrisana:", selectedTransaction);
+    };
+
+    /* funckija delete user own account */
     const confirmDeleteOwnAccount = async () => {
         try {
             // Call the backend API to delete the account
@@ -37,6 +53,8 @@ const GlobalModals = () => {
         console.log("Korisnik obrisan:", selectedUserId);
     };
 
+
+    /* funckija delete admin other users */
     const confirmDeleteByAdmin = async () => {
         try {
             await deleteUserByAdmin(selectedUserId).unwrap();
@@ -57,6 +75,8 @@ const GlobalModals = () => {
             <Modal isOpen={activeModal === "addIncome" || activeModal === "addExpense"} onClose={closeModal}>
                 <IncomeExpenseModal
                     titleText={activeModal === "addIncome" ? "Add Income" : "Add Expense"}
+                    recipientTitle={"Recipient Title"}
+                    recipientPlaceholder={"Write some title ..."}
                     underTitleText={activeModal === "addIncome"
                         ? "Choose a category to set an income budget."
                         : "Choose a category to set an expense budget."}
@@ -84,6 +104,7 @@ const GlobalModals = () => {
                     deleteTitleText="Are you sure you want to delete this transaction?"
                     underPText="This action cannot be undone."
                     transaction={selectedTransaction}
+                    confirmDelete={confirmDeleteTransaction}
                     onClose={closeModal}
                 />
             </Modal>

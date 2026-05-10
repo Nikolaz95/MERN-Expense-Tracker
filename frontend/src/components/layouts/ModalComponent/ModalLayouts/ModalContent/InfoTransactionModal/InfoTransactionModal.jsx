@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from "styled-components"
-import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../../../../hooks/useCurrency';
+
 import { formatNumber } from '../../../../../utils/formatNumber';
 import { useWordCount } from '../../../../../hooks/useWordCount';
 
@@ -55,11 +56,11 @@ const InfoTransactionModal = ({ transaction, onClose }) => {
         <CustomModalSection>
             <UpdateAccountModalContent>
                 <h2>Recipient</h2>
-                <p>{transaction.recipient}</p>
+                <p>{transaction.title}</p>
                 <h2>Category</h2>
                 <p>{transaction.category}</p>
                 <h2>Transaction Date</h2>
-                <p>{transaction.date}</p>
+                <p>{transaction.date.substring(0, 10)}</p>
                 <DescriptionTransactionSection>
                     <label htmlFor="descriptionText">Description</label>
                     <DescriptionTextArea name="" id="descriptionText"

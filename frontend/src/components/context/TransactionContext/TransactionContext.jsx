@@ -1,23 +1,26 @@
 import { createContext, useContext, useMemo } from "react";
-import transitionData from '../../data/TransactionData';
-
+import { useGetUserTransactionsListQuery } from "../../../redux/api/transactionsApi";
 
 const TransactionContext = createContext(null);
 
-
 export const TransactionProvider = ({ children }) => {
+    const { data, isLoading } = useGetUserTransactionsListQuery();
+    const transactions = data?.userTransactionList || [];
+
+    console.log("TRANSACTIONS U CONTEXTU:", transactions);
+
     const totalIncome = useMemo(() =>
-        transitionData
+        transactions
             .filter(t => t.type === 'income')
             .reduce((sum, t) => sum + t.amount, 0),
-        []
+        [transactions]
     );
 
     const totalExpense = useMemo(() =>
-        transitionData
+        transactions
             .filter(t => t.type === 'expense')
             .reduce((sum, t) => sum + t.amount, 0),
-        []
+        [transactions]
     );
 
     const totalBalance = totalIncome + totalExpense;
@@ -38,34 +41,35 @@ export const TransactionProvider = ({ children }) => {
         const today = new Date();
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(today.getDate() - 7);
+        const fourWeeksAgo = new Date();
+        fourWeeksAgo.setDate(today.getDate() - 28);
 
+        // DAILY
         const dailyMap = {};
-        transitionData
+        transactions
             .filter(t => new Date(t.date) >= sevenDaysAgo)
             .forEach(t => {
                 const date = new Date(t.date);
                 const label = `${dayNames[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()}`;
                 dailyMap[label] = dailyMap[label] || { income: 0, expenses: 0 };
                 if (t.type === 'income') dailyMap[label].income += t.amount;
-                else dailyMap[label].expenses += Math.abs(t.amount);
+                else dailyMap[label].expenses += t.amount; // ← bez Math.abs()
             });
 
         const dailyLabels = Object.keys(dailyMap);
         const dailyIncome = dailyLabels.map(l => dailyMap[l].income);
         const dailyExpenses = dailyLabels.map(l => dailyMap[l].expenses);
 
-        const fourWeeksAgo = new Date();
-        fourWeeksAgo.setDate(today.getDate() - 28);
-
+        // WEEKLY
         const weeklyMap = {};
-        transitionData
+        transactions
             .filter(t => new Date(t.date) >= fourWeeksAgo)
             .forEach(t => {
                 const weekNum = getWeekNumber(new Date(t.date));
                 const label = `Week ${weekNum}`;
                 weeklyMap[label] = weeklyMap[label] || { income: 0, expenses: 0, weekNum };
                 if (t.type === 'income') weeklyMap[label].income += t.amount;
-                else weeklyMap[label].expenses += Math.abs(t.amount);
+                else weeklyMap[label].expenses += t.amount; // ← bez Math.abs()
             });
 
         const weeklyLabels = Object.keys(weeklyMap).sort((a, b) =>
@@ -74,25 +78,27 @@ export const TransactionProvider = ({ children }) => {
         const weeklyIncome = weeklyLabels.map(l => weeklyMap[l].income);
         const weeklyExpenses = weeklyLabels.map(l => weeklyMap[l].expenses);
 
+        // MONTHLY
         const monthlyMap = {};
-        transitionData.forEach(t => {
+        transactions.forEach(t => {
             const date = new Date(t.date);
             const label = `${months[date.getMonth()]} ${date.getFullYear()}`;
             monthlyMap[label] = monthlyMap[label] || { income: 0, expenses: 0 };
             if (t.type === 'income') monthlyMap[label].income += t.amount;
-            else monthlyMap[label].expenses += Math.abs(t.amount);
+            else monthlyMap[label].expenses += t.amount; // ← bez Math.abs()
         });
 
-        const monthlyLabels = Object.keys(monthlyMap).sort((a, b) => new Date(a) - new Date(b)); // ← sort
+        const monthlyLabels = Object.keys(monthlyMap).sort((a, b) => new Date(a) - new Date(b));
         const monthlyIncome = monthlyLabels.map(l => monthlyMap[l].income);
         const monthlyExpenses = monthlyLabels.map(l => monthlyMap[l].expenses);
 
+        // YEARLY
         const yearlyMap = {};
-        transitionData.forEach(t => {
+        transactions.forEach(t => {
             const year = String(new Date(t.date).getFullYear());
             yearlyMap[year] = yearlyMap[year] || { income: 0, expenses: 0 };
             if (t.type === 'income') yearlyMap[year].income += t.amount;
-            else yearlyMap[year].expenses += Math.abs(t.amount);
+            else yearlyMap[year].expenses += t.amount; // ← bez Math.abs()
         });
 
         const yearlyLabels = Object.keys(yearlyMap).sort();
@@ -105,7 +111,7 @@ export const TransactionProvider = ({ children }) => {
             monthly: { labels: monthlyLabels, income: monthlyIncome, expenses: monthlyExpenses },
             yearly: { labels: yearlyLabels, income: yearlyIncome, expenses: yearlyExpenses },
         };
-    }, []);
+    }, [transactions]);
 
     const incomeDataStore = useMemo(() => {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -115,7 +121,7 @@ export const TransactionProvider = ({ children }) => {
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(today.getDate() - 7);
 
-        const incomeOnly = transitionData.filter(t => t.type === 'income');
+        const incomeOnly = transactions.filter(t => t.type === 'income');
 
         const sevenDaysMap = {};
         incomeOnly
@@ -156,7 +162,7 @@ export const TransactionProvider = ({ children }) => {
                 }))
             }
         };
-    }, []);
+    }, [transactions]);
 
     const expenseDataStore = useMemo(() => {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -166,7 +172,7 @@ export const TransactionProvider = ({ children }) => {
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(today.getDate() - 7);
 
-        const expenseOnly = transitionData.filter(t => t.type === 'expense');
+        const expenseOnly = transactions.filter(t => t.type === 'expense');
 
         const sevenDaysMap = {};
         expenseOnly
@@ -207,12 +213,12 @@ export const TransactionProvider = ({ children }) => {
                 }))
             }
         };
-    }, []);
+    }, [transactions]);
 
 
     return (
         <TransactionContext.Provider value={{
-            transitionData,
+            transactions,
             totalIncome,
             totalExpense,
             totalBalance,

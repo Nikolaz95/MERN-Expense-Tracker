@@ -11,7 +11,8 @@ import styled from "styled-components";
 import TransactionTable from '../../../../layouts/Table/TransactionTable';
 import Table from '../../../../layouts/Table/Table';
 import { transactionColumns } from '../../../../layouts/Table/TableColumns/TransactionColumns';
-import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext';
+/* import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext'; */
+import useCurrency from '../../../../hooks/useCurrency';
 
 const IncomExpenseLayout = styled.section`
 display: flex;

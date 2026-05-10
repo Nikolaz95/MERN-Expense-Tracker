@@ -6,7 +6,7 @@ import Loading from '../layouts/Loading/Loading';
 const ProtectRoute = ({ children, admin }) => {
     const { isAuthenticated, loading, user } = useSelector((state) => state.auth);
 
-    if (loading) return <Loading />;
+    /* if (loading) return <Loading />; */
 
     if (!isAuthenticated) {
         return <Navigate to="/signIn" replace />
