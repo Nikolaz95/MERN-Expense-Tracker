@@ -15,6 +15,8 @@ import { useSelector } from 'react-redux'
 const AuthForm = ({ type }) => {
     const isRegister = type === "register";
     const navigate = useNavigate();
+    const [submitted, setSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
 
     // 1. KORISTI ALIASE (NADIMKE) ZA VARIJABLE
@@ -44,7 +46,6 @@ const AuthForm = ({ type }) => {
         password: ""
     });
 
-    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         if (isAuthenticated) {

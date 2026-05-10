@@ -5,7 +5,8 @@ import {
 } from 'chart.js';
 import ChartFilterButtons from './layouts/ChartFilterButtons';
 import styled from "styled-components";
-import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../hooks/useCurrency';
+
 import { formatNumber } from '../../utils/formatNumber';
 
 

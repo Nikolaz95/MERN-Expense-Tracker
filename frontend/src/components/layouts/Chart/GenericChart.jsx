@@ -5,7 +5,7 @@ import {
 } from 'chart.js';
 import ChartWrapper from './layouts/ChartWrapper';
 import ChartFilterButtons from './layouts/ChartFilterButtons';
-import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../hooks/useCurrency';
 import { formatNumber } from '../../utils/formatNumber';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);

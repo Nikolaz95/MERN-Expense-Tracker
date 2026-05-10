@@ -5,10 +5,13 @@ import Button from '../../../../Buttons/Button';
 import FilterCategory from '../../../../FilterCategory/FilterCategory';
 import DatePicker from 'react-datepicker';
 import DataPicker from '../../../../DataComponents/DatePicker';
-import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../../../../hooks/useCurrency';
+
+/* import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext'; */
 import { formatNumber } from '../../../../../utils/formatNumber';
 import { useWordCount } from '../../../../../hooks/useWordCount';
 import toast from 'react-hot-toast';
+import { useCreateTransactionMutation } from '../../../../../../redux/api/transactionsApi';
 
 const CustomModalSection = styled.section`
 display: flex;
@@ -69,11 +72,15 @@ const BottomSection = styled.section`
    justify-content: center;
 `
 
-const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText, placholderTextDescription }) => {
+const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonText, placholderText, placholderTextDescription, recipientTitle, recipientPlaceholder }) => {
+    const [recipientTitleText, setRecipientTitleText] = useState("");
+    const [category, setCategory] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [amount, setAmount] = useState("");
     const { currency } = useCurrency();
     const [notes, setNotes] = useState("");
+
+    const [createTransaction, { isLoading }] = useCreateTransactionMutation();
 
     const MAX_WORDS = 200;
     const { wordCount, isOverLimit } = useWordCount(notes, MAX_WORDS);
@@ -97,6 +104,32 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
 
     const formattedAmount = amount ? formatNumber(amount) : "";
 
+
+    const handleSubmit = async () => {
+        if (!amount || !category || !recipientTitleText) {
+            toast.error("Please fill in amount, category or Recipient Title !");
+            return;
+        }
+
+
+        try {
+            await createTransaction({
+                title: recipientTitleText.trim(),
+
+                amount: Number(amount),
+                type: type, // 'income' ili 'expense'
+                category: category,
+                description: notes, // Ovo ide u description na backendu
+                date: selectedDate,
+            }).unwrap();
+
+            toast.success(`${type === 'income' ? 'Income' : 'Expense'} added successfully!`);
+            onClose();
+        } catch (err) {
+            toast.error(err?.data?.message || "Something went wrong!");
+        }
+    };
+
     return (
         <CustomModalSection>
             <ModalTopSection>
@@ -107,8 +140,16 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
             <CustomModalMainContent>
                 <p>{underTitleText}</p>
                 <h5>Income Category</h5>
-                <FilterCategory type={type} variant={type} />
+                <FilterCategory type={type} variant={type} value={category}
+                    onChange={(e) => setCategory(e.target.value)} />
                 <SectionContent>
+                    <h2>{recipientTitle}</h2>
+                    <input
+                        type="text"
+                        placeholder={recipientPlaceholder}
+                        value={recipientTitleText}
+                        onChange={(e) => setRecipientTitleText(e.target.value)}
+                    />
 
                     <h5>Amount ({currency?.symbol})</h5>
                     <input
@@ -138,7 +179,9 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
                     </DescriptionTransactionSection>
 
                     <BottomSection>
-                        <Button>{buttonText}</Button>
+                        <Button onClick={handleSubmit} disabled={isLoading}>
+                            {isLoading ? "Adding..." : buttonText}
+                        </Button>
 
                     </BottomSection>
 

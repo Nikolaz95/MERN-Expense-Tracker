@@ -19,7 +19,8 @@ import { useSearchParams } from 'react-router-dom';
 import { sortTransactions } from '../../../../constants/sortOptions';
 import transitionAllData from '../../../../data/TransactionData';
 import { useModal } from '../../../../context/modals/ModalContext';
-import { useCurrency } from '../../../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../../../hooks/useCurrency';
+
 import { useGetUserTransactionsListQuery } from '../../../../../redux/api/transactionsApi';
 
 
@@ -59,7 +60,7 @@ const UserTransactionsPage = () => {
             );
 
         return sortTransactions(filtered, sortBy);
-    }, [sortBy, category, search]);
+    }, [transactions, sortBy, category, search]);
 
     function handleSortChange(value) {
         searchParams.set("sortBy", value);

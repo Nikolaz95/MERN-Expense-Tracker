@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from "styled-components";
-import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
+/* import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext'; */
 import transitionData from '../../../../../data/TransactionData';
 import { useTransaction } from '../../../../../context/TransactionContext/TransactionContext';
 import { formatNumber } from '../../../../../utils/formatNumber';
+import useCurrency from '../../../../../hooks/useCurrency';
 
 
 const UserDashBoardTopSection = styled.section`

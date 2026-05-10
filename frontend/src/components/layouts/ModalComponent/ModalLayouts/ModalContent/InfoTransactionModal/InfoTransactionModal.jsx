@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from "styled-components"
-import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../../../../hooks/useCurrency';
+
 import { formatNumber } from '../../../../../utils/formatNumber';
 import { useWordCount } from '../../../../../hooks/useWordCount';
 

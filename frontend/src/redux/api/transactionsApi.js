@@ -10,9 +10,40 @@ export const transactionsApi = createApi({
         /* get all transactions of users */
         getUserTransactionsList: builder.query({
             query: () => "/transaction/me",
+
+            providesTags: ["Transactions"],
+        }),
+
+
+        //  create transaction
+        createTransaction: builder.mutation({
+            query(body) {
+                return {
+                    url: "/transaction/add",
+                    method: "POST",
+                    body,
+                };
+            },
+            invalidatesTags: ["Transactions"], // ← automatski refetch liste
+        }),
+
+
+        //  delete transaction
+
+        deleteTransaction: builder.mutation({
+            query(id) {
+                return {
+                    url: `/transaction/${id}`,
+                    method: "DELETE",
+                };
+            },
+            invalidatesTags: ["Transactions"], // ← automatski refetch liste
         }),
 
     })
 })
 
-export const { useGetUserTransactionsListQuery } = transactionsApi;
+export const { useGetUserTransactionsListQuery,
+    useCreateTransactionMutation,
+    useDeleteTransactionMutation
+} = transactionsApi;

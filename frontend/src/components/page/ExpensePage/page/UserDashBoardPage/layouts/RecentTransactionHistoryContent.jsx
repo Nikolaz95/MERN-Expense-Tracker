@@ -3,6 +3,7 @@ import Table from '../../../../../layouts/Table/Table'
 import Button from '../../../../../layouts/Buttons/Button'
 import Navigation from '../../../../../layouts/NavigatioLinkComponent/Navigation'
 import { transactionColumns } from '../../../../../layouts/Table/TableColumns/TransactionColumns'
+import useCurrency from '../../../../../hooks/useCurrency';
 
 import styled from "styled-components";
 
@@ -40,9 +41,9 @@ display: flex;
 `;
 
 // import data
-import transitionData from '../../../../../data/TransactionData';
-import useTransactionModal from '../../../../../hooks/useModal'
-import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext'
+/* import transitionData from '../../../../../data/TransactionData';
+import useTransactionModal from '../../../../../hooks/useModal' */
+/* import { useCurrency } from '../../../../../context/CurrencyContext/CurrencyContext' */
 import { useGetUserTransactionsListQuery } from '../../../../../../redux/api/transactionsApi'
 const RecentTransactionHistoryContent = () => {
     const { convert, currency } = useCurrency();

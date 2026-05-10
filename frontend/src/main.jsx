@@ -20,7 +20,6 @@ import { UserRoutes } from './components/routes/UserRoutes.jsx';
 import GlobalModals from './components/context/modals/GlobalModals.jsx';
 import { ModalProvider } from './components/context/modals/ModalContext.jsx';
 import DashboardLayout from './components/layouts/DashboardLayout.jsx';
-import { CurrencyProvider } from './components/context/CurrencyContext/CurrencyContext.jsx';
 import { TransactionProvider } from './components/context/TransactionContext/TransactionContext.jsx';
 import { store } from './redux/store.js';
 import AboutUs from './components/page/AboutUs/AboutUs.jsx';
@@ -52,6 +51,48 @@ const router = createBrowserRouter([
         element: <Register />
       },
 
+      {
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: "/userDashBoard",
+            element:
+              <ProtectRoute>
+                <UserDashBoardPage />
+              </ProtectRoute>
+
+          },
+          {
+            path: "/userTransactions",
+            element:
+              <ProtectRoute>
+                <UserTransactionsPage />
+              </ProtectRoute>
+          },
+          {
+            path: "/userIncoms",
+            element:
+              <ProtectRoute>
+                <UserIncomsPage />
+              </ProtectRoute>
+          },
+          {
+            path: "/userExpenses",
+            element:
+              <ProtectRoute>
+                <UserExpasePage />
+              </ProtectRoute>
+          },
+          {
+            path: "/currencySettings",
+            element:
+              <ProtectRoute>
+                <UserCurrencySettingsPage />
+              </ProtectRoute>
+          },
+        ]
+      },
+
       // Spread the admin routes
       ...AdminRoutes,
 
@@ -62,7 +103,7 @@ const router = createBrowserRouter([
 
   },
 
-  {
+  /* {
     element: <DashboardLayout />,
     children: [
       {
@@ -102,7 +143,7 @@ const router = createBrowserRouter([
           </ProtectRoute>
       },
     ]
-  }
+  } */
 
 ])
 
@@ -110,13 +151,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <CurrencyProvider>
-        <TransactionProvider>
-          <ModalProvider>
-            <RouterProvider router={router} />
-          </ModalProvider>
-        </TransactionProvider>
-      </CurrencyProvider>
+      <TransactionProvider>
+        <ModalProvider>
+          <RouterProvider router={router} />
+        </ModalProvider>
+      </TransactionProvider>
     </Provider>
   </StrictMode>,
 )

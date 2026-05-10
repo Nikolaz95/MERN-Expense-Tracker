@@ -3,7 +3,8 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ChartWrapper from './layouts/ChartWrapper';
 import styled from "styled-components";
-import { useCurrency } from '../../context/CurrencyContext/CurrencyContext';
+import useCurrency from '../../hooks/useCurrency';
+
 import { useTransaction } from '../../context/TransactionContext/TransactionContext';
 import { formatNumber } from '../../utils/formatNumber';
 
