@@ -1,16 +1,171 @@
-# React + Vite
+# ExpenseTracker App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+ExpenseTracker is a full-stack MERN application for managing personal finances. The application allows users to track their income and expenses, analyze financial activity through charts and statistics, and organize transactions by categories.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Users can:
 
-## React Compiler
+- Add income and expense transactions
+- Categorize transactions
+- View financial statistics and charts
+- Track balance, total income, and total expenses
+- Filter transactions by different periods
+- Manage personal transaction history
+- Use different currencies
+- View responsive dashboards on desktop and mobile devices
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+# 🔨 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Frontend
+
+- React.js
+- Redux Toolkit & RTK Query
+- React Router DOM
+- Styled Components
+- Chart.js
+- React ChartJS 2
+- React Datepicker
+- React Hot Toast
+
+## Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+
+---
+
+# ✨ Features
+
+## Authentication System
+
+Users can:
+
+- Register an account
+- Login securely using JWT authentication
+- Logout
+- Update profile information
+- Delete account
+
+---
+
+## Transaction Management
+
+Users can create:
+
+### Income Transactions
+
+Examples:
+
+- Salary
+- Freelance work
+- Bonuses
+- Investments
+
+### Expense Transactions
+
+Examples:
+
+- Housing
+- Groceries
+- Transport
+- Shopping
+- Streaming services
+- Travel
+- Entertainment
+
+Each transaction contains:
+
+- Title
+- Amount
+- Category
+- Date
+- Description
+- Transaction type
+
+---
+
+## 📈 Dashboard & Analytics 📉
+
+The application provides interactive charts and analytics.
+
+Users can view:
+
+- Last 7 days statistics
+- Monthly statistics
+- Yearly statistics
+- Income overview
+- Expense overview
+- Total balance
+
+Charts are dynamically updated based on user transactions.
+
+---
+
+## 📱 Responsive Design
+
+ExpenseTracker is fully responsive and optimized for:
+
+- Desktop
+- Tablet
+- Mobile devices
+
+---
+
+# Project Structure
+
+```bash
+frontend/
+backend/
+```
+
+## Frontend Structure
+
+```bash
+src/
+ ├── components/
+ ├── pages/
+ ├── context/
+ ├── hooks/
+ ├── redux/
+ ├── layouts/
+ ├── utils/
+ └── styles/
+```
+
+## Backend Structure
+
+```bash
+backend/
+ ├── controllers/
+ ├── models/
+ ├── routes/
+ ├── middleware/
+ ├── utils/
+ └── config/
+```
+
+---
+
+# Future Improvements
+
+Planned features:
+
+- Export transactions to PDF/Excel
+- Budget planning system
+- Savings goals
+- Notifications & reminders
+- Multi-user shared budgets
+- Advanced filtering
+- Transaction search
+
+---
+
+# Author
+
+Created by Nikola Zovko.
