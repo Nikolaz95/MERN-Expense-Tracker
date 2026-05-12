@@ -120,7 +120,7 @@ const IncomeExpenseModal = ({ onClose, type, titleText, underTitleText, buttonTe
                 type: type, // 'income' ili 'expense'
                 category: category,
                 description: notes, // Ovo ide u description na backendu
-                date: selectedDate,
+                date: selectedDate.toISOString(),
             }).unwrap();
 
             toast.success(`${type === 'income' ? 'Income' : 'Expense'} added successfully!`);
