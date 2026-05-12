@@ -7,9 +7,9 @@ import ErrorHandler from "../utils/errorHandler.js";
 export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
     // Step 1: 
 
-    const { title, amount, type, category, description } = req.body;
+    const { title, amount, type, category, description, date } = req.body;
     const userId = req.user.id;
-    console.log("Adding to new transition:", { title, amount, type, category, description });
+    console.log("Adding to new transition:", { title, amount, type, category, description, date });
 
     const finalAmount = type === 'expense' ? -Math.abs(amount) : Math.abs(amount);
 
@@ -20,7 +20,8 @@ export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
         amount: finalAmount,
         type,
         category,
-        description
+        description,
+        date
     });
 
 
@@ -28,7 +29,6 @@ export const createNewTransaction = catchAsyncErrors(async (req, res, next) => {
     res.status(201).json({
         success: true,
         message: "Created new Transition successfully!",
-        /* transition, */
         createTransition,
     });
 })
