@@ -43,6 +43,7 @@ export default (err, req, res, next) => {
         });
     }
 
+
     if (process.env.NODE_ENV === "PRODUCTION") {
         return res.status(error.statusCode).json({
             message: error.message,
