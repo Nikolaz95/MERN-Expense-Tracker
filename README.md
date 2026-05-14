@@ -1,4 +1,14 @@
-# ExpenseTracker App
+# ExpenseTracker App (MERN STACK)
+
+## 🚀 Live Demo
+
+👉 [View App](https://mern-expense-tracker-vylg.onrender.com/)
+
+![App Screenshot a](/frontend/src/assets/screenshots/gif/expenseVideo1.gif)
+
+![App Screenshot a](/frontend/src/assets/screenshots/gif/expenseVideo2.gif)
+
+![App Screenshot a](/frontend/src/assets/screenshots/gif/expenseVideo3.gif)
 
 ## Overview
 
